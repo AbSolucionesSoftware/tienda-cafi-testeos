@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 export default {
     apiKey: process.env.REACT_APP_FIREBASE,
     authDomain: "tienda-online-ab.firebaseapp.com",
