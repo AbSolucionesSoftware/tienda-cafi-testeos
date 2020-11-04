@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.f59600f8.chunk.css",
-    "main.js": "/static/js/main.eba25d25.chunk.js",
-    "main.js.map": "/static/js/main.eba25d25.chunk.js.map",
+    "main.js": "/static/js/main.586432ef.chunk.js",
+    "main.js.map": "/static/js/main.586432ef.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.5aecc905.js",
     "runtime-main.js.map": "/static/js/runtime-main.5aecc905.js.map",
     "static/css/2.5c87a850.chunk.css": "/static/css/2.5c87a850.chunk.css",
-    "static/js/2.7a0867a8.chunk.js": "/static/js/2.7a0867a8.chunk.js",
-    "static/js/2.7a0867a8.chunk.js.map": "/static/js/2.7a0867a8.chunk.js.map",
+    "static/js/2.93aa44fc.chunk.js": "/static/js/2.93aa44fc.chunk.js",
+    "static/js/2.93aa44fc.chunk.js.map": "/static/js/2.93aa44fc.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.8c58c5b6239e9c54554d64ba2456266b.js": "/precache-manifest.8c58c5b6239e9c54554d64ba2456266b.js",
+    "precache-manifest.7003f7180f5d6cdc9a7a7a9d49c31ad9.js": "/precache-manifest.7003f7180f5d6cdc9a7a7a9d49c31ad9.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.5c87a850.chunk.css.map": "/static/css/2.5c87a850.chunk.css.map",
     "static/css/main.f59600f8.chunk.css.map": "/static/css/main.f59600f8.chunk.css.map",
-    "static/js/2.7a0867a8.chunk.js.LICENSE.txt": "/static/js/2.7a0867a8.chunk.js.LICENSE.txt",
+    "static/js/2.93aa44fc.chunk.js.LICENSE.txt": "/static/js/2.93aa44fc.chunk.js.LICENSE.txt",
     "static/media/Animacion_Tarjeta.scss": "/static/media/bg-tarjeta-01.3c6258e5.jpg",
     "static/media/chip-tarjeta.png": "/static/media/chip-tarjeta.6611645b.png",
     "static/media/mastercard.png": "/static/media/mastercard.ae0915fe.png",
@@ -22,8 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.5aecc905.js",
     "static/css/2.5c87a850.chunk.css",
-    "static/js/2.7a0867a8.chunk.js",
+    "static/js/2.93aa44fc.chunk.js",
     "static/css/main.f59600f8.chunk.css",
-    "static/js/main.eba25d25.chunk.js"
+    "static/js/main.586432ef.chunk.js"
   ]
 }
