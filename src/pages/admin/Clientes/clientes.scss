@@ -1,0 +1,13 @@
+.search-width{
+    width: 50%;
+}
+.tabla-inventario .ant-table-cell{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+@media(max-width: 768px){
+    .search-width{
+        width: 100%;
+    }
+}

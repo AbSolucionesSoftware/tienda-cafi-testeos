@@ -1,0 +1,97 @@
+@import '~antd/dist/antd.css';
+
+.barsMenu, .top-menu-responsive{
+  display: none;
+}
+.ant-layout-header{
+  padding: 0;
+  background-color: white;
+}
+.contenedor-logo{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contenedor-logo > a{
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imagen-logo-principal{
+  max-width: 90%!important;
+  max-height: 90%!important;
+}
+.top-menu{
+  margin: 0!important;
+}
+.navbar-menu-general{
+  border: none;
+}
+.search-navbar{
+  max-width: 75%;
+  max-height: 75%!important;
+}
+
+/* TAMAÑOS NAV PRINCIPAL */
+.a0{
+  height: 50px;
+}
+.a1{
+  height: 100%;
+  line-height: normal;
+}
+.a2{
+  height: 100%;
+  line-height: normal;
+}
+.a3{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  
+}
+.a4{
+  height: 100%;
+  
+}
+.a5{
+  height: 100%;
+  
+}
+.a6{
+  height: 100%;
+  
+}
+.a6 > p, .ant-menu-submenu-title {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+@media(max-width: 768px){
+  .barsMenu{
+    display: inline-block;
+  }
+  .top-menu{
+    display: none;
+  }
+  .top-menu-responsive{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .menuCon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+/*   .ant-layout-header{
+    padding: 0;
+
+  } */
+  .search-nav-responsive{
+    width: 240px;
+  }
+}

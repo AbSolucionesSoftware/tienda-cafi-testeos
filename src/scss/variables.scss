@@ -1,0 +1,93 @@
+$color-blog: #ffff;
+
+/* NAVBAR VARIABLES */
+$bg-color-navbar: #ffffff;
+$border-color-navbar: rgb(255, 129, 129);
+$font-color-navbar: rgb(0, 0, 0);
+$font-color-navbar-hover: rgb(0, 89, 255);
+
+/* NAVBAR CATEGORIAS VARIABLES */
+$bg-color-navbar-categorias: #2222a8;
+$font-color-navbar-categorias: rgb(255, 255, 255);
+$font-color-navbar-categorias-hover: rgb(0, 89, 255);
+
+/* FOOTER VARIABLES */
+$bg-color-footer: rgb(248, 248, 248);
+$font-color-footer: rgb(0, 0, 0);
+
+/* BACKGROUND LAYOUT */
+$bg-layout: #e4e4e4;
+
+/* FONT FAMILY STYLES */
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+p, a, li{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400; 
+}
+
+/* LAYOUT */
+.bg-layout{
+    background-color: $bg-layout;
+}
+
+/* NAVBAR STYLES */
+.navbar-menu-general{
+    background-color: $bg-color-navbar;
+}
+.navbar-menu-general > .ant-menu-item-selected{
+    background-color: rgb(255, 255, 255)!important;
+}
+.drawer-background .ant-drawer-header, .ant-drawer-body{
+    background-color: $bg-color-navbar;
+    border-color: rgb(255, 255, 255);
+}
+.nav-font-color{
+    color: $font-color-navbar;
+} 
+.nav-border-color{
+    border-color: $border-color-navbar;
+}
+.nav-font-color:hover{
+    color: $font-color-navbar-hover!important;
+    border: none;
+}
+
+/* NAVBAR CATEGORIAS STYLES */
+.categorias-navbar{
+    background-color: $bg-color-navbar-categorias;
+}
+.container-subcategorias-nav{
+    background-color: $bg-color-navbar-categorias;
+    border-bottom: solid $bg-color-navbar-categorias;
+    border-top: solid $bg-color-navbar-categorias;
+}
+.nav-font-color-categorias{
+    color: $font-color-navbar-categorias;
+    /* border-bottom: none!important; */
+} 
+.nav-font-color-categorias:hover{
+    color: $font-color-navbar-categorias-hover!important;
+}
+
+/*  FOOTER STYLES */
+.bg-footer{
+    background-color: $bg-color-footer;
+}
+.footer-font-color {
+    color: $font-color-footer;
+}
+.footer-font-color:hover {
+    color: $font-color-footer;
+}
+.footer-border {
+    border-color: $font-color-footer;
+}
+
+
+
+.info-recomended-sizes{
+    width: 50%;
+}
