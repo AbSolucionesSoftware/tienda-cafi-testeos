@@ -1,4 +1,4 @@
-require('dotenv').config()
+import 'dotenv';
 
 const aws = process.env.REACT_APP_AWS
 
