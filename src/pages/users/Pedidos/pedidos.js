@@ -121,9 +121,9 @@ export default function PedidosUsuario(props) {
 	
 	const deleteApartado = (id) => {
         confirm({
-            title:"Eliminando Blog",
+            title:"Eliminando Apartado",
             icon: <ExclamationCircleOutlined />,
-            content: `¿Estás seguro que deseas eliminar el aparetado ?`,
+            content: `¿Estás seguro que deseas eliminar el apartado?`,
             okText: "Eliminar",
             okType:"danger",
             cancelText:"Cancelar",
@@ -136,7 +136,7 @@ export default function PedidosUsuario(props) {
                 })
                 .then((res) => {
                     notification.success({
-                        message: 'Blog Eliminado',
+                        message: 'Apartado Eliminado',
                         description:
                         res.data.message,
                     });

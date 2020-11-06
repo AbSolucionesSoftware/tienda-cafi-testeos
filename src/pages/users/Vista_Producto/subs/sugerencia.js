@@ -244,7 +244,7 @@ const Sugerencia = (props) => {
 											</div>
 										}
 										actions={[
-											producto.tipoCategoria !== 'otros' ? (
+											producto.tipoCategoria !== 'Otros' ? (
 												<Select
 													defaultValue="Talla"
 													style={{ width: 120 }}
@@ -291,12 +291,12 @@ const Sugerencia = (props) => {
 											),
 											<div>
 												<Form initialValues={{ cantidad: 1 }}>
-													{producto.tipoCategoria !== 'otros' ? (
+													{producto.tipoCategoria !== 'Otros' ? (
 														<Form.Item
 															name="cantidad"
 															validateStatus={validateStatus}
 															help={
-																producto.tipoCategoria !== 'otros' &&
+																producto.tipoCategoria !== 'Otros' &&
 																medida.length !== 0 ? (
 																	<p>Solo hay {medida[1]} disponibles</p>
 																) : (
@@ -392,7 +392,7 @@ const Sugerencia = (props) => {
 											</div>
 										}
 										actions={[
-											sugerencia.tipoCategoria !== 'otros' ? (
+											sugerencia.tipoCategoria !== 'Otros' ? (
 												<Select
 													defaultValue="Talla"
 													style={{ width: 120 }}
@@ -439,12 +439,12 @@ const Sugerencia = (props) => {
 											),
 											<div>
 												<Form initialValues={{ cantidad: 1 }}>
-													{sugerencia.tipoCategoria !== 'otros' ? (
+													{sugerencia.tipoCategoria !== 'Otros' ? (
 														<Form.Item
 															name="cantidad"
 															validateStatus={validateStatusSug}
 															help={
-																sugerencia.tipoCategoria !== 'otros' &&
+																sugerencia.tipoCategoria !== 'Otros' &&
 																medidaSugerencia.length !== 0 ? (
 																	<p>Solo hay {medidaSugerencia[1]} disponibles</p>
 																) : (

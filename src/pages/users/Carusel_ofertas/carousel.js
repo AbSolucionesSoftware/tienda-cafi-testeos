@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
+//import Carousel from 'react-bootstrap/Carousel';
 import './ofertas.scss';
 import clienteAxios from '../../../config/axios';
 import { withRouter } from 'react-router-dom';
 import aws from '../../../config/aws';
+
+import BannerAnim, { Element } from 'rc-banner-anim';
+import 'rc-banner-anim/assets/index.css';
+
+const BgElement = Element.BgElement;
 
 function CarouselOfertas(props) {
 	const [ index, setIndex ] = useState(0);
@@ -19,24 +24,8 @@ function CarouselOfertas(props) {
 				})
 				.catch((res) => {});
 		};
-		const obtenerPromociones = async () => {
-			await clienteAxios
-				.get('/productos/promocion/carousel')
-				.then((res) => {
-					if (res.data.length === 0) {
-						setEsPromocion(false);
-						obtenerCarousel();
-					} else {
-						setEsPromocion(true);
-
-						setCarousels(res.data);
-					}
-				})
-				.catch((res) => {
-					console.log(res);
-				});
-		};
-		obtenerPromociones();
+		
+		obtenerCarousel();
 	}, []);
 
 	const handleSelect = (selectedIndex, e) => {
@@ -44,44 +33,37 @@ function CarouselOfertas(props) {
 	};
 
 	const render = carousels.map((carousel) => {
-		if (carousel.imagen === null || carousel.imagenPromocion === null || carousel.imagenPromocion === 'null') {
-			return null;
-		} else {
 			return (
-				<Carousel.Item key={carousel._id}>
-					<div className="carousel-home">
-						<div
-							className="background-carousel"
-							style={{
-								backgroundImage: `url(${esPromocion
-									? aws + carousel.imagenPromocion
-									: aws + carousel.imagen})`
-							}}
-						/>
-						<div className="contenedor-imagen-principal-promociones">
-							<img
-								onClick={() =>
-									props.history.push(
-										esPromocion
-											? `/vista_producto/${carousel.productoPromocion._id}`
-											: carousel.producto ? `/vista_producto/${carousel.producto}` : '/'
-									)}
-								className="imagen-carousel-promociones-principal"
-								src={esPromocion ? aws + carousel.imagenPromocion : aws + carousel.imagen}
-								alt="img-oferta"
-								style={{ cursor: 'pointer' }}
-							/>
-						</div>
-					</div>
-				</Carousel.Item>
+				<Element prefixCls="banner-user-elem" key={carousel._id}>
+					<BgElement
+						onClick={() =>
+							props.history.push(
+							esPromocion
+							? `/vista_producto/${carousel.productoPromocion._id}`
+							: carousel.producto ? `/vista_producto/${carousel.producto}` : '/'
+						)}
+						key="bg"
+						className="bg banner-elemento"
+						alt="img-oferta"
+						style={{
+							
+							backgroundImage: `url(${aws + carousel.imagen})`,
+							cursor: 'pointer' 
+						}}
+					>
+					</BgElement>
+				</Element>
+				
 			);
-		}
 	});
 
+	if (carousels.length === 0) {
+		return null
+	}
 	return (
-		<Carousel activeIndex={index} onSelect={handleSelect}>
-			{render}
-		</Carousel>
+		<BannerAnim   autoPlay activeIndex={index} onSelect={handleSelect} prefixCls="banner-user" delay={200}>
+				{render}
+		</BannerAnim>
 	);
 }
 

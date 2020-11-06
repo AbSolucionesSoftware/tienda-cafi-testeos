@@ -207,7 +207,7 @@ function ListaCarrito(props) {
 											help={medidaDisponible}
 											validateStatus={validateStatus}
 										>
-											{carrito.idarticulo.tipoCategoria !== 'otros' ? (
+											{carrito.idarticulo.tipoCategoria !== 'Otros' ? (
 												<InputNumber
 													id={carrito.idarticulo._id}
 													size="large"
@@ -225,7 +225,7 @@ function ListaCarrito(props) {
 												/>
 											)}
 										</Form.Item>
-										{carrito.idarticulo.tipoCategoria !== 'otros' ? (
+										{carrito.idarticulo.tipoCategoria !== 'Otros' ? (
 											<Form.Item
 												className="inputs-carrito-talla col-6 col-lg-12"
 												label="Talla"
