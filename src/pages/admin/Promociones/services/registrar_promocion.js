@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../../config/axios';
-import { Button, Input, Slider, Upload, List, Avatar, notification, Result, Spin, Form, Col, Alert } from 'antd';
-import { RollbackOutlined } from '@ant-design/icons';
+import {
+	Button,
+	Input,
+	Slider,
+	Upload,
+	List,
+	Avatar,
+	notification,
+	Result,
+	Spin,
+	Form,
+	Col,
+	Alert,
+	Select,
+	Tooltip, 
+	Checkbox
+} from 'antd';
+import { RollbackOutlined, ClearOutlined } from '@ant-design/icons';
 import './registrar_promocion.scss';
 import InfiniteScroll from 'react-infinite-scroller';
 import { formatoMexico } from '../../../../config/reuserFunction';
@@ -9,6 +25,8 @@ import aws from '../../../../config/aws';
 
 const { Search } = Input;
 const demo = { height: '500px', overflow: 'auto' };
+const { Option } = Select;
+const CheckboxGroup = Checkbox.Group;
 
 const RegistrarPromocion = (props) => {
 	const token = localStorage.getItem('token');
@@ -23,6 +41,7 @@ const RegistrarPromocion = (props) => {
 
 	const [ loading, setLoading ] = useState(false);
 	const [ loadingList, setLoadingList ] = useState(true);
+	const [ loadingSelect, setLoadingSelect ] = useState(false);
 	const [ disabled, setDisabled ] = useState(true);
 	const [ imagen, setImagen ] = useState([]);
 	const [ producto, setProducto ] = useState([]);
@@ -33,6 +52,14 @@ const RegistrarPromocion = (props) => {
 	const [ inputValue, setInputValue ] = useState(0);
 	const [ form ] = Form.useForm();
 	const reload = props.reload;
+
+	const [ categoriasDB, setCategoriasDB ] = useState([]);
+	const [ categoria, setCategoria ] = useState();
+	const [ subcategoriasDB, setSubcategoriasDB ] = useState([]);
+	const [ subcategoria, setSubcategoria ] = useState();
+	const [ generosDB, setGenerosDB ] = useState([]);
+	const [ genero, setGenero ] = useState();
+	
 
 	useEffect(
 		() => {
@@ -47,6 +74,8 @@ const RegistrarPromocion = (props) => {
 				setDisabledSumit(true);
 				form.resetFields();
 			}
+			obtenerCategorias();
+			obtenerGeneros();
 			obtenerProductos((res) => {
 				setData(res.data.posts.docs);
 				setTotalDocs(res.data.posts.totalDocs);
@@ -254,16 +283,129 @@ const RegistrarPromocion = (props) => {
 		}
 	};
 
+	const obtenerFiltrosDivididos = async (categoria, subcategoria, genero) => {
+		var cat = categoria;
+		var sub = subcategoria;
+		var gen = genero;
+
+		if (categoria === undefined) {
+			cat = '';
+		}
+		if (subcategoria === undefined) {
+			sub = '';
+		}
+		if (genero === undefined) {
+			gen = '';
+		}
+
+		setLoadingList(true);
+		await clienteAxios
+			.get(`/productos/filter?categoria=${cat}&subcategoria=${sub}&genero=${gen}`)
+			.then((res) => {
+				console.log(res)
+				setData(res.data.posts);
+				setLoadingList(false);
+			})
+			.catch((err) => {
+				setLoadingList(false);
+				if (err.response) {
+					notification.error({
+						message: 'Error',
+						description: err.response.data.message,
+						duration: 2
+					});
+				} else {
+					notification.error({
+						message: 'Error de conexion',
+						description: 'Al parecer no se a podido conectar al servidor.',
+						duration: 2
+					});
+				}
+			});
+	};
+
+	async function obtenerCategorias() {
+		setLoadingSelect(true);
+		await clienteAxios
+			.get('/productos/filtrosNavbar', {
+				headers: {
+					Authorization: `bearer ${token}`
+				}
+			})
+			.then((res) => {
+				setCategoriasDB(res.data);
+				setLoadingSelect(false);
+			})
+			.catch((res) => {
+				setLoadingSelect(false);
+			});
+	}
+	async function obtenerGeneros() {
+		await clienteAxios
+			.get('/productos/agrupar/generos')
+			.then((res) => {
+				setGenerosDB(res.data);
+			})
+			.catch((res) => {
+			});
+	}
+
+	const selectCategoria = (categoria) => {
+		setCategoria(categoria);
+		setSubcategoria(null);
+		if(genero && genero.length !== 0){
+			obtenerFiltrosDivididos(categoria, undefined, genero);
+		}else{
+			obtenerFiltrosDivididos(categoria);
+		}
+		categoriasDB.map((res) => {
+			if (categoria === res.categoria) {
+				setSubcategoriasDB(res.subcCategoria);
+			}
+		});
+	};
+	const selectSubCategoria = (subcategoria) => {
+		setSubcategoria(subcategoria);
+		if(genero && genero.length !== 0){
+			obtenerFiltrosDivididos(categoria, subcategoria, genero);
+		}else{
+			obtenerFiltrosDivididos(categoria, subcategoria);
+		}
+	};
+	const selectGenero = (genero) => {
+		setGenero(genero);
+		if(categoria && categoria.length !== 0 && !subcategoria){
+			obtenerFiltrosDivididos(categoria, undefined, genero);
+		}else if(categoria && subcategoria && categoria.length !== 0 && subcategoria.length !== 0){
+			obtenerFiltrosDivididos(categoria, subcategoria, genero);
+		}else if(!categoria && !subcategoria && genero){
+			obtenerFiltrosDivididos(undefined, undefined, genero);
+		}
+
+	};
+
+	const limpiarFiltros = () => {
+		setCategoria();
+		setSubcategoria();
+		setGenero();
+		setPage(1);
+		setHasMore(true);
+		setReloadData(true);
+	};
+
 	const limpiar = () => {
 		setInputValue(0);
 		setImagen([]);
 		form.resetFields();
 	};
 
+	/* Checklist */
+	const [ indeterminate, setIndeterminate ] = useState(true);
+
 	return (
 		<Spin size="large" spinning={loading}>
-			<div className="d-lg-flex d-sm-block mt-4">
-				<div className="col-12 col-lg-6  border-bottom">
+			<div className="d-lg-flex d-sm-block">
+				<div className="col-12 col-lg-6 border-bottom">
 					<Spin size="large" spinning={loadingList}>
 						<div className="row justify-content-center">
 							<Search
@@ -286,6 +428,70 @@ const RegistrarPromocion = (props) => {
 							>
 								Volver
 							</Button>
+						</div>
+						<div className="d-flex justify-content-center">
+							<Select
+								value={categoria}
+								size="small"
+								placeholder="Categoria"
+								style={{ width: 120 }}
+								onChange={selectCategoria}
+								loading={loadingSelect}
+							>
+								{categoriasDB.length !== 0 ? (
+									categoriasDB.map((res) => {
+										return (
+											<Option key={res.categoria} value={res.categoria}>
+												{res.categoria}
+											</Option>
+										);
+									})
+								) : (
+									<Option />
+								)}
+							</Select>
+							<Select
+								value={subcategoria}
+								size="small"
+								placeholder="Subcategoria"
+								style={{ width: 120 }}
+								onChange={selectSubCategoria}
+								value={subcategoria}
+							>
+								{subcategoriasDB.length !== 0 ? (
+									subcategoriasDB.map((res) => {
+										return (
+											<Option key={res._id} value={res._id}>
+												{res._id}
+											</Option>
+										);
+									})
+								) : (
+									<Option>selecciona categoria</Option>
+								)}
+							</Select>
+							<Select
+								value={genero}
+								size="small"
+								placeholder="Genero"
+								style={{ width: 120 }} onChange={selectGenero}
+							>
+								{generosDB.length !== 0 ? (
+									generosDB.map((res) => {
+										return (
+											<Option key={res._id} value={res._id}>
+												{res._id}
+											</Option>
+										);
+									})
+								) : (
+									<Option />
+								)}
+							</Select>
+							<Tooltip placement="bottom" title='Limpiar filtros'>
+								<ClearOutlined className='ml-2' style={{fontSize: 20}} onClick={limpiarFiltros} />
+							</Tooltip>
+							
 						</div>
 						{loading ? (
 							<div />

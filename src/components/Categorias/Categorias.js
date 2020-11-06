@@ -38,10 +38,6 @@ const Categorias = (props) => {
 			});
 	}
 
-	if(!generos || !categorias){
-		return null;
-	}
-
 	async function obtenerGeneros() {
 		await clienteAxios
 			.get('/productos/agrupar/generos')
@@ -50,6 +46,10 @@ const Categorias = (props) => {
 			})
 			.catch((res) => {
 			});
+	}
+	
+	if(!generos || !categorias){
+		return null;
 	}
 
 	const categorias_nav = categorias.map((categoria) => {
