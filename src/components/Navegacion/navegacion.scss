@@ -15,16 +15,16 @@
 }
 .contenedor-logo > a{
   //max-height: 100%;
+  align-content: center;
   height: 70px;
-  width: 120px;
+  width: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .imagen-logo-principal{
-  width: 110px!important;
-  height: 55px!important;
-  background-repeat: no-repeat;
+  width: 90px!important;
+  height: 50px!important;
   background-attachment: center;
   background-position: center center;
   background-size: contain;

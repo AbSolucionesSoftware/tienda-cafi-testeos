@@ -109,7 +109,7 @@ const Navegacion = (props) => {
 								{!tienda.imagenLogo ? (
 									<div className="d-none" />
 								) : (
-									<div className="col-3 contenedor-logo">
+									<div className="col-3 contenedor-logo d-flex">
 										<Link to="/">
 											<img
 												className="imagen-logo-principal"
