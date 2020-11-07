@@ -14,7 +14,7 @@ import {
 	Col,
 	Alert,
 	Select,
-	Tooltip, 
+	Tooltip,
 	Checkbox
 } from 'antd';
 import { RollbackOutlined, ClearOutlined } from '@ant-design/icons';
@@ -59,7 +59,6 @@ const RegistrarPromocion = (props) => {
 	const [ subcategoria, setSubcategoria ] = useState();
 	const [ generosDB, setGenerosDB ] = useState([]);
 	const [ genero, setGenero ] = useState();
-	
 
 	useEffect(
 		() => {
@@ -302,7 +301,7 @@ const RegistrarPromocion = (props) => {
 		await clienteAxios
 			.get(`/productos/filter?categoria=${cat}&subcategoria=${sub}&genero=${gen}`)
 			.then((res) => {
-				console.log(res)
+				console.log(res);
 				setData(res.data.posts);
 				setLoadingList(false);
 			})
@@ -346,16 +345,15 @@ const RegistrarPromocion = (props) => {
 			.then((res) => {
 				setGenerosDB(res.data);
 			})
-			.catch((res) => {
-			});
+			.catch((res) => {});
 	}
 
 	const selectCategoria = (categoria) => {
 		setCategoria(categoria);
 		setSubcategoria(null);
-		if(genero && genero.length !== 0){
+		if (genero && genero.length !== 0) {
 			obtenerFiltrosDivididos(categoria, undefined, genero);
-		}else{
+		} else {
 			obtenerFiltrosDivididos(categoria);
 		}
 		categoriasDB.map((res) => {
@@ -366,22 +364,21 @@ const RegistrarPromocion = (props) => {
 	};
 	const selectSubCategoria = (subcategoria) => {
 		setSubcategoria(subcategoria);
-		if(genero && genero.length !== 0){
+		if (genero && genero.length !== 0) {
 			obtenerFiltrosDivididos(categoria, subcategoria, genero);
-		}else{
+		} else {
 			obtenerFiltrosDivididos(categoria, subcategoria);
 		}
 	};
 	const selectGenero = (genero) => {
 		setGenero(genero);
-		if(categoria && categoria.length !== 0 && !subcategoria){
+		if (categoria && categoria.length !== 0 && !subcategoria) {
 			obtenerFiltrosDivididos(categoria, undefined, genero);
-		}else if(categoria && subcategoria && categoria.length !== 0 && subcategoria.length !== 0){
+		} else if (categoria && subcategoria && categoria.length !== 0 && subcategoria.length !== 0) {
 			obtenerFiltrosDivididos(categoria, subcategoria, genero);
-		}else if(!categoria && !subcategoria && genero){
+		} else if (!categoria && !subcategoria && genero) {
 			obtenerFiltrosDivididos(undefined, undefined, genero);
 		}
-
 	};
 
 	const limpiarFiltros = () => {
@@ -400,7 +397,27 @@ const RegistrarPromocion = (props) => {
 	};
 
 	/* Checklist */
+	/* const plainOptions = [ 'Apple', 'Pear', 'Orange' ];
+	const [ checkedList, setCheckedList ] = useState();
 	const [ indeterminate, setIndeterminate ] = useState(true);
+	const [ checkAll, setCheckAll ] = useState(false);
+
+	const onChangeC = (checkedList) => {
+		console.log(checkedList)
+		setCheckedList(checkedList);
+		setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
+		setCheckAll(checkedList.length === plainOptions.length);
+	};
+
+	const onCheckAllChange = (e) => {
+		console.log(e)
+		setCheckedList(e.target.checked ? plainOptions : []);
+		setIndeterminate(false);
+		setCheckAll(e.target.checked);
+	};
+	console.log(checkedList) */
+
+	/* Checklist fin */
 
 	return (
 		<Spin size="large" spinning={loading}>
@@ -451,6 +468,7 @@ const RegistrarPromocion = (props) => {
 								)}
 							</Select>
 							<Select
+								disabled={!categoria ? true : false}
 								value={subcategoria}
 								size="small"
 								placeholder="Subcategoria"
@@ -467,14 +485,15 @@ const RegistrarPromocion = (props) => {
 										);
 									})
 								) : (
-									<Option>selecciona categoria</Option>
+									<Option />
 								)}
 							</Select>
 							<Select
 								value={genero}
 								size="small"
 								placeholder="Genero"
-								style={{ width: 120 }} onChange={selectGenero}
+								style={{ width: 120 }}
+								onChange={selectGenero}
 							>
 								{generosDB.length !== 0 ? (
 									generosDB.map((res) => {
@@ -488,11 +507,32 @@ const RegistrarPromocion = (props) => {
 									<Option />
 								)}
 							</Select>
-							<Tooltip placement="bottom" title='Limpiar filtros'>
-								<ClearOutlined className='ml-2' style={{fontSize: 20}} onClick={limpiarFiltros} />
+							<Tooltip placement="bottom" title="Limpiar filtros">
+								<ClearOutlined className="ml-2" style={{ fontSize: 20 }} onClick={limpiarFiltros} />
 							</Tooltip>
-							
 						</div>
+						{/* <div>
+							<div className="site-checkbox-all-wrapper">
+								<Checkbox
+									indeterminate={indeterminate}
+									onChange={onCheckAllChange}
+									checked={checkAll}
+								>
+									Check all
+								</Checkbox>
+							</div>
+							<br />
+							<CheckboxGroup
+								options={plainOptions}
+								value={checkedList}
+								onChange={onChangeC}
+
+							>
+								<Checkbox value='a'>a</Checkbox>
+								<Checkbox value='b'>b</Checkbox>
+								<Checkbox value='c'>c</Checkbox>
+							</CheckboxGroup>
+						</div> */}
 						{loading ? (
 							<div />
 						) : data.length === 0 ? (
