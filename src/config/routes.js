@@ -11,6 +11,7 @@ import SistemaApartado from '../pages/admin/Apartado/apartado'
 import Inventario from '../pages/admin/Inventario/inventario'
 import Sugerencias from '../pages/admin/Sugerencias/sugerencias'
 import Carousel from '../pages/admin/Carousel/carousel'
+import Publicidad from '../pages/admin/Publicidad/publicidad'
 import BlogAdmin from '../pages/admin/Blog/blog'
 import Clientes from '../pages/admin/Clientes/clientes'
 
@@ -89,6 +90,11 @@ const routes = [
 			{
 				path: '/admin/carousel',
 				component: Carousel,
+				exact: true
+			},
+			{
+				path: '/admin/publicidad',
+				component: Publicidad,
 				exact: true
 			},
 			{

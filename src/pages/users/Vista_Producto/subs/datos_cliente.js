@@ -7,10 +7,6 @@ const layout = {
 	wrapperCol: { span: 16 }
 };
 
-const tailLayout = {
-	wrapperCol: { offset: 10 }
-};
-
 export default function DatosCliente(props) {
 	const [ loading, setLoading ] = useState(false);
 	const [ form ] = Form.useForm();
@@ -29,12 +25,10 @@ export default function DatosCliente(props) {
 				}
 			})
 			.then((res) => {
-				if (res.data.telefono.length === 0 || res.data.direccion.length === 0) {
-					setEstadoBoton('Completa tus datos');
-				} else {
-					setEstadoBoton('Apartar');
-				}
+				console.log(res)
+				setLoading(false);
 				if (res.data.direccion.length !== 0) {
+					console.log('entra aqui 1')
 					form.setFieldsValue({
 						nombre: res.data.nombre,
 						apellido: res.data.apellido,
@@ -49,6 +43,7 @@ export default function DatosCliente(props) {
 						pais: res.data.direccion[0].pais
 					});
 				} else {
+					console.log('entra aqui 2')
 					form.setFieldsValue({
 						nombre: res.data.nombre,
 						apellido: res.data.apellido,
@@ -63,8 +58,11 @@ export default function DatosCliente(props) {
 						pais: ''
 					});
 				}
-
-				setLoading(false);
+				if (res.data.telefono.length === 0 || res.data.direccion.length === 0) {
+					setEstadoBoton('Completa tus datos');
+				} else {
+					setEstadoBoton('Apartar');
+				}
 			})
 			.catch((err) => {
 				setLoading(false);
