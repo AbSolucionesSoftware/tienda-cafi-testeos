@@ -281,11 +281,10 @@ function Carousel(props) {
 	return (
 		<Spin size="large" spinning={loading}>
 			<p className="text-center font-weight-bold" style={{ fontSize: 20 }}>
-				Publicidad
+				Banner principal
 			</p>
 			<p className="text-center" style={{ fontSize: 15 }}>
-				En esta sección puedes subir una imagen promocional de tu producto al banner en la pagina principal en caso de que
-				no existan promociones, si no existen promociones apareceran estas imagenes.
+				En esta sección puedes subir una imagen al banner en la pagina principal.
 			</p>
 			<div className="d-flex justify-content-center m-2">
 				<Alert message="Tamaño recomendado para la imagen es: 1710x330px" type="info" showIcon />
