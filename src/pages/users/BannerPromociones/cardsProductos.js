@@ -5,64 +5,67 @@ import Pagination from '../../../components/Pagination/pagination';
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
-import './productos.scss';
+import '../Productos/productos.scss';
 import DOMPurify from 'dompurify';
 import aws from '../../../config/aws';
 
 const gridStyle = { width: '100%', padding: 0, marginBottom: '1.5rem' };
 
-function ConsultaProductos(props) {
-	const { location, history } = props.propiedades;
-	const { page = 1 } = queryString.parse(location.search);
+function CardsProductos(props) {
+    const {categoria} = props;
+	//const { location, history } = props.propiedades;
+	//const { page = 1 } = queryString.parse(location.search);
 	const [ productosPaginacion, setProductosPaginacion ] = useState([]);
 
 	const [ productos, setProductos ] = useState([]);
-	const [ loading, setLoading ] = useState(false);
+    const [ loading, setLoading ] = useState(false);
+    
+    useEffect(() => {
+        async function obtenerProductos(limit, page) {
+            setLoading(true);
+            await clienteAxios
+                .get(`/productos/filter?categoria=${categoria}`)
+                .then((res) => {
+                    console.log(res.data);
+                    setProductos(res.data.posts);
+                    setProductosPaginacion(res.data.posts);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    if(err.response){
+                        notification.error({
+                            message: 'Error',
+                            description: err.response.data.message,
+                            duration: 2
+                        });
+                    }else{
+                        notification.error({
+                            message: 'Error de conexion',
+                            description: 'Al parecer no se a podido conectar al servidor.',
+                            duration: 2
+                        });
+                    }
+                });
+        }
 
-	useEffect(
-		() => {
-			if (window.screen.width < 768) {
-				obtenerProductos(12, page);
-			} else {
-				obtenerProductos(40, page);
-			}
-		},
-		[ page ]
-	);
+       obtenerProductos()
+    }, [categoria])
 
-	async function obtenerProductos(limit, page) {
-		setLoading(true);
-		await clienteAxios
-			.get(`/productos?limit=${limit}&page=${page}`)
-			.then((res) => {
-				setProductos(res.data.posts.docs);
-				setProductosPaginacion(res.data.posts);
-				setLoading(false);
-			})
-			.catch((err) => {
-				if(err.response){
-					notification.error({
-						message: 'Error',
-						description: err.response.data.message,
-						duration: 2
-					});
-				}else{
-					notification.error({
-						message: 'Error de conexion',
-						description: 'Al parecer no se a podido conectar al servidor.',
-						duration: 2
-					});
-				}
-			});
-	}
 
-	const render = productos.map((productos) => (
+	const render = productos.map((productos, index) => (
+       
 		<div key={productos._id} className="size-col col-lg-2 col-6">
+
+             {console.log(index)}
+
+            {console.log(productos.nombre)}
+
+
 			<Link to={`/vista_producto/${productos._id}`}>
-				<Card.Grid hoverable style={gridStyle} className="border contenedor-card-producto-principal">
+				<Card.Grid hoverable style={gridStyle} className="border contenedor-card-producto-principal mx-auto">
 					<Card
 						bodyStyle={{ padding: 10, backgroundColor: '#F7F7F7', minHeight: 100 }}
-						className="contenedor-card-body"
+						className="contenedor-card-body mx-auto"
 						cover={
 							<div className="contenedor-imagen-oferta">
 								{productos.todos.length !== 0 ? (
@@ -70,7 +73,6 @@ function ConsultaProductos(props) {
 										return (
 											<div class="contenedor-oferta">
 												<h5 className="shadow">OFERTA</h5>
-												{/* <p>-{agregarPorcentaje(promo.precioPromocion, productos.precio)}%</p> */}
 											</div>
 										);
 									})
@@ -121,14 +123,8 @@ function ConsultaProductos(props) {
 
 	return (
 		<Spin size="large" spinning={loading}>
-
-			<div className="contenedor-home-background">
-				<div className="row contenedor-home-banner">
-					<h4 className="mb-0 text-center font-weight-bold">¡Conoce nuestros productos!</h4>
-				</div>
-			</div>
-
-			<div className="d-flex justify-content-center align-items-center">
+			{/* <div className="principal-productos"><p>NUESTROS PRODUCTOS</p></div> */}
+			<div className="d-flex justify-content-center align-items-center mx-auto">
 				<div className="">
 					<div style={{ maxWidth: '95vw' }} className="row mt-4">
 
@@ -142,14 +138,14 @@ function ConsultaProductos(props) {
 					</div>
 				</div>
 			</div>
-			<Pagination
+			{/* <Pagination
 				blogs={productosPaginacion}
 				location={location}
 				history={history}
 				limite={window.screen.width < 768 ? 12 : 40}
-			/>
+			/> */}
 		</Spin>
 	);
 }
 
-export default ConsultaProductos;
+export default CardsProductos;
