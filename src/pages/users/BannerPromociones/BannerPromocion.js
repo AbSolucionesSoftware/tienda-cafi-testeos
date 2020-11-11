@@ -5,7 +5,7 @@ import './bannerPromocion.scss'
 import CardsProductos from './cardsProductos';
 
 import clienteAxios from '../../../config/axios';
-import { withRouter } from 'react-router-dom';
+import {Link, withRouter } from 'react-router-dom';
 import aws from '../../../config/aws';
 
 import TweenOne from 'rc-tween-one';
@@ -82,6 +82,11 @@ const BgElement = Element.BgElement;
                     {banner.mostrarProductos != false ? (
                         <div className="mx-auto div-cards">
                             <CardsProductos className="mx-auto" categoria={banner.categoria} />
+                            <div className="d-flex justify-content-center pb-5">
+                                <Link to={`/searching/${banner.categoria}`} style={{ fontSize: 26 }}>
+                                    Ver todos los productos
+                                </Link>
+                            </div>
                         </div>
                     ) : ""}
                 </div>
