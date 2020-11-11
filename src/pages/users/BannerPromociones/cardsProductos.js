@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../config/axios';
 import { Card, Spin, notification, Result } from 'antd';
-import Pagination from '../../../components/Pagination/pagination';
-import queryString from 'query-string';
+// import Pagination from '../../../components/Pagination/pagination';
+// import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
 import '../Productos/productos.scss';
+import './bannerPromocion.scss'
 import DOMPurify from 'dompurify';
 import aws from '../../../config/aws';
 
@@ -53,19 +54,15 @@ function CardsProductos(props) {
 
 
 	const render = productos.map((productos, index) => (
-       
 		<div key={productos._id} className="size-col col-lg-2 col-6">
-
-             {console.log(index)}
-
-            {console.log(productos.nombre)}
-
-
+			
 			<Link to={`/vista_producto/${productos._id}`}>
-				<Card.Grid hoverable style={gridStyle} className="border contenedor-card-producto-principal mx-auto">
+			{ index <= 5 ?(
+				
+				<Card.Grid hoverable style={gridStyle} className="border contenedor-card-producto-principal">
 					<Card
 						bodyStyle={{ padding: 10, backgroundColor: '#F7F7F7', minHeight: 100 }}
-						className="contenedor-card-body mx-auto"
+						className="contenedor-card-body"
 						cover={
 							<div className="contenedor-imagen-oferta">
 								{productos.todos.length !== 0 ? (
@@ -117,16 +114,19 @@ function CardsProductos(props) {
 						)}
 					</Card>
 				</Card.Grid>
+				
+				) : ""}
 			</Link>
+			
 		</div>
 	));
 
 	return (
 		<Spin size="large" spinning={loading}>
 			{/* <div className="principal-productos"><p>NUESTROS PRODUCTOS</p></div> */}
-			<div className="d-flex justify-content-center align-items-center mx-auto">
-				<div className="">
-					<div style={{ maxWidth: '95vw' }} className="row mt-4">
+			<div className="d-flex justify-content-center align-items-center">
+				<div className="justify-content-center align-items-center">
+					<div style={{ maxWidth: '95vw' }} className="row mt-4 d-flex justify-content-center align-items-center">
 
 						{productos.length ? (
 							render
