@@ -1,6 +1,6 @@
 import React from 'react';
 import clienteAxios from '../../../config/axios';
-import { notification, Form, Input, Button } from 'antd';
+import { notification, Form, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 const layout = {
@@ -12,7 +12,9 @@ const tailLayout = {
 };
 
 function Registro(props) {
+
 	const onFinish = async (values) => {
+		console.log(values)
 		await clienteAxios
 			.post('/cliente/', values)
 			.then((res) => {
@@ -26,13 +28,13 @@ function Registro(props) {
 				});
 			})
 			.catch((err) => {
-                if(err.response){
+				if (err.response) {
 					notification.error({
 						message: 'Error',
 						description: err.response.data.message,
 						duration: 2
 					});
-				}else{
+				} else {
 					notification.error({
 						message: 'Error de conexion',
 						description: 'Al parecer no se a podido conectar al servidor.',
@@ -45,34 +47,62 @@ function Registro(props) {
 	return (
 		<div className="col-12">
 			<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
-				<Form.Item label="Nombre" >
-					<Form.Item name="nombre" rules={[ { required: true, message: 'El nombre es obligatorio!' } ]} noStyle >
+				<Form.Item label="Nombre">
+					<Form.Item
+						name="nombre"
+						rules={[ { required: true, message: 'El nombre es obligatorio' } ]}
+						noStyle
+					>
 						<Input />
 					</Form.Item>
 				</Form.Item>
 
-				<Form.Item label="Apellido" >
-					<Form.Item name="apellido" noStyle >
+				<Form.Item label="Apellido">
+					<Form.Item name="apellido" noStyle>
 						<Input />
 					</Form.Item>
 				</Form.Item>
 
-				<Form.Item label="Correo" >
-					<Form.Item name="email" rules={[ { required: true, message: 'El email es obligatorio!' } ]} noStyle >
+				<Form.Item label="Correo">
+					<Form.Item name="email" rules={[ { required: true, message: 'El email es obligatorio' } ]} noStyle>
 						<Input />
 					</Form.Item>
 				</Form.Item>
 
-				<Form.Item label="Contraseña" >
-					<Form.Item name="contrasena" rules={[ { required: true, message: 'La contraseña es obligatoria!' } ]} noStyle >
+				<Form.Item label="Contraseña">
+					<Form.Item
+						name="contrasena"
+						rules={[ { required: true, message: 'La contraseña es obligatoria' } ]}
+						noStyle
+					>
 						<Input.Password />
 					</Form.Item>
 				</Form.Item>
 
-				<Form.Item label="Confirmar contraseña" >
-					<Form.Item name="repeatContrasena" rules={[ { required: true, message: 'La contraseña es obligatoria!' } ]} noStyle >
+				<Form.Item label="Confirmar contraseña">
+					<Form.Item
+						name="repeatContrasena"
+						rules={[ { required: true, message: 'La contraseña es obligatoria' } ]}
+						noStyle
+					>
 						<Input.Password />
 					</Form.Item>
+				</Form.Item>
+
+				<Form.Item
+					className="d-flex justify-content-center"
+					name="aceptarPoliticas"
+					valuePropName="checked"
+					rules={[
+						{
+							validator: (_, value) =>
+								value ? Promise.resolve() : Promise.reject('Debes aceptar las políticas para registrarte')
+						}
+					]}
+				>
+					<Checkbox>
+						Acepto las políticas, terminos y condiciones.
+					</Checkbox>
 				</Form.Item>
 
 				<Form.Item {...tailLayout}>
