@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../config/axios';
 import { Button, Space, Modal, List, notification, Spin, Checkbox, message, Alert } from 'antd';
 import {
@@ -12,6 +11,7 @@ import {
 import jwt_decode from 'jwt-decode';
 import RegistroPublicidad from './services/registro_publicidad';
 import aws from '../../../config/aws';
+import './publicidad.scss';
 
 const { confirm } = Modal;
 
@@ -199,9 +199,10 @@ export default function Publicidad(props) {
 		const { banner } = props;
 		return (
 			<List.Item
+				className="list-publicidad"
 				key={banner._id}
 				actions={[
-					<Space>
+					<Space className="list-publicidad-botones">
 						<Button
 							className="d-flex justify-content-center align-items-center"
 							style={{ fontSize: 16 }}
@@ -228,10 +229,10 @@ export default function Publicidad(props) {
 				]}
 			>
 				<List.Item.Meta
+					className="list-publicidad-meta-container"
 					avatar={
 						<div
-							className="d-flex justify-content-center align-items-center mr-2"
-							style={{ width: 400, height: 100 }}
+							className="d-flex justify-content-center align-items-center mr-2 list-publicidad-imagen-container"
 						>
 							{banner.imagenBanner ? (
 								<img
@@ -248,14 +249,15 @@ export default function Publicidad(props) {
 						</div>
 					}
 					title={
-						<div className="mt-4 titulo-producto">
+						<div className="mt-4 titulo-producto list-publicidad-titulos-container">
 							<h1 className="h5 font-weight-bold">
 								{banner.categoria ? banner.categoria : 'Sin categoria'}
 							</h1>
-							<div>
+							<div className="list-publicidad-checks-container">
 								<div className="d-inline mr-4">
-									<h6 className="d-inline mr-2">Vinculación:</h6>
+									<h6 className="d-inline mr-2 checktitle">Vinculación:</h6>
 									<Checkbox
+										className="check-check"
 										disabled={banner.categoria.length !== 0 ? false : true}
 										name="vinculacion"
 										onChange={(e) => actualizarChecks(e, banner._id)}
@@ -263,8 +265,9 @@ export default function Publicidad(props) {
 									/>
 								</div>
 								<div className="d-inline mr-4">
-									<h6 className="d-inline mr-2">Mostrar productos:</h6>
+									<h6 className="d-inline mr-2 checktitle">Mostrar productos:</h6>
 									<Checkbox
+										className="check-check"
 										disabled={banner.categoria.length !== 0 ? false : true}
 										name="mostrarProductos"
 										onChange={(e) => actualizarChecks(e, banner._id)}
@@ -272,8 +275,9 @@ export default function Publicidad(props) {
 									/>
 								</div>
 								<div className="d-inline mr-4">
-									<h6 className="d-inline mr-2">Mostrar titulo:</h6>
+									<h6 className="d-inline mr-2 checktitle">Mostrar titulo:</h6>
 									<Checkbox
+										className="check-check"
 										disabled={banner.categoria.length !== 0 ? false : true}
 										name="mostrarTitulo"
 										onChange={(e) => actualizarChecks(e, banner._id)}

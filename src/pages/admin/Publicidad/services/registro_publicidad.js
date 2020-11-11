@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import clienteAxios from '../../../../config/axios';
-import { Upload, Button, Input, notification, Spin, Alert, Form, Modal, Select, Checkbox } from 'antd';
-import { UploadOutlined, PictureOutlined, RollbackOutlined, PlusOutlined, PlusCircleOutlined } from '@ant-design/icons';
-/* import './carousel.scss'; */
+import { Upload, Button, notification, Spin, Alert, Form, Modal, Select, Checkbox } from 'antd';
+import { PlusOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import aws from '../../../../config/aws';
-import Categorias from '../../../../components/Categorias/Categorias';
 
 const layout = {
 	labelCol: { span: 8 },
@@ -140,7 +138,7 @@ function RegistroPublicidad(props) {
 				duration: 2
 			});
 		} else {
-			if (categoria && mostrarProductos === false) {
+			if (!imagen && categoria && mostrarProductos === false) {
 				notification.error({
 					message: 'si una categoria esta seleccionada, "mostrar productos" es obligatorio',
 					duration: 2
