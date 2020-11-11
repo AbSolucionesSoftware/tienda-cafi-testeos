@@ -8,27 +8,32 @@
   background-color: white;
 }
 .contenedor-logo{
-  height: 100%;
+  //width: 100%;
+  //height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .contenedor-logo > a{
-  //max-height: 100%;
-  height: 70px;
-  width: 120px;
+  width: 100%;
+  height: auto;
   display: flex;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 }
+
 .imagen-logo-principal{
-  width: 110px!important;
-  height: 55px!important;
-  background-repeat: no-repeat;
+  min-width: 100%!important;
+  height: 50px!important;
+  object-fit: cover;
+  
   background-attachment: center;
   background-position: center center;
   background-size: contain;
 }
+
 .top-menu{
   margin: 0!important;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ConsultaProductos from './consulta_productos';
 
 function Productos(props) {
-	return (
+	return (	
 		<ConsultaProductos propiedades={props} />
 	);
 }

@@ -1,0 +1,47 @@
+.tit-banner{
+  font-size: 30px;
+  text-align: left;
+  margin-left: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+}
+
+.banner-prin{
+  height: 190px;
+  width: 100%;
+  //transition: .2s;
+}
+// .banner-prin:hover{
+//   padding: 10px;
+// }
+
+  .banner-prom{
+    width: 100%!important;
+    height: 100%!important;
+    background-repeat: no-repeat;
+    background-attachment: center;
+    background-position: center center;
+    background-size: contain;
+    border-radius: 30%;
+
+  }
+  @media(max-width: 768px){
+    .banner-prin{
+      height: 100px!important;
+    }
+  }
+
+
+  .div-cards{
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+  }
+ 
+  
+
+  
+
+  
