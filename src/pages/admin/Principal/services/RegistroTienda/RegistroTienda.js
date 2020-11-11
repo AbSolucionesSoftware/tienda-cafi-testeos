@@ -5,6 +5,9 @@ import { Editor } from '@tinymce/tinymce-react';
 import clienteAxios from '../../../../../config/axios';
 import PoliticasEnvio from './politicas_envio';
 import aws from '../../../../../config/aws';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function RegistroTienda(props) {
 	const { datosNegocio, token, setLoading, setReloadInfo } = props;
@@ -379,6 +382,15 @@ export default function RegistroTienda(props) {
 				<div className="row d-flex justify-content-center align-items-center">
 					<Divider>Ubicación</Divider>
 					<div className="row justify-content-center">
+						<div className="col-lg-12 text-center">
+							<a href="https://www.google.com.mx/maps/preview" target="_blank"
+								style={{fontSize: 16}}>
+								
+								Ir a Google Maps
+
+								<FontAwesomeIcon icon={faMapMarkedAlt} style={{marginLeft:15, fontSize: '20px' }} />
+							</a>
+						</div>
 						<div className="col-lg-4 col-12">
 							<Form.Item
 								className="m-2"
@@ -413,6 +425,7 @@ export default function RegistroTienda(props) {
 								</Form.Item>
 							</Form.Item>
 						</div>
+						
 					</div>
 				</div>
 
