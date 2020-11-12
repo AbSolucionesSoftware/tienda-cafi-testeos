@@ -98,7 +98,7 @@ function OfertasHome(props) {
 				</div>
 			</div>
 			<div className="d-flex justify-content-center pb-5">
-				<Link to="/ofertas" style={{ fontSize: 26 }}>
+				<Link to="/ofertas" style={{ fontSize: 18 }}>
 					Ver Todas las ofertas
 				</Link>
 			</div>
