@@ -432,17 +432,7 @@ const Promo_masiva = (props) => {
 								enterButton="Buscar"
 								size="large"
 							/>
-                            <Checkbox 
-                                onChange={onChange}
-                                style={{fontSize: 18, marginTop: 7, paddingBlockEnd: 20}}
-                                onClick={() => {
-                                    //setProducto(productos);
-                                    setContent(true);
-                                    limpiar();
-                                    }}
-                            >
-                                Seleccionar todos
-                            </Checkbox>
+                           
 							<Button
 								type="primary"
 								size="large"
@@ -521,7 +511,24 @@ const Promo_masiva = (props) => {
 							<Tooltip placement="bottom" title="Limpiar filtros">
 								<ClearOutlined className="ml-2" style={{ fontSize: 20 }} onClick={limpiarFiltros} />
 							</Tooltip>
+
+							
 						</div>
+						<div className="d-flex justify-content-center">
+							<Checkbox 
+                                onChange={onChange}
+                                style={{fontSize: 18, marginTop: 7, paddingBlockEnd: 20}}
+                                onClick={() => {
+                                    //setProducto(productos);
+                                    setContent(true);
+                                    limpiar();
+									}}
+								className="text-center"
+                            >
+								Seleccionar todos
+							</Checkbox>
+						</div>
+						
 						{/* <div>
 							<div className="site-checkbox-all-wrapper">
 								<Checkbox
@@ -572,7 +579,7 @@ const Promo_masiva = (props) => {
 												className={producto._id === productos._id ? 'list-item-promocion' : ''}
 												key={productos._id}
 												actions={[
-                                                    <Checkbox onChange={onChange}>
+                                                    <Checkbox onChange={true}>
                                                             
                                                     </Checkbox>
 													// !productos.todos.length ? (
@@ -609,8 +616,10 @@ const Promo_masiva = (props) => {
 					<div className="col-12 col-lg-6 d-flex justify-content-center mt-5" />
 				) : (
 					<div className="col-12 col-lg-6">
-                        {/*        CODIGOS DE ITEMS PARA EL PRODUCTO
-                        <List className="shadow contenedor-articulo-detalles">
+					
+						
+                               {/* CODIGOS DE ITEMS PARA EL PRODUCTO */}
+                         {/* <List className="shadow contenedor-articulo-detalles">
 							<List.Item>
 								<List.Item.Meta
 									className="list-item-producto"
@@ -629,7 +638,7 @@ const Promo_masiva = (props) => {
 									title={
 										<div className="precio-box">
 											<div className="titulo-box">
-												<h2>{producto.nombre}</h2>
+												<h2>{producto.categoria}</h2>
 											</div>
 											{promocion.length !== 0 || disabledSumit === false ? (
 												<div>
@@ -650,10 +659,16 @@ const Promo_masiva = (props) => {
 									}
 								/>
 							</List.Item>
-						</List> */}
+						</List>  */}
 						<div className="mt-5">
 							<div className="d-flex justify-content-center">
 								<Col style={{marginTop: "50%"}}>
+
+									<div className="porcentaje-descuento d-inline text-center">
+										<p>Porcentaje descuentado:</p>
+										<p>{console.log(inputValue)}</p>
+									</div>
+									
 									<Slider
 										min={0}
 										max={100}

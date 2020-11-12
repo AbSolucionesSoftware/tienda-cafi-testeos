@@ -52,7 +52,8 @@ const BgElement = Element.BgElement;
                     </TweenOne>
                  ) : ""}
 
-                {banner.imagenBanner ? (
+                {banner.imagenBanner ? 
+                    <div className="banner-prin">
                      <BannerAnim autoPlay activeIndex={index} onSelect={handleSelect} prefixCls="banner-prin mx-auto" >
                      <Element prefixCls="banner-user-elem" animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
                          <BgElement
@@ -73,8 +74,9 @@ const BgElement = Element.BgElement;
                          </BgElement>
                      </Element>
                      </BannerAnim>
-                    
-                    ) : 
+                    </div>
+
+                     : 
                     ""
                     }
 

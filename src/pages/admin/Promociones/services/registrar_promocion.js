@@ -644,7 +644,7 @@ const RegistrarPromocion = (props) => {
 										tipFormatter={formatter}
 										onChange={onChange}
 										value={typeof inputValue === 'number' ? inputValue : 0}
-										tooltipVisible
+										//tooltipVisible
 										marks={{ 0: '0%', 50: '50%', 100: '100%' }}
 									/>
 									<Form form={form}>

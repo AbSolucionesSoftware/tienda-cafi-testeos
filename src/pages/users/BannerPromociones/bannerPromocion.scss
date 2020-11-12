@@ -8,12 +8,10 @@
 
 .banner-prin{
   height: 190px;
-  width: 100%;
+  width: 100%!important;
   //transition: .2s;
 }
-// .banner-prin:hover{
-//   padding: 10px;
-// }
+
 
   .banner-prom{
     width: 100%!important;
@@ -22,7 +20,6 @@
     background-attachment: center;
     background-position: center center;
     background-size: contain;
-    /* border-radius: 30%; */
 
   }
   @media(max-width: 768px){
