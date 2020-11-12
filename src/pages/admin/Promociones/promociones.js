@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../config/axios';
 import jwt_decode from 'jwt-decode';
-import { Button, Row, Input, Drawer, Space, Modal, notification, List, Result, Spin } from 'antd';
+import { 
+	Button, Row, Input, Drawer, Space, Modal, notification, List, Result, Spin, Tabs
+} from 'antd';
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import RegistrarPromocion from './services/registrar_promocion';
 import ActualizarPromocion from './services/actualizar_promocion';
+import Promo_masiva from './services/promo_masiva';
+import Promo_unitaria from './services/promo_unitaria';
 import { IdProductoContext } from '../contexts/ProductoContext';
 import './promociones.scss';
 import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
@@ -13,6 +17,8 @@ import aws from '../../../config/aws';
 
 const { Search } = Input;
 const { confirm } = Modal;
+const { TabPane } = Tabs;
+
 
 function Promociones(props) {
 	const token = localStorage.getItem('token');
@@ -276,7 +282,20 @@ function Promociones(props) {
 							<ActualizarPromocion reload={reload} />
 						</IdProductoContext.Provider>
 					) : (
-						<RegistrarPromocion reload={reload} />
+
+						<Tabs defaultActiveKey="1">
+							<TabPane tab="Promociones" key="1">
+								<RegistrarPromocion reload={reload} />
+							</TabPane>
+							<TabPane tab="Promciones Masivas" key="2">
+								<Promo_masiva reload={reload}/>
+							</TabPane>
+							<TabPane tab="Promciones Limitante" key="3">
+								<Promo_unitaria reload={reload}/>
+							</TabPane>
+						</Tabs>
+
+						
 					)}
 				</Drawer>
 			</div>
