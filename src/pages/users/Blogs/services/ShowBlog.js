@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import clienteAxios from '../../../../config/axios';
-import { Spin } from 'antd';
+import Spin from '../../../../components/Spin';
 import { formatoFecha } from '../../../../config/reuserFunction';
 import aws from '../../../../config/aws';
 
@@ -41,7 +41,7 @@ export default function ShowBlog(props) {
 	}; */
 
 	return (
-		<Spin size="large" spinning={loading}>
+		<Spin spinning={loading}>
 			<div className="info-blog bg-white shadow">
 				{/* <div className="info-blog__div-imagen" style={styleDivImagen} /> */}
 				<div className="contenedor-imagen-blog-principal">

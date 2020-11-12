@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { InputNumber, Button, Form, Badge, Divider, notification, Modal, Select, Spin, Alert } from 'antd';
+import { InputNumber, Button, Form, Badge, Divider, notification, Modal, Select, Alert } from 'antd';
 import { ShoppingCartOutlined, TagsOutlined, BellOutlined, WhatsAppOutlined } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import { AgregarCarrito, AgregarApartado, AgregarPedido } from './services';
@@ -9,6 +9,7 @@ import { MenuContext } from '../../../../context/carritoContext';
 import DatosCliente from './datos_cliente';
 import clienteAxios from '../../../../config/axios';
 import aws from '../../../../config/aws';
+import Spin from '../../../../components/Spin';
 
 const formItemLayout = {
 	labelCol: {

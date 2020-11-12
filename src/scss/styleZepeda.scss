@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+
+$color-blog: #ffff;
+
+/* NAVBAR VARIABLES */
+$bg-color-navbar: #B11F24;
+$bg-color-navbar-active: #CE414B;
+$border-color-active: #EDA1AB;
+/* $border-color-navbar: #B11F24; */
+$font-color-navbar: rgb(255, 255, 255);
+$font-color-navbar-hover: #EDA1AB;
+$font-color-navbar-active: #EDA1AB;
+
+/* NAVBAR CATEGORIAS VARIABLES */
+$bg-color-navbar-categorias:  #CE414B;
+$font-color-navbar-categorias: rgb(255, 255, 255);
+$font-color-navbar-categorias-hover: #EDA1AB;
+
+/* CARDS VARIABLES */
+$bg-color-cards-productos:  #F7F7F7;
+
+/* SPINER VARIABLES */
+$color-spiner: #B11F24;
+
+/* BUTTONS VARIABLES */
+$color-botones: #B11F24;
+$color-botones-hover: #CE414B;
+/* TABS VARIABLES */
+$color-tabs: #B11F24;
+
+/* FOOTER VARIABLES */
+$bg-color-footer: #343434;
+$font-color-footer: rgb(255, 255, 255);
+
+/* BACKGROUND LAYOUT */
+$bg-layout: #ffff;
+
+/* FONT FAMILY STYLES */
+h1, h2, h3, h4, h5, h6{
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+p, a, li{
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; 
+}
+
+/* LAYOUT */
+.bg-layout{
+    background-color: $bg-layout;
+}
+
+/* NAVBAR STYLES */
+.navbar-menu-general{
+    background-color: $bg-color-navbar;
+}
+.navbar-menu-general > .ant-menu-item-selected{
+    background-color: $bg-color-navbar-active!important;
+}
+.navbar-menu-general > .ant-menu-item-selected {
+    color: $font-color-navbar-active!important;
+    border-bottom: 2px solid $border-color-active!important
+}
+.drawer-background .ant-drawer-body{
+    background-color: $bg-color-navbar;
+    border-color: rgb(255, 255, 255);
+}
+.drawer-background .ant-drawer-header{
+    background-color: $bg-color-navbar;
+    border-color: rgb(255, 255, 255);
+}
+.nav-font-color{
+    color: $font-color-navbar;
+} 
+.nav-font-color:hover{
+    color: $font-color-navbar-hover!important;
+    border-bottom: 2px solid $border-color-active!important
+}
+.menu-responsivo-icon{
+    color: $font-color-navbar;
+}
+
+/* NAVBAR CATEGORIAS STYLES */
+.categorias-navbar{
+    background-color: $bg-color-navbar-categorias;
+}
+.categorias-navbar > .ant-menu-submenu-selected{
+    color: $font-color-navbar-categorias!important;
+}
+.container-subcategorias-nav{
+    background-color: $bg-color-navbar-categorias;
+    border-bottom: solid $bg-color-navbar-categorias;
+    border-top: solid $bg-color-navbar-categorias;
+}
+.nav-font-color-categorias{
+    color: $font-color-navbar-categorias;
+    border-bottom: none!important;
+} 
+.nav-font-color-categorias:hover{
+    color: $font-color-navbar-categorias-hover!important;
+}
+.nav-font-color-categorias::before{
+    color: $font-color-navbar-categorias-hover!important;
+}
+.container-subcategorias-nav > .ant-menu-submenu-title:hover{
+    color: $font-color-navbar-categorias-hover!important;
+}
+
+/* SEPARADORES */
+
+/* @media(max-width: 768px){
+    .textos-home > h2 {
+        font-size: 15px;
+    }
+    .textos-home > p {
+        font-size: 10px;
+    }
+} */
+
+/* CARDS */
+.contenedor-card-body > .ant-card-body{
+    padding: 10px;
+    background-color: $bg-color-cards-productos; 
+    min-height: 100px;
+}
+
+/* SPINER */
+.spiner .ant-spin-dot-item{
+    background-color: $color-spiner;
+}
+.spiner{
+    color: $color-spiner;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* BUTTONS */
+.color-boton{
+    background-color: $color-botones;
+    border-color: $color-botones;
+}
+.color-boton:hover{
+    background-color: $color-botones-hover;
+    border-color: $color-botones;
+}
+.color-boton:focus{
+    background-color: $color-botones-hover;
+    border-color: $color-botones;
+}
+
+/* TABS */
+.tabs .ant-tabs-tab-active{
+    color: $color-tabs;
+    border-bottom: $color-tabs!important;
+}
+.tabs .ant-tabs-ink-bar, .ant-tabs-ink-bar-animated{
+    color: $color-tabs;
+    border-bottom: $color-tabs!important;
+}
+
+/*  FOOTER STYLES */
+.bg-footer{
+    background-color: $bg-color-footer;
+}
+.footer-font-color {
+    color: $font-color-footer;
+}
+.footer-font-color:hover {
+    color: $font-color-footer;
+}
+.footer-border {
+    border-color: $font-color-footer;
+}
+
+.info-recomended-sizes{
+    width: 50%;
+}

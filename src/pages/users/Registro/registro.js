@@ -106,7 +106,7 @@ function Registro(props) {
 				</Form.Item>
 
 				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit">
+					<Button type="primary" htmlType="submit" className="color-boton">
 						Registrarse
 					</Button>
 				</Form.Item>

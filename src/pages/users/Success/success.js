@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Result, Button, notification, Divider, Spin } from 'antd';
+import { Result, Button, notification, Divider } from 'antd';
 import { Avatar } from 'antd';
 import clienteAxios from '../../../config/axios';
 import { formatoMexico } from '../../../config/reuserFunction';
 import './success.scss';
 import { Link } from 'react-router-dom';
 import aws from '../../../config/aws';
+import Spin from '../../../components/Spin';
 
 export default function Success(props) {
 	const pedidoID = props.match.params.id;

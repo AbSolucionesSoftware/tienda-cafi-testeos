@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import clienteAxios from '../../../config/axios';
-import { Spin,notification } from 'antd';
+import { notification } from 'antd';
 import ActualizarUsuario from './service/ActualizarUsuario';
+import Spin from '../../../components/Spin';
 
 export default function Perfiles(props) {
 	const [ datosUser, setDatosUser ] = useState(null);
@@ -71,7 +72,7 @@ export default function Perfiles(props) {
 	);
 
 	return (
-		<Spin size="large" spinning={loading}>
+		<Spin spinning={loading}>
 			<div className="container col-lg-6">
 				<h1 className="mt-5 text-center">Bienvenido a tu perfil</h1>
 				<div className="mt-3 px-5 mx-auto" style={{ background: 'white', left: '50%' }}>
