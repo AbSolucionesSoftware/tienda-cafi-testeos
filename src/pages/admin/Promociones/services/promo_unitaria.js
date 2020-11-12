@@ -24,7 +24,7 @@ import { formatoMexico } from '../../../../config/reuserFunction';
 import aws from '../../../../config/aws';
 
 const { Search } = Input;
-const demo = { height: '500px', overflow: 'auto' };
+const demo = { height: '100%', overflow: 'auto' };
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
 
@@ -49,6 +49,7 @@ const Promo_unitaria = (props) => {
 	const [ precioPromocion, setPrecioPromocion ] = useState();
 	const [ disabledSumit, setDisabledSumit ] = useState(true);
 	const [ validateStatus, setValidateStatus ] = useState('validating');
+	const [ validateCant, setValidateCant ] = useState('validar');
 	const [ inputValue, setInputValue ] = useState(0);
 	const [ form ] = Form.useForm();
 	const reload = props.reload;
@@ -93,6 +94,7 @@ const Promo_unitaria = (props) => {
 			.then((res) => {
 				callback(res);
 				setLoadingList(false);
+				
 			})
 			.catch((err) => {
 				setLoadingList(false);
@@ -139,13 +141,15 @@ const Promo_unitaria = (props) => {
 		setInputValue(value);
 		var porcentaje = 100 - value;
 		var descuento = Math.round(producto.precio * porcentaje / 100);
-		if (descuento >= producto.precio || descuento <= 0) {
+		if (descuento >= producto.precio || descuento <= 0 ) {
+			setValidateCant('error');
 			setValidateStatus('error');
 			setDisabledSumit(true);
 			form.setFieldsValue({ precio: descuento });
 		} else {
 			form.setFieldsValue({ precio: descuento });
 			setPrecioPromocion(descuento);
+			setValidateCant('validar');
 			setValidateStatus('validating');
 			setDisabledSumit(false);
 		}
@@ -153,10 +157,12 @@ const Promo_unitaria = (props) => {
 
 	const obtenerCampo = (e) => {
 		if (e.target.value >= producto.precio || e.target.value <= 0) {
+			setValidateCant('error');
 			setValidateStatus('error');
 			setDisabledSumit(true);
 		} else {
 			setPrecioPromocion(e.target.value);
+			setValidateCant('validar');
 			setValidateStatus('validating');
 			setDisabledSumit(false);
 			var porcentaje = Math.round(e.target.value / producto.precio * 100);
@@ -396,35 +402,17 @@ const Promo_unitaria = (props) => {
 		form.resetFields();
 	};
 
-	/* Checklist */
-	/* const plainOptions = [ 'Apple', 'Pear', 'Orange' ];
-	const [ checkedList, setCheckedList ] = useState();
-	const [ indeterminate, setIndeterminate ] = useState(true);
-	const [ checkAll, setCheckAll ] = useState(false);
 
-	const onChangeC = (checkedList) => {
-		console.log(checkedList)
-		setCheckedList(checkedList);
-		setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
-		setCheckAll(checkedList.length === plainOptions.length);
-	};
-
-	const onCheckAllChange = (e) => {
-		console.log(e)
-		setCheckedList(e.target.checked ? plainOptions : []);
-		setIndeterminate(false);
-		setCheckAll(e.target.checked);
-	};
-	console.log(checkedList) */
-
-	/* Checklist fin */
 
 	return (
 		<Spin size="large" spinning={loading}>
 			<div className="d-lg-flex d-sm-block">
 				<div className="col-12 col-lg-6 border-bottom">
+					<div className=" mt-2 d-flex justify-content-center">
+						<Alert showIcon message="En este apartado puedes agregar promociones por limite de productos" type="info" />
+					</div>
 					<Spin size="large" spinning={loadingList}>
-						<div className="row justify-content-center">
+						<div className="mt-3 row justify-content-center">
 							<Search
 								placeholder="Busca un producto"
 								onSearch={(value) => obtenerProductosFiltrados(value)}
@@ -511,28 +499,7 @@ const Promo_unitaria = (props) => {
 								<ClearOutlined className="ml-2" style={{ fontSize: 20 }} onClick={limpiarFiltros} />
 							</Tooltip>
 						</div>
-						{/* <div>
-							<div className="site-checkbox-all-wrapper">
-								<Checkbox
-									indeterminate={indeterminate}
-									onChange={onCheckAllChange}
-									checked={checkAll}
-								>
-									Check all
-								</Checkbox>
-							</div>
-							<br />
-							<CheckboxGroup
-								options={plainOptions}
-								value={checkedList}
-								onChange={onChangeC}
-
-							>
-								<Checkbox value='a'>a</Checkbox>
-								<Checkbox value='b'>b</Checkbox>
-								<Checkbox value='c'>c</Checkbox>
-							</CheckboxGroup>
-						</div> */}
+						
 						{loading ? (
 							<div />
 						) : data.length === 0 ? (
@@ -644,7 +611,7 @@ const Promo_unitaria = (props) => {
 										tipFormatter={formatter}
 										onChange={onChange}
 										value={typeof inputValue === 'number' ? inputValue : 0}
-										tooltipVisible
+										//tooltipVisible
 										marks={{ 0: '0%', 50: '50%', 100: '100%' }}
 									/>
 									<Form form={form}>
@@ -659,7 +626,21 @@ const Promo_unitaria = (props) => {
 												label="Precio"
 												onChange={obtenerCampo}
 												min={0}
-												max={producto.precio}
+												max={producto.cantidad}
+											/>
+										</Form.Item>
+										<Form.Item
+											name="cantidad"
+											validateStatus={validateCant}
+											help="La cantidad de productos no debe exeder el inventario"
+										>
+											<p className="mt-3">Cantidad de productos a poner en promocion:</p>
+											<Input
+												type="number"
+												label="Cantidad"
+												onChange={obtenerCampo}
+												min={0}
+												//max={producto.precio}
 											/>
 										</Form.Item>
 										<Form.Item className="text-center">

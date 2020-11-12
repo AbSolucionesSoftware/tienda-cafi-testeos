@@ -24,7 +24,7 @@ import { formatoMexico } from '../../../../config/reuserFunction';
 import aws from '../../../../config/aws';
 
 const { Search } = Input;
-const demo = { height: '500px', overflow: 'auto' };
+const demo = { height: '100%', overflow: 'auto' };
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
 
@@ -397,7 +397,7 @@ const Promo_masiva = (props) => {
 	};
 
 	/* Checklist */
-	/* const plainOptions = [ 'Apple', 'Pear', 'Orange' ];
+	const plainOptions = [ '' ];
 	const [ checkedList, setCheckedList ] = useState();
 	const [ indeterminate, setIndeterminate ] = useState(true);
 	const [ checkAll, setCheckAll ] = useState(false);
@@ -415,7 +415,7 @@ const Promo_masiva = (props) => {
 		setIndeterminate(false);
 		setCheckAll(e.target.checked);
 	};
-	console.log(checkedList) */
+	console.log(checkedList) 
 
 	/* Checklist fin */
 
@@ -423,8 +423,11 @@ const Promo_masiva = (props) => {
 		<Spin size="large" spinning={loading}>
 			<div className="d-lg-flex d-sm-block">
 				<div className="col-12 col-lg-6 border-bottom">
+					<div className=" mt-2 d-flex justify-content-center">
+						<Alert showIcon message="En este apartado puedes agregar promociones masivas, por categoria elegida" type="info" />
+					</div>
 					<Spin size="large" spinning={loadingList}>
-						<div className="row justify-content-center">
+						<div className=" mt-3 row justify-content-center">
 							<Search
 								placeholder="Busca un producto"
 								onSearch={(value) => obtenerProductosFiltrados(value)}
@@ -515,17 +518,20 @@ const Promo_masiva = (props) => {
 							
 						</div>
 						<div className="d-flex justify-content-center">
-							<Checkbox 
-                                onChange={onChange}
-                                style={{fontSize: 18, marginTop: 7, paddingBlockEnd: 20}}
-                                onClick={() => {
+
+							<Checkbox
+								style={{fontSize: 18, marginTop: 7, paddingBlockEnd: 20}}
+								indeterminate={indeterminate}
+								onChange={onCheckAllChange}
+								checked={checkAll}
+								onClick={() => {
                                     //setProducto(productos);
                                     setContent(true);
                                     limpiar();
 									}}
 								className="text-center"
-                            >
-								Seleccionar todos
+							>
+								Seleccionar Todos
 							</Checkbox>
 						</div>
 						
@@ -579,9 +585,15 @@ const Promo_masiva = (props) => {
 												className={producto._id === productos._id ? 'list-item-promocion' : ''}
 												key={productos._id}
 												actions={[
-                                                    <Checkbox onChange={true}>
-                                                            
-                                                    </Checkbox>
+                                                    <CheckboxGroup
+														options={plainOptions}
+														value={checkedList}
+														onChange={onChangeC}
+
+													>
+														<Checkbox value=''></Checkbox>
+														
+													</CheckboxGroup>
 													// !productos.todos.length ? (
 													// 	<Button
 													// 		onClick={() => {
@@ -662,11 +674,11 @@ const Promo_masiva = (props) => {
 						</List>  */}
 						<div className="mt-5">
 							<div className="d-flex justify-content-center">
-								<Col style={{marginTop: "50%"}}>
+								<Col style={{marginTop: "30%"}}>
 
-									<div className="porcentaje-descuento d-inline text-center">
-										<p>Porcentaje descuentado:</p>
-										<p>{console.log(inputValue)}</p>
+									<div className="precio-box porcentaje-descuento d-inline text-center" >
+										<p style={{fontSize: 25}}>Porcentaje descuentado:</p>
+										<p style={{fontSize: 25}}> {inputValue} %</p>
 									</div>
 									
 									<Slider
@@ -679,7 +691,7 @@ const Promo_masiva = (props) => {
 										marks={{ 0: '0%', 50: '50%', 100: '100%' }}
 									/>
 									<Form form={form}>
-										<Form.Item
+										{/* <Form.Item
 											name="precio"
 											validateStatus={validateStatus}
 											help="La promoción no debe ser mayor al precio del producto"
@@ -692,7 +704,7 @@ const Promo_masiva = (props) => {
 												min={0}
 												max={producto.precio}
 											/>
-										</Form.Item>
+										</Form.Item> */}
 										<Form.Item className="text-center">
 											<Button disabled={disabledSumit} onClick={subirPromocion}>
 												Guardar promoción

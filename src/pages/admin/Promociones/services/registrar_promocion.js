@@ -24,7 +24,7 @@ import { formatoMexico } from '../../../../config/reuserFunction';
 import aws from '../../../../config/aws';
 
 const { Search } = Input;
-const demo = { height: '500px', overflow: 'auto' };
+const demo = { height: '100%', overflow: 'auto' };
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
 
@@ -423,8 +423,11 @@ const RegistrarPromocion = (props) => {
 		<Spin size="large" spinning={loading}>
 			<div className="d-lg-flex d-sm-block">
 				<div className="col-12 col-lg-6 border-bottom">
+				<div className=" mt-2 d-flex justify-content-center">
+					<Alert showIcon message="En este apartado puedes agregar promocion individual por producto" type="info" />
+				</div>
 					<Spin size="large" spinning={loadingList}>
-						<div className="row justify-content-center">
+						<div className="mt-3 row justify-content-center">
 							<Search
 								placeholder="Busca un producto"
 								onSearch={(value) => obtenerProductosFiltrados(value)}

@@ -262,7 +262,7 @@ function Promociones(props) {
 					placement={'right'}
 					onClose={drawnerClose}
 					visible={visible}
-					bodyStyle={{ paddingBottom: 80 }}
+					bodyStyle={{ paddingBottom: 30}}
 					footer={
 						<div
 							style={{
@@ -287,10 +287,10 @@ function Promociones(props) {
 							<TabPane tab="Promociones" key="1">
 								<RegistrarPromocion reload={reload} />
 							</TabPane>
-							<TabPane tab="Promciones Masivas" key="2">
+							<TabPane tab="Promociones Masivas" key="2">
 								<Promo_masiva reload={reload}/>
 							</TabPane>
-							<TabPane tab="Promciones Limitante" key="3">
+							<TabPane tab="Promociones Limitante" key="3">
 								<Promo_unitaria reload={reload}/>
 							</TabPane>
 						</Tabs>
