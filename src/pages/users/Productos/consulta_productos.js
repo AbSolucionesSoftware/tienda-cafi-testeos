@@ -122,9 +122,9 @@ function ConsultaProductos(props) {
 	return (
 		<Spin size="large" spinning={loading}>
 
-			<div className="contenedor-home-background">
-				<div className="row contenedor-home-banner">
-					<h4 className="mb-0 text-center font-weight-bold">¡Conoce nuestros productos!</h4>
+			<div className="contenedor-home-background ">
+				<div className="row contenedor-home-banner ">
+					<h4 className="mr-0 ">¡Conoce nuestros productos!</h4>
 				</div>
 			</div>
 

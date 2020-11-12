@@ -84,7 +84,7 @@ const BgElement = Element.BgElement;
                         <div className="mx-auto div-cards">
                             <CardsProductos className="mx-auto" categoria={banner.categoria} />
                             <div className="d-flex justify-content-center pb-5">
-                                <Link to={`/searching/${banner.categoria}`} style={{ fontSize: 26 }}>
+                                <Link to={`/searching/${banner.categoria}`} style={{ fontSize: 18 }}>
                                     Ver todos los productos
                                 </Link>
                             </div>
