@@ -64,7 +64,7 @@ const BgElement = Element.BgElement;
                              }}
  
                              key="bg"
-                             className="bg banner-prom"
+                             className="bg banner-prom mx-auto"
                              alt="img-oferta"
                              style={{
                                  backgroundImage: `url(${aws + banner.imagenBanner})`,
