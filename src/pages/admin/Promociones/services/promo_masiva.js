@@ -398,16 +398,17 @@ const Promo_masiva = (props) => {
 
 	/* Checklist */
 	const plainOptions = [ '' ];
+	console.log(plainOptions);
 	const [ checkedList, setCheckedList ] = useState();
 	const [ indeterminate, setIndeterminate ] = useState(true);
 	const [ checkAll, setCheckAll ] = useState(false);
 
-	const onChangeC = (checkedList) => {
-		console.log(checkedList)
-		setCheckedList(checkedList);
-		setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
-		setCheckAll(checkedList.length === plainOptions.length);
-	};
+	// const onChangeC = (checkedList) => {
+	// 	console.log(checkedList)
+	// 	setCheckedList(checkedList);
+	// 	setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
+	// 	setCheckAll(checkedList.length === plainOptions.length);
+	// };
 
 	const onCheckAllChange = (e) => {
 		console.log(e)
@@ -415,7 +416,7 @@ const Promo_masiva = (props) => {
 		setIndeterminate(false);
 		setCheckAll(e.target.checked);
 	};
-	console.log(checkedList) 
+	//console.log(checkedList) 
 
 	/* Checklist fin */
 
@@ -518,21 +519,20 @@ const Promo_masiva = (props) => {
 							
 						</div>
 						<div className="d-flex justify-content-center">
-
-							<Checkbox
-								style={{fontSize: 18, marginTop: 7, paddingBlockEnd: 20}}
-								indeterminate={indeterminate}
-								onChange={onCheckAllChange}
-								checked={checkAll}
-								onClick={() => {
-                                    //setProducto(productos);
-                                    setContent(true);
-                                    limpiar();
-									}}
-								className="text-center"
-							>
-								Seleccionar Todos
-							</Checkbox>
+								<Checkbox
+									style={{fontSize: 18, marginTop: 7, paddingBlockEnd: 20}}
+									indeterminate={indeterminate}
+									onChange={onCheckAllChange}
+									checked={checkAll}
+									onClick={() => {
+										//setProducto(productos);
+										setContent(true);
+										limpiar();
+										}}
+								>
+									Seleccionar Todos
+								</Checkbox>
+							
 						</div>
 						
 						{/* <div>
@@ -588,12 +588,15 @@ const Promo_masiva = (props) => {
                                                     <CheckboxGroup
 														options={plainOptions}
 														value={checkedList}
-														onChange={onChangeC}
-
+														onChange={onChange}
 													>
-														<Checkbox value=''></Checkbox>
+														<Checkbox value={[productos._id]}>
+														</Checkbox>
 														
 													</CheckboxGroup>
+
+												
+
 													// !productos.todos.length ? (
 													// 	<Button
 													// 		onClick={() => {
@@ -678,7 +681,7 @@ const Promo_masiva = (props) => {
 
 									<div className="precio-box porcentaje-descuento d-inline text-center" >
 										<p style={{fontSize: 25}}>Porcentaje descuentado:</p>
-										<p style={{fontSize: 25}}> {inputValue} %</p>
+										<p style={{fontSize: 25}}> {inputValue} %OFF</p>
 									</div>
 									
 									<Slider

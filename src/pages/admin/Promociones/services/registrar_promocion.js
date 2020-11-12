@@ -397,25 +397,25 @@ const RegistrarPromocion = (props) => {
 	};
 
 	/* Checklist */
-	/* const plainOptions = [ 'Apple', 'Pear', 'Orange' ];
-	const [ checkedList, setCheckedList ] = useState();
-	const [ indeterminate, setIndeterminate ] = useState(true);
-	const [ checkAll, setCheckAll ] = useState(false);
+	//  const plainOptions = [ 'Apple', 'Pear', 'Orange' ];
+	// const [ checkedList, setCheckedList ] = useState();
+	// const [ indeterminate, setIndeterminate ] = useState(true);
+	// const [ checkAll, setCheckAll ] = useState(false);
 
-	const onChangeC = (checkedList) => {
-		console.log(checkedList)
-		setCheckedList(checkedList);
-		setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
-		setCheckAll(checkedList.length === plainOptions.length);
-	};
+	// const onChangeC = (checkedList) => {
+	// 	console.log(checkedList)
+	// 	setCheckedList(checkedList);
+	// 	setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
+	// 	setCheckAll(checkedList.length === plainOptions.length);
+	// };
 
-	const onCheckAllChange = (e) => {
-		console.log(e)
-		setCheckedList(e.target.checked ? plainOptions : []);
-		setIndeterminate(false);
-		setCheckAll(e.target.checked);
-	};
-	console.log(checkedList) */
+	// const onCheckAllChange = (e) => {
+	// 	console.log(e)
+	// 	setCheckedList(e.target.checked ? plainOptions : []);
+	// 	setIndeterminate(false);
+	// 	setCheckAll(e.target.checked);
+	// };
+	// console.log(checkedList) 
 
 	/* Checklist fin */
 
