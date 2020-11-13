@@ -26,7 +26,6 @@ function CardsProductos(props) {
             await clienteAxios
                 .get(`/productos/filter?categoria=${categoria}`)
                 .then((res) => {
-                    console.log(res.data);
                     setProductos(res.data.posts);
                     setProductosPaginacion(res.data.posts);
                     setLoading(false);
@@ -55,7 +54,7 @@ function CardsProductos(props) {
 	const render = productos.map((productos, index) => {
 		if(index <= 5){
 			return (
-				<ComponentProductos productos={productos} />
+				<ComponentProductos key={productos._id} productos={productos} />
 			)
 		}	
 	});
@@ -63,9 +62,9 @@ function CardsProductos(props) {
 	return (
 		<Spin spinning={loading}>
 			{/* <div className="principal-productos"><p>NUESTROS PRODUCTOS</p></div> */}
-			<div className="d-flex justify-content-center align-items-center">
+			<div className="mt-2 d-flex justify-content-center align-items-center">
 				<div className="justify-content-center align-items-center">
-					<div style={{ maxWidth: '95vw' }} className="row mt-4 d-flex justify-content-center align-items-center">
+					<div style={{ maxWidth: '95vw' }} className="row d-flex justify-content-center align-items-center">
 
 						{productos.length ? (
 							render

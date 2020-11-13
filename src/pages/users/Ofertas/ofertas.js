@@ -39,7 +39,7 @@ function Ofertas(props) {
 	}
 
 	const render = productos.map((productos) => (
-		<ComponenteProductos productos={productos} />
+		<ComponenteProductos key={productos._id} productos={productos} />
 	));
 
 	if (!productos) {

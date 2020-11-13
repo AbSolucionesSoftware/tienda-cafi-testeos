@@ -20,7 +20,6 @@ const BgElement = Element.BgElement;
 
     const [ index, setIndex ] = useState(0);
     const [ bannerPro, setBannerPro ] = useState([]);
-    const [ categorias, setCategorias] = useState([]);
 
     useEffect(() => {
 		const obtenerBanner = async () => {
@@ -28,7 +27,6 @@ const BgElement = Element.BgElement;
 				.get('/banner/')
 				.then((res) => {
                     setBannerPro(res.data);
-                    console.log(bannerPro);
 				})
                 .catch((res) => {});
 		};
@@ -45,14 +43,14 @@ const BgElement = Element.BgElement;
     const render = bannerPro.map((banner) => {
         
         return (
-            <div className="mt-5 cont-principal">
+            <div key={banner._id} className="mt-5 cont-principal">
                 {banner.mostrarTitulo != false ? (
-                    <TweenOne animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
+                    <TweenOne key="demo" animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
                         <h1 className="mt-5 tit-banner">{banner.categoria}</h1>
                     </TweenOne>
                  ) : ""}
 
-                {banner.imagenBanner ? (
+                {banner.imagenBanner || banner.imagenBanner !== '' ? (
                     <div className="banner-prin"> 
                      <BannerAnim autoPlay activeIndex={index} onSelect={handleSelect} prefixCls="banner-prin mx-auto" >
                      <Element prefixCls="banner-user-elem" animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
@@ -83,7 +81,7 @@ const BgElement = Element.BgElement;
                     {banner.mostrarProductos != false ? (
                         <div className="mx-auto div-cards">
                             <CardsProductos className="mx-auto" categoria={banner.categoria} />
-                            <div className="d-flex justify-content-center pb-5">
+                            <div className="d-flex justify-content-center">
                                 <Link to={`/searching/${banner.categoria}`} style={{ fontSize: 18 }}>
                                     Ver todos los productos
                                 </Link>
@@ -97,7 +95,7 @@ const BgElement = Element.BgElement;
     })
 
     return (
-        <div className="mt-5 cont-principal">
+        <div className="cont-principal">
            {render}
         </div>
     )
