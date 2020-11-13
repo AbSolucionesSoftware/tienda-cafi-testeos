@@ -31,8 +31,8 @@ export default function Datos_tienda() {
 			{infor !== '' ? (
 				<div className="mt-5">
 					<div className="contenedor-home-background">
-						<div className="row contenedor-home-banner">
-							<h4 className="mb-0 text-center font-weight-bold">¡Encuentra nuestra tienda!</h4>
+						<div className="row contenedor-home-banner d-flex justify-content-center">
+							<h4 className="mb-0 text-center">¡Encuentra nuestra tienda!</h4>
 						</div>
 					</div>
 					<div className="row w-100">
