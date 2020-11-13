@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../../config/axios';
 import ImageGallery from 'react-image-gallery';
 import ReactImageMagnify from 'react-image-magnify';
-import { Spin } from 'antd';
 import 'react-image-gallery/styles/scss/image-gallery.scss';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './galeria_custom.scss';
 import aws from '../../../../config/aws';
+import Spin from '../../../../components/Spin';
 
 function Galeria(props) {
 	const [ count, setCount ] = useState(0);

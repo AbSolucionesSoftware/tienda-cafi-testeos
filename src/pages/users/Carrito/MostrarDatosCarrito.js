@@ -3,13 +3,14 @@ import clienteAxios from '../../../config/axios';
 import jwt_decode from 'jwt-decode';
 import { Link, withRouter } from 'react-router-dom';
 import './carrito.scss';
-import { List, Spin, Button, message, Result } from 'antd';
+import { List, Button, message, Result } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { formatoMexico } from '../../../config/reuserFunction';
 import { CarritoContext } from './context_carrito/context-carrito';
 import { obtenerStockCarrito } from './services/obtenerStock';
 import { AgregarPedidoCarrito } from './services/pedido_carrito';
 import ListaCarrito from './lista_carrito';
+import Spin from '../../../components/Spin';
 
 const styles = { fontSize: 20 };
 
@@ -103,7 +104,7 @@ function MostrarDatosProductos(props) {
 
 	if (carrito.length === 0 || carrito.articulos.length === 0) {
 		return (
-			<Spin size="large" spinning={loading}>
+			<Spin spinning={loading}>
 				<Result
 					className="mt-5"
 					status="404"
@@ -115,7 +116,7 @@ function MostrarDatosProductos(props) {
 	}
 
 	return (
-		<Spin size="large" spinning={loading}>
+		<Spin spinning={loading}>
 			<div className="mt-5">
 				<h1 className="principal bg-dark">Bievenido a tu carrito {cliente.nombre}</h1>
 				<List

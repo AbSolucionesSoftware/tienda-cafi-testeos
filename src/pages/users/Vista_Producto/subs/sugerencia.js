@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import clienteAxios from '../../../../config/axios';
-import { notification, Spin, Button, Select, Card, Form, InputNumber, Modal, Alert } from 'antd';
+import { notification, Button, Select, Card, Form, InputNumber, Modal, Alert } from 'antd';
 import { IssuesCloseOutlined } from '@ant-design/icons';
 import { formatoMexico, agregarPorcentaje } from '../../../../config/reuserFunction';
 import { AgregarPedido } from './servicesSugerencia';
 import jwt_decode from 'jwt-decode';
 import { withRouter } from 'react-router-dom';
 import aws from '../../../../config/aws';
+import Spin from '../../../../components/Spin';
 
 const { Option } = Select;
 const { Meta } = Card;

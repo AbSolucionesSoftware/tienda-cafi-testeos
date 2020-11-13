@@ -69,8 +69,7 @@ const Navegacion = (props) => {
 					setTienda(datos);
 				});
 			})
-			.catch((res) => {
-			});
+			.catch((res) => {});
 	}
 	async function obtenerOfertas() {
 		await clienteAxios
@@ -78,8 +77,7 @@ const Navegacion = (props) => {
 			.then((res) => {
 				setOfertas(res.data);
 			})
-			.catch((res) => {
-			});
+			.catch((res) => {});
 	}
 
 	const showDrawer = () => {
@@ -93,7 +91,7 @@ const Navegacion = (props) => {
 		return (
 			<div className="preloading">
 				<div className="contenedor-preloading">
-					<Spin size="large" tip="Cargando la tienda..." className="class-spin" />
+					<Spin size="large" tip="Cargando la tienda..." className="spiner" />
 				</div>
 			</div>
 		);
@@ -104,18 +102,20 @@ const Navegacion = (props) => {
 			<Header className="navbar-menu-general a1">
 				<div className="menuCon navbar-menu-general a2">
 					<div className="top-menu row a3">
-						<div className="col-lg-6 a3">
-							<div className="row a3">
+						<div className="col-lg-6 row-logo-search">
+							<div className="row row-logo-search-2">
 								{!tienda.imagenLogo ? (
 									<div className="d-none" />
 								) : (
-									<div className="col-3 contenedor-logo d-flex">
+									<div className="col-3">
 										<Link to="/">
-											<img
-												className="imagen-logo-principal"
-												alt="logotipo-tienda"
-												src={aws+tienda.imagenLogo}
-											/>
+											<div className="contenedor-logo">
+												<img
+													className="imagen-logo-principal"
+													alt="logotipo-tienda"
+													src={aws + tienda.imagenLogo}
+												/>
+											</div>
 										</Link>
 									</div>
 								)}
@@ -195,10 +195,7 @@ const Navegacion = (props) => {
 											) : decoded.imagenFireBase ? (
 												<Avatar size="large" src={decoded.imagenFireBase} />
 											) : (
-												<Avatar
-													size="large"
-													src={aws+decoded.imagen}
-												/>
+												<Avatar size="large" src={aws + decoded.imagen} />
 											)
 										}
 									>
@@ -229,10 +226,7 @@ const Navegacion = (props) => {
 													<p>{decoded.nombre.charAt(0)}</p>
 												</Avatar>
 											) : (
-												<Avatar
-													size="large"
-													src={aws + decoded.imagen}
-												>
+												<Avatar size="large" src={aws + decoded.imagen}>
 													{/* <p>{decoded.nombre.charAt(0)}</p> */}
 												</Avatar>
 											)
@@ -262,7 +256,8 @@ const Navegacion = (props) => {
 
 								{token === '' || token === null ? (
 									<Menu.Item className="nav-font-color nav-border-color a6">
-										<p>Entrar</p><Link to="/entrar" />
+										<p>Entrar</p>
+										<Link to="/entrar" />
 									</Menu.Item>
 								) : (
 									<Menu.Item className="d-none" />
@@ -272,7 +267,7 @@ const Navegacion = (props) => {
 					</div>
 					<div className="top-menu-responsive nav-font-color">
 						<Button type="link" className="barsMenu" onClick={showDrawer}>
-							<MenuOutlined style={{ fontSize: 22 }} />
+							<MenuOutlined className="menu-responsivo-icon" style={{ fontSize: 22 }} />
 						</Button>
 						<Search
 							className="search-nav-responsive"
@@ -284,7 +279,7 @@ const Navegacion = (props) => {
 						) : (
 							<Badge count={carrito}>
 								<Link to="/shopping_cart">
-									<ShoppingCartOutlined style={{ fontSize: 28 }} />
+									<ShoppingCartOutlined className="menu-responsivo-icon" style={{ fontSize: 28 }} />
 								</Link>
 							</Badge>
 						)}
@@ -300,7 +295,7 @@ const Navegacion = (props) => {
 										<img
 											className="imagen-logo-principal"
 											alt="logotipo-tienda"
-											src={aws+tienda.imagenLogo}
+											src={aws + tienda.imagenLogo}
 										/>
 									</Link>
 								</div>

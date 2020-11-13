@@ -229,7 +229,7 @@ function Carousel(props) {
 						<EyeOutlined />
 						Ver
 					</Button>
-					<Upload {...propsActualizar} className="d-inline">
+					<Upload {...propsActualizar} className="upload-text-display d-inline">
 						<Button
 							className="d-flex justify-content-center align-items-center"
 							style={{ fontSize: 16 }}

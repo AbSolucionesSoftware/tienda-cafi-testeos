@@ -5,9 +5,10 @@ import DetallesPedido from './detalles';
 import { formatoFecha, formatoMexico } from '../../../config/reuserFunction';
 import './pedidos.scss';
 import DetalleApartado from './detalleApartado';
-import { Spin, Modal, Tag, Button, List, Result, Tabs, notification } from 'antd';
+import { Modal, Tag, Button, List, Result, Tabs, notification } from 'antd';
 import { EditOutlined, DeleteOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
 import aws from '../../../config/aws';
+import Spin from '../../../components/Spin';
 
 const { TabPane } = Tabs;
 const {confirm} = Modal;
@@ -155,7 +156,7 @@ export default function PedidosUsuario(props) {
 	}
 
 	return (
-		<Spin size="large" spinning={loading}>
+		<Spin spinning={loading}>
 			<div className="container">
 				<h4 className="text-center m-3">Mis Compras</h4>
 				<Tabs className="shadow bg-white rounded" defaultActiveKey="1" type="card" size="large">

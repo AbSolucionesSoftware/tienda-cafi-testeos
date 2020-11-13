@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import clienteAxios from '../../../config/axios';
-import {Spin,notification} from 'antd'
-
+import {notification} from 'antd'
+import Spin from '../../../components/Spin';
 
 function Politicas() {
 
@@ -41,7 +41,7 @@ function Politicas() {
 
 
     return(
-        <Spin size="large" spinning={loading} >
+        <Spin spinning={loading} >
             <div className="container">
                 <div className="m-5">
                         <h1 className="text-center mt-4">Politicas de Privacidad</h1>

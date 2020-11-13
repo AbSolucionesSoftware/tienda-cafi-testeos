@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../config/axios';
-import { Divider, Row, Col, Tag, Spin, Alert, notification } from 'antd';
+import { Divider, Row, Col, Tag, Alert, notification } from 'antd';
 import { CreditCardOutlined } from '@ant-design/icons';
 import Scroll from './subs/scroll';
 import Sugerencia from './subs/sugerencia';
@@ -14,6 +14,7 @@ import DOMPurify from 'dompurify';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
+import Spin from '../../../components/Spin';
 
 function VistaProductos(props) {
 	const [ productos, setProductos ] = useState([]);
@@ -88,7 +89,7 @@ function VistaProductos(props) {
 	};
 
 	return (
-		<Spin size="large" spinning={loading}>
+		<Spin spinning={loading}>
 			<div className="container mt-5 shadow caracteristicas ">
 				<div className="row mt-5">
 					<div className="col-lg-8 imagen-gallery-vista zoom">

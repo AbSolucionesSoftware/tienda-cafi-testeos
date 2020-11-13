@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Divider, notification, Spin, Input, Row, Col } from 'antd';
+import { Button, Form, Divider, notification, Input, Row, Col } from 'antd';
 import clienteAxios from '../../../../config/axios';
+import Spin from '../../../../components/Spin';
 
 const layout = {
 	labelCol: { span: 8 },

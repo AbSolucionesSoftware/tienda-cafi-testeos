@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useState, useEffect, useContext } from 'react';
 import Traer_pedido from './traer_pedido';
-import { Button, Spin ,notification} from 'antd';
+import { Button ,notification} from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import clienteAxios from '../../../../config/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import { MenuContext } from '../../../../context/carritoContext';
+import Spin from '../../../../components/Spin';
 
 import './Confirnacion_Final.scss';
 
@@ -101,7 +102,7 @@ export default function Confirmacion_Final(props) {
 	};
 
 	return (
-		<Spin spinning={loading} size="large">
+		<Spin spinning={loading}>
 			<div className="d-flex justify-content-center">
 				<h3 className="font-weight-bold">Resumen de compra</h3>
 			</div>

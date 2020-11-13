@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import Carousel from './Carusel_ofertas/carousel';
-import ConsultaProductos from './Productos/consulta_productos';
+/* import ConsultaProductos from './Productos/consulta_productos'; */
 import Ofertas from './Ofertas/ofertasHome';
 import Datos_tienda from './Datos_tienda/datos_tienda'
 import Banner_Promocion from './BannerPromociones/BannerPromocion'
@@ -28,9 +28,9 @@ export default function Home(props) {
 					</div>
 				</div>
 			</div>
+			<Ofertas />
 			<Banner_Promocion />
-			<ConsultaProductos propiedades={props} />
-            <Ofertas />
+			{/* <ConsultaProductos propiedades={props} /> */}
             <Datos_tienda />
 		</div>
 	);

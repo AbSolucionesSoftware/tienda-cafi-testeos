@@ -9,13 +9,14 @@ import {
 } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-import { Form, Button, notification, Spin } from 'antd';
+import { Form, Button, notification } from 'antd';
 
 import './Animacion_Tarjeta.scss';
 
 import img_visa from '../img/logos/visa.png';
 import img_mastercard from '../img/logos/mastercard.png';
 import chip_tarjeta from '../img/chip-tarjeta.png';
+import Spin from '../../../../components/Spin';
 
 export default function Verificacion_Tarjeta(props) {
     const {setIdPago,prev,setCurrent,current} = props;
@@ -126,7 +127,7 @@ const CheckoutForm = (props) => {
 	};
 
 	return (
-		<Spin spinning={!stripe} size="large">
+		<Spin spinning={!stripe}>
 			<div className="">
 				<div className="contenedor ">
 					<section
