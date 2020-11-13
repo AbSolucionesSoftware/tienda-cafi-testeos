@@ -28,14 +28,8 @@
 .blogList:hover{
     color: black;
 }
-.list-hover:hover{
-    box-shadow: 0px 0px 13px -2px rgba(166,166,166,1)!important;
-    transition: .3s;
-}
-.list-hover:hover .titulo-blog{
-    color: rgb(0, 140, 255)!important;
-    transition: .3s;
-}
+
+
 .list-hover{
     transition: .3s;
 }

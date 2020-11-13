@@ -539,9 +539,8 @@ const Sugerencia = (props) => {
 									) : (
 										<Button
 											disabled={disabled}
-											type="primary"
 											size="large"
-											className="d-block m-1"
+											className="d-block m-1 color-boton color-font-boton"
 											onClick={() => showConfirm()}
 										>
 											Comprar

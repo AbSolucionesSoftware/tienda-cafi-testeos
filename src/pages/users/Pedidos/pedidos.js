@@ -159,8 +159,8 @@ export default function PedidosUsuario(props) {
 		<Spin spinning={loading}>
 			<div className="container">
 				<h4 className="text-center m-3">Mis Compras</h4>
-				<Tabs className="shadow bg-white rounded" defaultActiveKey="1" type="card" size="large">
-					<TabPane tab="Mis compras" key="1">
+				<Tabs className="shadow bg-white rounded " defaultActiveKey="1" type="card" size="large">
+					<TabPane tab="Mis compras"  key="1">
 						<div>
 							{showInfo !== true ? (
 								<Result
@@ -255,9 +255,8 @@ function Pedido(props) {
 			className="d-flex justify-content-center align-items-center m-5"
 			actions={[
 				<Button
-					className="d-flex justify-content-top align-items-top "
+					className="d-flex justify-content-top align-items-top color-boton"
 					style={{ fontSize: 16 }}
-					type="primary"
 					onClick={() => {
 						setElige(false);
 						showModal(true);
@@ -398,7 +397,7 @@ function Apartado(props) {
 					<Button
 						className="d-flex justify-content-top align-items-top m-2 w-100"
 						style={{ fontSize: 16 }}
-						type="primary"
+						className="color-boton"
 						onClick={() => {
 							setElige(true);
 							showModal(true);

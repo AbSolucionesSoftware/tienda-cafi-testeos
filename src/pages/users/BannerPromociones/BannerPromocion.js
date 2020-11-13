@@ -50,7 +50,7 @@ const BgElement = Element.BgElement;
                     </TweenOne>
                  ) : ""}
 
-                {banner.imagenBanner ? (
+                {banner.imagenBanner || banner.imagenBanner !== '' ? (
                     <div className="banner-prin"> 
                      <BannerAnim autoPlay activeIndex={index} onSelect={handleSelect} prefixCls="banner-prin mx-auto" >
                      <Element prefixCls="banner-user-elem" animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
@@ -81,8 +81,8 @@ const BgElement = Element.BgElement;
                     {banner.mostrarProductos != false ? (
                         <div className="mx-auto div-cards">
                             <CardsProductos className="mx-auto" categoria={banner.categoria} />
-                            <div className="d-flex justify-content-center pb-5">
-                                <Link to={`/searching/${banner.categoria}`} style={{ fontSize: 26 }}>
+                            <div className="d-flex justify-content-center">
+                                <Link to={`/searching/${banner.categoria}`} style={{ fontSize: 18 }}>
                                     Ver todos los productos
                                 </Link>
                             </div>
@@ -95,7 +95,7 @@ const BgElement = Element.BgElement;
     })
 
     return (
-        <div className="mt-5 cont-principal">
+        <div className="cont-principal">
            {render}
         </div>
     )

@@ -267,16 +267,15 @@ const CheckoutForm = (props) => {
 						</div>
 						<div className="steps-action d-flex justify-content-center align-items-center">
 							<Button
-								type="primary"
 								htmlType="submit"
 								onClick={prev}
 								size="large"
 								disabled={!stripe}
-								className="m-1"
+								className="m-1 color-boton"
 							>
 								Volver
 							</Button>
-							<Button type="primary" htmlType="submit" size="large" disabled={!stripe} className="m-1">
+							<Button htmlType="submit" size="large" disabled={!stripe} className="m-1 color-boton">
 								Siguiente
 							</Button>
 						</div>

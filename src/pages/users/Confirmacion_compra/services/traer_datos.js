@@ -268,7 +268,7 @@ export default function Traer_datos(props) {
 						}
 					/>
 					<div className="steps-action d-flex justify-content-center align-items-center p-3">
-						<Button type="primary" htmlType="submit" size="large">
+						<Button className="color-boton" htmlType="submit" size="large">
 							Siguiente
 						</Button>
 					</div>

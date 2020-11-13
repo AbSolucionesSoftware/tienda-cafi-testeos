@@ -237,7 +237,7 @@ function RegistroPublicidad(props) {
 
 	const llenarCampos = useCallback(
 		() => {
-			if (bannerSeleccionado.imagenBanner) {
+			if (bannerSeleccionado.imagenBanner || bannerSeleccionado.imagenBanner !== '') {
 				setImagen(bannerSeleccionado.imagenBanner);
 				setFileList([
 					{

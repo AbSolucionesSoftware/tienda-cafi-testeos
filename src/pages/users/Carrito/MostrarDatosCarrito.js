@@ -118,7 +118,7 @@ function MostrarDatosProductos(props) {
 	return (
 		<Spin spinning={loading}>
 			<div className="mt-5">
-				<h1 className="principal bg-dark">Bievenido a tu carrito {cliente.nombre}</h1>
+				<h1 className="principal navbar-menu-general">Bievenido a tu carrito {cliente.nombre}</h1>
 				<List
 					itemLayout="horizontal"
 					size="large"
@@ -148,7 +148,7 @@ function MostrarDatosProductos(props) {
 					<div className="col-lg-5 d-flex justify-content-center align-items-center mt-4">
 						<Button
 							size="large"
-							type="primary"
+							className="color-boton color-font-boton"
 							style={{ width: 250, textAlign: 'center' }}
 							onClick={() => crearPedido()}
 						>

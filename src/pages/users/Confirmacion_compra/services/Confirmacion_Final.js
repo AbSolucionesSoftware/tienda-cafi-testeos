@@ -167,7 +167,7 @@ export default function Confirmacion_Final(props) {
 					</div>
 				</div>
 				<div className="d-flex flex-row-reverse justify-content-center align-items-center text-center pb-3 mr-5 mt-5">
-					<Button size="large" type="primary" style={{ width: 200, textAlign: 'center' }} onClick={crearPago}>
+					<Button size="large" className="color-boton" style={{ width: 200, textAlign: 'center' }} onClick={crearPago}>
 						<ShoppingCartOutlined /> COMPRAR AHORA
 					</Button>
 				</div>

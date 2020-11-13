@@ -180,9 +180,9 @@ function ListaCarrito(props) {
 									</div>
 								)}
 								<div className="d-block d-lg-flex">
-									<Tag className="detalles-carrito">Categoria: {carrito.idarticulo.categoria}</Tag>
-									<Tag className="detalles-carrito">Género: {carrito.idarticulo.genero}</Tag>
-									<Tag className="detalles-carrito">Color: {carrito.idarticulo.color}</Tag>
+									<Tag className="detalles-carrito color-border-tags">Categoria: {carrito.idarticulo.categoria}</Tag>
+									<Tag className="detalles-carrito color-border-tags">Género: {carrito.idarticulo.genero}</Tag>
+									<Tag className="detalles-carrito color-border-tags">Color: {carrito.idarticulo.color}</Tag>
 									<Tag
 										style={{ backgroundColor: carrito.idarticulo.colorHex, height: 30, width: 30 }}
 									/>
@@ -287,7 +287,7 @@ function ListaCarrito(props) {
 									</Form>
 									<div className="text-center">
 										<Button
-											type="primary"
+											className="color-boton-sec color-font-boton"
 											ghost
 											size="large"
 											onClick={() => actualizar(carrito._id, carrito.idarticulo.tipoCategoria)}
@@ -314,18 +314,18 @@ function ListaCarrito(props) {
 					<div className="d-flex justify-content-center">
 						<Button
 							type="link"
-							className=""
+							className="color-fonts"
 							onClick={() => comprar()}
 							disabled={medidaDisponible !== '' ? true : false}
 						>
 							<ShoppingCartOutlined style={styles} />Comprar
 						</Button>
-						<Button type="link" className="" onClick={() => eliminar()}>
+						<Button type="link" className="color-fonts" onClick={() => eliminar()}>
 							<DeleteOutlined style={styles} />Eliminar
 						</Button>
 						<Button
 							type="link"
-							className=""
+							className="color-fonts"
 							onClick={() => apartado()}
 							disabled={medidaDisponible !== '' ? true : false}
 						>

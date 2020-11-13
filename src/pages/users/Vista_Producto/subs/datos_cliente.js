@@ -244,9 +244,8 @@ export default function DatosCliente(props) {
 					<Form.Item className="text-center">
 						{estadoBoton !== 'Guardar' ? (
 							<Button
-								className="holo"
 								htmlType="button"
-								type="primary"
+								className="color-boton color-font-boton"
 								size="large"
 								style={{ width: 170 }}
 								onClick={control}
@@ -256,10 +255,9 @@ export default function DatosCliente(props) {
 						) : (
 							<Button
 								htmlType="submit"
-								type="primary"
+								className="color-boton color-font-boton"
 								size="large"
 								style={{ width: 170 }}
-								className="holi"
 							>
 								{estadoBoton}
 							</Button>
