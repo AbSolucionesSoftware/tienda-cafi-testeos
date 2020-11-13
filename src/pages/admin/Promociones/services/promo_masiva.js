@@ -59,6 +59,7 @@ const Promo_masiva = (props) => {
 	const [ subcategoria, setSubcategoria ] = useState();
 	const [ generosDB, setGenerosDB ] = useState([]);
 	const [ genero, setGenero ] = useState();
+	const [ check, setCheck ] = useState();
 
 	useEffect(
 		() => {
@@ -397,21 +398,19 @@ const Promo_masiva = (props) => {
 	};
 
 	/* Checklist */
-	const plainOptions = [ '' ];
-	console.log(plainOptions);
+	const plainOptions = [ data ];
 	const [ checkedList, setCheckedList ] = useState();
 	const [ indeterminate, setIndeterminate ] = useState(true);
 	const [ checkAll, setCheckAll ] = useState(false);
 
-	// const onChangeC = (checkedList) => {
-	// 	console.log(checkedList)
-	// 	setCheckedList(checkedList);
-	// 	setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
-	// 	setCheckAll(checkedList.length === plainOptions.length);
-	// };
+	const onChangeC = (checkedList) => {
+		console.log(checkedList)
+		setCheckedList(checkedList);
+		setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
+		setCheckAll(checkedList.length === plainOptions.length);
+	};
 
 	const onCheckAllChange = (e) => {
-		console.log(e)
 		setCheckedList(e.target.checked ? plainOptions : []);
 		setIndeterminate(false);
 		setCheckAll(e.target.checked);
@@ -419,6 +418,8 @@ const Promo_masiva = (props) => {
 	//console.log(checkedList) 
 
 	/* Checklist fin */
+
+
 
 	return (
 		<Spin size="large" spinning={loading}>
@@ -532,6 +533,7 @@ const Promo_masiva = (props) => {
 								>
 									Seleccionar Todos
 								</Checkbox>
+								
 							
 						</div>
 						
@@ -584,47 +586,37 @@ const Promo_masiva = (props) => {
 											<List.Item
 												className={producto._id === productos._id ? 'list-item-promocion' : ''}
 												key={productos._id}
-												actions={[
-                                                    <CheckboxGroup
-														options={plainOptions}
-														value={checkedList}
-														onChange={onChange}
-													>
-														<Checkbox value={[productos._id]}>
-															
-														</Checkbox>
-														
-													</CheckboxGroup>
-
-												
-
-													// !productos.todos.length ? (
-													// 	<Button
-													// 		onClick={() => {
-													// 			setProducto(productos);
-													// 			setContent(true);
-													// 			limpiar();
-													// 		}}
-													// 	>
-													// 		Seleccionar
-													// 	</Button>
-													// ) : (
-													// 	<Button className="button-disabled-promocion" disabled>
-													// 		Promoción activa
-													// 	</Button>
-                                                    // )
-                                                    
-												]}
+												actions={[]}
 											>
+
+												<CheckboxGroup
+													options={
+													<List.Item.Meta
+														avatar={<Avatar size={40} src={aws + productos.imagen} />}
+														title={productos.nombre}
+													/>}
+													value={checkedList}
+													onChange={onChange}
+												>
+													<Checkbox value="">
+														
+													</Checkbox>
+												</CheckboxGroup>
+
+
 												<List.Item.Meta
 													avatar={<Avatar size={40} src={aws + productos.imagen} />}
 													title={productos.nombre}
 												/>
-											</List.Item>
+
+												</List.Item>
 										)}
 									/>
 								</InfiniteScroll>
+
 							</div>
+
+
 						)}
 					</Spin>
 				</div>
