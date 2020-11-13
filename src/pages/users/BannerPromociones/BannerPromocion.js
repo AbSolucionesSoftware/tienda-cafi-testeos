@@ -20,7 +20,6 @@ const BgElement = Element.BgElement;
 
     const [ index, setIndex ] = useState(0);
     const [ bannerPro, setBannerPro ] = useState([]);
-    const [ categorias, setCategorias] = useState([]);
 
     useEffect(() => {
 		const obtenerBanner = async () => {
@@ -28,7 +27,6 @@ const BgElement = Element.BgElement;
 				.get('/banner/')
 				.then((res) => {
                     setBannerPro(res.data);
-                    console.log(bannerPro);
 				})
                 .catch((res) => {});
 		};
@@ -45,9 +43,9 @@ const BgElement = Element.BgElement;
     const render = bannerPro.map((banner) => {
         
         return (
-            <div className="mt-5 cont-principal">
+            <div key={banner._id} className="mt-5 cont-principal">
                 {banner.mostrarTitulo != false ? (
-                    <TweenOne animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
+                    <TweenOne key="demo" animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
                         <h1 className="mt-5 tit-banner">{banner.categoria}</h1>
                     </TweenOne>
                  ) : ""}

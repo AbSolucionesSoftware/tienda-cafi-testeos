@@ -53,7 +53,7 @@ function ConsultaProductos(props) {
 	}
 
 	const render = productos.map((productos) => {
-		return (<ComponenteProductos productos={productos} />);
+		return (<ComponenteProductos key={productos._id} productos={productos} />);
 	});
 
 	if (!productos) {

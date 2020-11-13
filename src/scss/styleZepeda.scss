@@ -27,6 +27,8 @@ $color-botones: #B11F24;
 $color-botones-hover: #CE414B;
 /* TABS VARIABLES */
 $color-tabs: #B11F24;
+$color-tabs-hover: #B11F24;
+$color-tabs-border: #CE414B;
 
 /* FOOTER VARIABLES */
 $bg-color-footer: #343434;
@@ -152,11 +154,13 @@ p, a, li{
 /* TABS */
 .tabs .ant-tabs-tab-active{
     color: $color-tabs;
-    border-bottom: $color-tabs!important;
 }
-.tabs .ant-tabs-ink-bar, .ant-tabs-ink-bar-animated{
+.tabs .ant-tabs-tab:hover{
     color: $color-tabs;
-    border-bottom: $color-tabs!important;
+}
+.tabs .ant-tabs-ink-bar{
+    /* color: $color-tabs; */
+    background-color: $color-tabs-border!important;
 }
 
 /*  FOOTER STYLES */

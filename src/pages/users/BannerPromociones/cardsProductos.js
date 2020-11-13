@@ -26,7 +26,6 @@ function CardsProductos(props) {
             await clienteAxios
                 .get(`/productos/filter?categoria=${categoria}`)
                 .then((res) => {
-                    console.log(res.data);
                     setProductos(res.data.posts);
                     setProductosPaginacion(res.data.posts);
                     setLoading(false);
@@ -55,7 +54,7 @@ function CardsProductos(props) {
 	const render = productos.map((productos, index) => {
 		if(index <= 5){
 			return (
-				<ComponentProductos productos={productos} />
+				<ComponentProductos key={productos._id} productos={productos} />
 			)
 		}	
 	});
