@@ -81,7 +81,11 @@ const BgElement = Element.BgElement;
                     {banner.mostrarProductos != false ? (
                         <div className="mx-auto div-cards">
                             <CardsProductos className="mx-auto" categoria={banner.categoria} />
+<<<<<<< HEAD
                             <div className="d-flex justify-content-center">
+=======
+                            <div className="d-flex justify-content-center pb-5">
+>>>>>>> c7b568a6b87f1da4c0a10bc15a24623c31afcd23
                                 <Link to={`/searching/${banner.categoria}`} style={{ fontSize: 18 }}>
                                     Ver todos los productos
                                 </Link>
