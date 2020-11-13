@@ -591,6 +591,7 @@ const Promo_masiva = (props) => {
 														onChange={onChange}
 													>
 														<Checkbox value={[productos._id]}>
+															
 														</Checkbox>
 														
 													</CheckboxGroup>
