@@ -12,9 +12,8 @@ const tailLayout = {
 };
 
 function Registro(props) {
-
 	const onFinish = async (values) => {
-		console.log(values)
+		console.log(values);
 		await clienteAxios
 			.post('/cliente/', values)
 			.then((res) => {
@@ -58,7 +57,11 @@ function Registro(props) {
 				</Form.Item>
 
 				<Form.Item label="Apellido">
-					<Form.Item name="apellido" noStyle>
+					<Form.Item
+						name="apellido"
+						rules={[ { required: true, message: 'El apellido es obligatorio' } ]}
+						noStyle
+					>
 						<Input />
 					</Form.Item>
 				</Form.Item>
@@ -96,13 +99,13 @@ function Registro(props) {
 					rules={[
 						{
 							validator: (_, value) =>
-								value ? Promise.resolve() : Promise.reject('Debes aceptar las políticas para registrarte')
+								value
+									? Promise.resolve()
+									: Promise.reject('Debes aceptar las políticas para registrarte')
 						}
 					]}
 				>
-					<Checkbox>
-						Acepto las políticas, terminos y condiciones.
-					</Checkbox>
+					<Checkbox>Acepto las políticas, terminos y condiciones.</Checkbox>
 				</Form.Item>
 
 				<Form.Item {...tailLayout}>

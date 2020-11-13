@@ -19,7 +19,7 @@ export default function ComponenteProductos(props) {
 							className="contenedor-card-body"
 							cover={
 								<div className="contenedor-imagen-oferta">
-									<div class="contenedor-oferta">
+									<div className="contenedor-oferta">
 										<h5 className="shadow">OFERTA</h5>
 									</div>
 									<div className="contenedor-imagen-producto-principal">
@@ -71,7 +71,7 @@ export default function ComponenteProductos(props) {
 									{productos.todos.length !== 0 ? (
 										productos.todos.map((promo) => {
 											return (
-												<div class="contenedor-oferta">
+												<div key={promo._id} className="contenedor-oferta">
 													<h5 className="shadow">OFERTA</h5>
 													{/* <p>-{agregarPorcentaje(promo.precioPromocion, productos.precio)}%</p> */}
 												</div>

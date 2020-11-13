@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import clienteAxios from '../../../../config/axios';
-import { Upload, Button, notification, Spin, Alert, Form, Modal, Select, Checkbox } from 'antd';
-import { PlusOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { Upload, Button, notification, Spin, Alert, Form, Modal, Select, Checkbox, message } from 'antd';
+import { PlusOutlined, PlusCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import aws from '../../../../config/aws';
 
 const layout = {
@@ -9,6 +9,7 @@ const layout = {
 	wrapperCol: { span: 16 }
 };
 const { Option } = Select;
+const { confirm } = Modal;
 
 function getBase64(file) {
 	return new Promise((resolve, reject) => {
@@ -64,10 +65,14 @@ function RegistroPublicidad(props) {
 				setImagen(file);
 			} else {
 				setImagen('');
+				setFileList([]);
 				setDisabled(false);
 				form.resetFields([ 'imagen' ]);
 			}
 			setFileList(fileList);
+		},
+		onRemove: () => {
+			showDeleteConfirm();
 		},
 		onPreview: async (file) => {
 			if (!file.url && !file.preview) {
@@ -95,9 +100,9 @@ function RegistroPublicidad(props) {
 	};
 	const onChangeVincular = (e) => setVincular(e.target.checked);
 	const onChangeMostrar = (e) => setMostrarProductos(e.target.checked);
-    const onChangeTitulo = (e) => setMostrarTitulo(e.target.checked);
-    
-    const errors = (err) => {
+	const onChangeTitulo = (e) => setMostrarTitulo(e.target.checked);
+
+	const errors = (err) => {
 		if (err.response) {
 			notification.error({
 				message: 'Error',
@@ -201,17 +206,52 @@ function RegistroPublicidad(props) {
 		}
 	};
 
+	const eliminarImagen = async () => {
+		await clienteAxios
+		.put(`/banner/imagen/${bannerSeleccionado._id}`, {
+			headers: {
+				Authorization: `bearer ${token}`
+			}
+		})
+		.then((res) => {
+			setLoading(false);
+			message.success(res.data.message);
+		})
+		.catch((err) => {
+			setLoading(false);
+			errors(err);
+		});
+	}
+	function showDeleteConfirm() {
+		confirm({
+			title: '¿Quieres eliminar la imagen?',
+			icon: <ExclamationCircleOutlined />,
+			okText: 'Si',
+			okType: 'danger',
+			cancelText: 'No',
+			onOk() {
+				eliminarImagen();
+			}
+		});
+	}
+
 	const llenarCampos = useCallback(
 		() => {
-			setImagen(bannerSeleccionado.imagenBanner);
-			setFileList([
-				{
-					uid: '-1',
-					name: 'imagen actual',
-					status: 'done',
-					url: aws + bannerSeleccionado.imagenBanner
-				}
-			]);
+			if (bannerSeleccionado.imagenBanner || bannerSeleccionado.imagenBanner !== '') {
+				setImagen(bannerSeleccionado.imagenBanner);
+				setFileList([
+					{
+						uid: '-1',
+						name: 'imagen actual',
+						status: 'done',
+						url: aws + bannerSeleccionado.imagenBanner
+					}
+				]);
+			} else {
+				setImagen('');
+				setFileList([]);
+			}
+
 			form.setFieldsValue({
 				categoria: bannerSeleccionado.categoria
 			});
@@ -237,6 +277,7 @@ function RegistroPublicidad(props) {
 		setFileList([]);
 		setCategoria('');
 		form.resetFields();
+		setControl(false);
 	};
 
 	useEffect(
@@ -248,7 +289,6 @@ function RegistroPublicidad(props) {
 		},
 		[ reload ]
 	);
-	console.log(categoria);
 
 	useEffect(
 		() => {
