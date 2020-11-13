@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import clienteAxios from '../../../../config/axios';
 
-import { Form, Input, Button, Result, Spin, notification } from 'antd';
+import { Form, Input, Button, Result, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Spin from '../../../../components/Spin';
 
 import '../confirmacion.scss';
 
@@ -124,7 +125,7 @@ export default function Traer_datos(props) {
 	};
 
 	return (
-		<Spin spinning={loading} size="large">
+		<Spin spinning={loading}>
 			<div className="shadow-lg bg-white rounded">
 				<Form className="mt-5" layout="horizontal" size={'middle'} form={form} onFinish={enviarDatosUser}>
 					<Result

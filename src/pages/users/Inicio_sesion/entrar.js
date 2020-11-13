@@ -24,7 +24,7 @@ function Entrar(props) {
             </p>
             <div className="tabs">
                 <Tabs className="shadow col-12 col-lg-4 bg-white rounded" defaultActiveKey="1">
-                    <TabPane tab="Iniciar Sesión" key="1">
+                    <TabPane className="tab-color" tab="Iniciar Sesión" key="1">
                         <div className="mt-3">
                             <Login />
                         </div>
@@ -34,7 +34,7 @@ function Entrar(props) {
                             <Firebase />
                         </div>
                     </TabPane>
-                    <TabPane tab="Crear cuenta" key="2">
+                    <TabPane className="tab-color" tab="Crear cuenta" key="2">
                         <div className="mt-3">
                             <Registro />
                         </div>

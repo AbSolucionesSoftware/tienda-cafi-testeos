@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../config/axios';
-import { Card, Spin, notification, Result } from 'antd';
+import { notification, Result, Row } from 'antd';
 import Pagination from '../../../components/Pagination/pagination';
 import queryString from 'query-string';
-import { Link } from 'react-router-dom';
-import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
 import './productos.scss';
-import DOMPurify from 'dompurify';
-import aws from '../../../config/aws';
-
-const gridStyle = { width: '100%', padding: 0, marginBottom: '1.5rem' };
+import ComponenteProductos from './componente_productos';
+import Spin from '../../../components/Spin';
 
 function ConsultaProductos(props) {
 	const { location, history } = props.propiedades;
@@ -40,13 +36,13 @@ function ConsultaProductos(props) {
 				setLoading(false);
 			})
 			.catch((err) => {
-				if(err.response){
+				if (err.response) {
 					notification.error({
 						message: 'Error',
 						description: err.response.data.message,
 						duration: 2
 					});
-				}else{
+				} else {
 					notification.error({
 						message: 'Error de conexion',
 						description: 'Al parecer no se a podido conectar al servidor.',
@@ -56,90 +52,30 @@ function ConsultaProductos(props) {
 			});
 	}
 
-	const render = productos.map((productos) => (
-		<div key={productos._id} className="size-col col-lg-2 col-6">
-			<Link to={`/vista_producto/${productos._id}`}>
-				<Card.Grid hoverable style={gridStyle} className="border contenedor-card-producto-principal">
-					<Card
-						bodyStyle={{ padding: 10, backgroundColor: '#F7F7F7', minHeight: 100 }}
-						className="contenedor-card-body"
-						cover={
-							<div className="contenedor-imagen-oferta">
-								{productos.todos.length !== 0 ? (
-									productos.todos.map((promo) => {
-										return (
-											<div class="contenedor-oferta">
-												<h5 className="shadow">OFERTA</h5>
-												{/* <p>-{agregarPorcentaje(promo.precioPromocion, productos.precio)}%</p> */}
-											</div>
-										);
-									})
-								) : (
-									<div className="d-none" />
-								)}
+	const render = productos.map((productos) => {
+		return (<ComponenteProductos productos={productos} />);
+	});
 
-								<div className="contenedor-imagen-producto-principal">
-									<img
-										className="imagen-producto-principal"
-										alt="producto"
-										src={aws+productos.imagen}
-									/>
-								</div>
-							</div>
-						}
-					>
-						<div className="contenedor-titulos-productos titulo-elipsis">
-							<h1 className="titulo-producto">{productos.nombre}</h1>
-							<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(productos.descripcion) }} />
-						</div>
-						{!productos.todos.length ? (
-							<div className="contenedor-precios-productos">
-								<h3 className="h5 precio-rebaja">${formatoMexico(productos.precio)}</h3>
-							</div>
-						) : (
-							productos.todos.map((promo) => {
-								return (
-									<div className="contenedor-precios-productos" key={promo._id}>
-										<h2 className="h5 precio-producto rebajado mr-2">
-											${formatoMexico(productos.precio)}
-										</h2>
-										<h3 className="h5 precio-rebaja d-inline mr-1">
-											${formatoMexico(promo.precioPromocion)}
-										</h3>
-										<p className="h4 porcentaje-descuento d-inline">
-											{agregarPorcentaje(promo.precioPromocion, productos.precio)}%OFF
-										</p>
-									</div>
-								);
-							})
-						)}
-					</Card>
-				</Card.Grid>
-			</Link>
-		</div>
-	));
+	if (!productos) {
+		return (
+			<div className="w-100 d-flex justify-content-center align-items-center">
+				<Result status="404" title="Aun no hay ofertas" />
+			</div>
+		);
+	}
 
 	return (
-		<Spin size="large" spinning={loading}>
-
+		<Spin spinning={loading}>
 			<div className="contenedor-home-background">
-				<div className="row contenedor-home-banner">
+				<div className="row float-left">
 					<h4 className="mb-0 text-center font-weight-bold">¡Conoce nuestros productos!</h4>
 				</div>
 			</div>
-
 			<div className="d-flex justify-content-center align-items-center">
 				<div className="">
-					<div style={{ maxWidth: '95vw' }} className="row mt-4">
-
-						{productos.length ? (
-							render
-						) : (
-							<div className="w-100 d-flex justify-content-center align-items-center">
-								<Result status="404" title="Articulo no encontrado" />
-							</div>
-						)}
-					</div>
+					<Row gutter={10} style={{ maxWidth: '95vw' }} className=" mt-4">
+						{render}
+					</Row>
 				</div>
 			</div>
 			<Pagination

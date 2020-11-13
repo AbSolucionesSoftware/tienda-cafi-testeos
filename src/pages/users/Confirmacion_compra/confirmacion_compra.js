@@ -4,11 +4,12 @@ import jwt_decode from 'jwt-decode';
 import clienteAxios from '../../../config/axios';
 
 import { useParams } from 'react-router-dom';
-import { Spin, Steps } from 'antd';
+import { Steps } from 'antd';
 
 import Traer_datos from './services/traer_datos';
 import Verificacion_tarjeta from './services/Verificacion_Tarjeta';
 import Confirmacion_Final from './services/Confirmacion_Final';
+import Spin from '../../../components/Spin';
 
 import './confirmacion.scss';
 
@@ -137,7 +138,7 @@ export default function Confirmacion_compra(props) {
 						</div>
 					</div>
 					<div className="steps-content">
-						<Spin size="large" spinning={loading}>
+						<Spin spinning={loading}>
 							{steps[current].content}
 						</Spin>
 					</div>

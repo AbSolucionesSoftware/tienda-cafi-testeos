@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import clienteAxios from '../../../config/axios';
-import { Spin,notification } from 'antd';
-
+import { notification } from 'antd';
+import Spin from '../../../components/Spin';
 
 export default function QuienesSomos() {
 
@@ -39,7 +39,7 @@ export default function QuienesSomos() {
     }, [])
 
     return (
-        <Spin size="large" spinning={loading}>
+        <Spin spinning={loading}>
             <div className="container bg-white shadow mb-5">
                 <div style={{lineHeight: "35px",color:"black"}} dangerouslySetInnerHTML={{__html: imagenCorp}} className='mt-5 px-4' />
             </div>

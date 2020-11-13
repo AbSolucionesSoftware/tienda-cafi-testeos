@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../../config/axios';
 import '../vistas.scss';
-import { Card, Col, Spin } from 'antd';
+import { Card, Col } from 'antd';
 import { formatoMexico, agregarPorcentaje } from '../../../../config/reuserFunction'
 import aws from '../../../../config/aws';
+import Spin from '../../../../components/Spin';
 
 const gridStyle = { width: '100%', padding: 0, marginBottom: '1.5rem' };
 
