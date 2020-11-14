@@ -366,7 +366,7 @@ function Pedido(props) {
 							''
 						) : (
 							<div className="col-lg-6 col-sm-12">
-								<p className="m-0 font-weight-bold h3 text-primary" style={{ fontSize: '15px' }}>
+								<p className="m-0 font-weight-bold h3 color-fonts" style={{ fontSize: '15px' }}>
 									¡Hola!
 								</p>
 								<p className="mt-2" style={{ fontSize: '15px' }}>
@@ -521,9 +521,9 @@ function Apartado(props) {
 										</p>
 										<a href={`${apartado.url}${apartado.codigo_seguimiento}`} target="_blank" rel="noopener noreferrer">
 											<Button
-												className="d-flex justify-content-center align-items-center"
+												className="d-flex justify-content-center align-items-center color-boton"
 												style={{ fontSize: 16 }}
-												type="primary"
+												
 											>
 												Seguír envío
 											</Button>
@@ -536,7 +536,7 @@ function Apartado(props) {
 						</div>
 						{apartado.tipoEntrega === 'ENVIO' ? (
 							<div className="col-lg-6 col-sm-12">
-								<p className="m-0 font-weight-bold h3 text-primary" style={{ fontSize: '15px' }}>
+								<p className="m-0 font-weight-bold h3 color-fonts" style={{ fontSize: '15px' }}>
 									¡Hola!
 								</p>
 								<p className="mt-2" style={{ fontSize: '15px' }}>
