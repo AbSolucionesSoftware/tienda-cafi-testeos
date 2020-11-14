@@ -14,7 +14,7 @@ export async function AgregarPedido(idcliente, idproducto, categoria, cantidad, 
 	});
 
 	switch (categoria) {
-		case 'ropa':
+		case 'Ropa':
 			pedido = [
 				{
 					producto: idproducto,
@@ -24,7 +24,7 @@ export async function AgregarPedido(idcliente, idproducto, categoria, cantidad, 
 				}
 			];
 			break;
-		case 'calzado':
+		case 'Calzado':
 			pedido = [
 				{
 					producto: idproducto,
@@ -34,7 +34,7 @@ export async function AgregarPedido(idcliente, idproducto, categoria, cantidad, 
 				}
 			];
 			break;
-		case 'otros':
+		case 'Otros':
 			pedido = [
 				{
 					producto: idproducto,
@@ -94,7 +94,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, ti
 		return null
 	});
 	switch (categoria) {
-		case 'ropa':
+		case 'Ropa':
 			apartado = {
 				producto: idproducto,
 				cliente: idcliente,
@@ -104,7 +104,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, ti
 				tipoEntrega: tipoEntrega
 			};
 			break;
-		case 'calzado':
+		case 'Calzado':
 			apartado = {
 				producto: idproducto,
 				cliente: idcliente,
@@ -114,7 +114,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, ti
 				tipoEntrega: tipoEntrega
 			};
 			break;
-		case 'otros':
+		case 'Otros':
 			apartado = {
 				producto: idproducto,
 				cliente: idcliente,

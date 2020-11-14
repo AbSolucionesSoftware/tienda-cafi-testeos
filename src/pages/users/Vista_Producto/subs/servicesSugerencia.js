@@ -15,7 +15,7 @@ export async function AgregarPedido(
 	token
 ) {
 	var pedido = [];
-	if (categoriaProducto === 'ropa' && categoriaSugerencia === 'ropa') {
+	if (categoriaProducto === 'Ropa' && categoriaSugerencia === 'Ropa') {
 		// ambas tallas
 		pedido = [
 			{
@@ -29,7 +29,7 @@ export async function AgregarPedido(
 				talla: medidaSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'ropa' && categoriaSugerencia === 'calzado') {
+	} else if (categoriaProducto === 'Ropa' && categoriaSugerencia === 'Calzado') {
 		// talla producto y numero sugerencia
 		pedido = [
 			{
@@ -43,7 +43,7 @@ export async function AgregarPedido(
 				numero: medidaSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'ropa' && categoriaSugerencia === 'otros') {
+	} else if (categoriaProducto === 'Ropa' && categoriaSugerencia === 'Otros') {
 		// talla producto y sin medida sugerencia
 		pedido = [
 			{
@@ -56,7 +56,7 @@ export async function AgregarPedido(
 				cantidad: cantidadSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'calzado' && categoriaSugerencia === 'calzado') {
+	} else if (categoriaProducto === 'Calzado' && categoriaSugerencia === 'Calzado') {
 		// numero producto y numero sugerencia
 		pedido = [
 			{
@@ -70,7 +70,7 @@ export async function AgregarPedido(
 				talla: medidaSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'calzado' && categoriaSugerencia === 'ropa') {
+	} else if (categoriaProducto === 'Calzado' && categoriaSugerencia === 'Ropa') {
 		// numero producto y talla sugerencia
 		pedido = [
 			{
@@ -84,7 +84,7 @@ export async function AgregarPedido(
 				talla: medidaSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'calzado' && categoriaSugerencia === 'otros') {
+	} else if (categoriaProducto === 'Calzado' && categoriaSugerencia === 'Otros') {
 		// numero producto y sin medida sugerencia
 		pedido = [
 			{
@@ -97,7 +97,7 @@ export async function AgregarPedido(
 				cantidad: cantidadSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'otros' && categoriaSugerencia === 'otros') {
+	} else if (categoriaProducto === 'Otros' && categoriaSugerencia === 'Otros') {
 		// sin medida producto y sin medida sugerencia
 		pedido = [
 			{
@@ -109,7 +109,7 @@ export async function AgregarPedido(
 				cantidad: cantidadSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'otros' && categoriaSugerencia === 'ropa') {
+	} else if (categoriaProducto === 'Otros' && categoriaSugerencia === 'Ropa') {
 		// sin medida producto y talla sugerencia
 		pedido = [
 			{
@@ -122,7 +122,7 @@ export async function AgregarPedido(
 				talla: medidaSugerencia
 			}
 		];
-	} else if (categoriaProducto === 'otros' && categoriaSugerencia === 'calzado') {
+	} else if (categoriaProducto === 'Otros' && categoriaSugerencia === 'Calzado') {
 		// sin medida producto y numero sugerencia
 		pedido = [
 			{

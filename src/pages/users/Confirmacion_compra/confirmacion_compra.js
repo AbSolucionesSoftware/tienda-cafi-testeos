@@ -108,6 +108,7 @@ export default function Confirmacion_compra(props) {
 						pedidoCompleto={pedidoCompleto}
 						token={token}
 						history={history}
+						datosActualizados={datosActualizados}
 					/>
 				</div>
 			)

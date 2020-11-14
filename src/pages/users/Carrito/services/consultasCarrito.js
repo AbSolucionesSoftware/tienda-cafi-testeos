@@ -4,18 +4,18 @@ import { message } from 'antd';
 export async function actualizarCantidad(cliente, articulo, categoria, cantidad, medida, token) {
     var datos = {};
 	switch (categoria) {
-		case 'otros':
+		case 'Otros':
             datos = {
                 cantidad: cantidad
             }
 			break;
-		case 'ropa':
+		case 'Ropa':
             datos = {
                 cantidad: cantidad,
                 talla: medida
             }
 			break;
-		case 'calzado':
+		case 'Calzado':
             datos = {
                 cantidad: cantidad,
                 numero: medida

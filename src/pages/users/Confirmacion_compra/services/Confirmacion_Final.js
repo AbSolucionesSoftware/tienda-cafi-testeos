@@ -14,14 +14,15 @@ import './Confirnacion_Final.scss';
 
 export default function Confirmacion_Final(props) {
 	const { active, setActive } = useContext(MenuContext);
-	const { datosPedido, idPago, pedidoCompleto, token, history } = props;
+	const { datosPedido, idPago, pedidoCompleto, token, history,datosActualizados } = props;
 	const [ direccion, setDireccion ] = useState({});
 	const [ datosEnvio, setDatosEnvio ] = useState({});
 	const [ total, setTotal ] = useState(null);
 	const [ loading, setLoading ] = useState(false);
 
 	useEffect(() => {
-		setDireccion(pedidoCompleto.cliente.direccion[0]);
+		console.log(pedidoCompleto);
+		setDireccion(datosActualizados);
 		traerCostosEnvio();
 		setLoading(true);
 	}, []);
