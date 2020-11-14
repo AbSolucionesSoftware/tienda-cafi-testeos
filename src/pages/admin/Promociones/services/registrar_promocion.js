@@ -24,7 +24,7 @@ import { formatoMexico } from '../../../../config/reuserFunction';
 import aws from '../../../../config/aws';
 
 const { Search } = Input;
-const demo = { height: '100%', overflow: 'auto' };
+const demo = { height: '500px', overflow: 'auto' };
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
 

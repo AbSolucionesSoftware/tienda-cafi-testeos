@@ -86,7 +86,7 @@ function Inventario(props) {
 				) : text === 0 ? (
 					<Badge count={text} showZero />
 				) : (
-					<Badge style={{ backgroundColor: '#52c41a' }} count={text} />
+					<Badge style={{ backgroundColor: '#52c41a' }} count={text} overflowCount={100000} />
 				)
 		},
 		{
