@@ -187,6 +187,21 @@ p, a, li{
 }
 
 
+//ICONOS DE AVANCES
+.ant-steps-item-process .ant-steps-item-icon{
+    background-color:  $color-spiner;
+    border-color: $color-spiner;
+}
+.ant-steps-item-finish .ant-steps-item-icon{
+    border-color: $color-spiner;
+    color: $color-spiner;
+}
+
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after{
+    border-color: $color-spiner;
+    color: $color-spiner;
+    background-color: $color-spiner;
+}
 
 /* TABS */
 .tabs .ant-tabs-tab-active{

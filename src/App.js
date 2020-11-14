@@ -4,7 +4,7 @@ import 'antd/dist/antd.css'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import routes from './config/routes'
 import {Helmet} from "react-helmet";
-import './scss/variables.scss';
+import './scss/styleZepeda.scss';
 
 export default function App() {
   return (

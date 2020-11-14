@@ -132,7 +132,7 @@ export default function Confirmacion_compra(props) {
 				<div>
 					<div className="d-flex justify-content-center m-3">
 						<div style={{ width: '80%' }}>
-							<Steps current={current}>
+							<Steps  current={current}>
 								{steps.map((item) => <Step key={item.title} title={item.title} />)}
 							</Steps>
 						</div>
