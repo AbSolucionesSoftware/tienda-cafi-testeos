@@ -16,7 +16,7 @@ export default function MostrarDatosTargeta(props) {
 		confirm({
 			title: 'Eliminando Blog',
 			icon: <ExclamationCircleOutlined />,
-			content: `¿Estás seguro que deseas eliminar el El aparetado ?`,
+			content: `¿Estás seguro que deseas eliminar el apartado?`,
 			okText: 'Eliminar',
 			okType: 'danger',
 			cancelText: 'Cancelar',
