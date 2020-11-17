@@ -1,8 +1,4 @@
 [1022/095106.655:ERROR:file_io.cc(90)] ReadExactly: expected 36, observed 0
 [1105/152656.162:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
 [1112/092111.607:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
-<<<<<<< HEAD
 [1113/183728.649:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
-=======
-[1112/191127.112:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
->>>>>>> 2640a48b2478395b91f5b3ae1390ee2c01972df7
