@@ -40,6 +40,7 @@ function RegistrarProducto(props) {
 	const [ disabledform, setDisabledForm ] = useState(true);
 	const [ disabledformProductos, setDisabledFormProductos ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
+	const [ loadingCombo, setLoadingCombo ] = useState(false);
 	const reload = props.reloadProductos;
 	const [ upload, setUpload ] = useState(false);
 
@@ -108,6 +109,16 @@ function RegistrarProducto(props) {
 				form.resetFields();
 				setCurrent(0);
 				setDisabledFormProductos(false);
+				setColor('');
+				setDisabled(false);
+				setDisabledForm(true);
+				setSubCategoria([]);
+				setValueSelectSubCat();
+				setSubcategoriasDefault([]);
+				setItem('');
+				setSelect('');
+				setCategoriasDefault([ 'Ropa', 'Calzado' ]);
+				setValueSelect();
 			}
 			setUpload(false);
 			setValueSelect();
@@ -266,7 +277,7 @@ function RegistrarProducto(props) {
 	}
 
 	async function obtenerCategorias() {
-		setLoading(true);
+		setLoadingCombo(true);
 		await clienteAxios
 			.get('/productos/categorias', {
 				headers: {
@@ -274,11 +285,11 @@ function RegistrarProducto(props) {
 				}
 			})
 			.then((res) => {
-				setLoading(false);
+				setLoadingCombo(false);
 				setCategoriasBD(res.data);
 			})
 			.catch((err) => {
-				setLoading(false);
+				setLoadingCombo(false);
 				if (err.response) {
 					notification.error({
 						message: 'Error',
@@ -295,6 +306,7 @@ function RegistrarProducto(props) {
 			});
 	}
 	async function obtenerSubcategorias() {
+		setLoadingCombo(true);
 		await clienteAxios
 			.get(`/productos/Subcategorias/${select}`, {
 				headers: {
@@ -302,9 +314,11 @@ function RegistrarProducto(props) {
 				}
 			})
 			.then((res) => {
+				setLoadingCombo(false);
 				setSubCategoriasBD(res.data);
 			})
 			.catch((err) => {
+				setLoadingCombo(false);
 				if (err.response) {
 					notification.error({
 						message: 'Error',
@@ -363,6 +377,8 @@ function RegistrarProducto(props) {
 					<div className="text-center">
 						<h2 className="mb-5">Selecciona una categoria para continuar</h2>
 						<Select
+							disabled={loadingCombo}
+							loading={loadingCombo}
 							value={valueSelect}
 							style={{ width: 300 }}
 							placeholder="Seleciona una categoria"
@@ -428,6 +444,8 @@ function RegistrarProducto(props) {
 									>
 										{console.log()}
 										<Select
+											disabled={loadingCombo}
+											loading={loadingCombo}
 											value={valueSelectSubCat}
 											style={{ width: 250 }}
 											placeholder="Seleciona una subcategoria"

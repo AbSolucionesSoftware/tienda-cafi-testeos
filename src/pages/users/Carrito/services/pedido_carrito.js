@@ -40,7 +40,7 @@ export async function AgregarPedidoCarrito(idcliente, token) {
         }
 
 		switch (carrito.idarticulo.tipoCategoria) {
-			case 'ropa':
+			case 'Ropa':
 				pedido.push(
 					{
 						producto: carrito.idarticulo._id,
@@ -50,7 +50,7 @@ export async function AgregarPedidoCarrito(idcliente, token) {
 					}
 				);
 				break;
-			case 'calzado':
+			case 'Calzado':
 				pedido.push(
 					{
 						producto: carrito.idarticulo._id,
@@ -60,7 +60,7 @@ export async function AgregarPedidoCarrito(idcliente, token) {
 					}
 				);
 				break;
-			case 'otros':
+			case 'Otros':
 				pedido.push(
 					{
 						producto: carrito.idarticulo._id,

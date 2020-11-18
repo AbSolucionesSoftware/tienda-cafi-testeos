@@ -196,7 +196,7 @@ function MostrarRegistroTienda(props) {
 						showDrawer();
 					}}
 				>
-					{action === false ? 'Agregar información tienda' : 'Actualizar información tienda'}
+					{action === false ? 'Agregar información tienda' : 'Editar información tienda'}
 				</Button>
 			</div>
 

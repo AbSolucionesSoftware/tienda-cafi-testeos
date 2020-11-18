@@ -317,7 +317,7 @@ export default function ActualizarUsuario(props) {
 					</div>
 				)}
 				<div className="d-flex justify-content-center pb-3">
-					<Button htmlType="submit" type="primary" size="large" style={{ width: 150, fontSize: 20 }}>
+					<Button htmlType="submit" className="color-boton color-font-boton" size="large" style={{ width: 150, fontSize: 20 }}>
 						Guardar
 					</Button>
 				</div>

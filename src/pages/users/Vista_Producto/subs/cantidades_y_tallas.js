@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { InputNumber, Button, Form, Badge, Divider, notification, Modal, Select, Spin, Alert } from 'antd';
+import { InputNumber, Button, Form, Badge, Divider, notification, Modal, Select, Alert } from 'antd';
 import { ShoppingCartOutlined, TagsOutlined, BellOutlined, WhatsAppOutlined } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import { AgregarCarrito, AgregarApartado, AgregarPedido } from './services';
@@ -9,6 +9,7 @@ import { MenuContext } from '../../../../context/carritoContext';
 import DatosCliente from './datos_cliente';
 import clienteAxios from '../../../../config/axios';
 import aws from '../../../../config/aws';
+import Spin from '../../../../components/Spin';
 
 const formItemLayout = {
 	labelCol: {
@@ -99,7 +100,7 @@ function TallasCantidades(props) {
 				setRender(
 					productos.numeros.map((numeros) => {
 						return numeros.cantidad > 0 ? (
-							<Badge key={numeros._id} count={numeros.cantidad} style={{ backgroundColor: '#1890FF' }}>
+							<Badge key={numeros._id} count={numeros.cantidad} >
 								<Button
 									type="dashed"
 									className="talla-vista-producto d-inline-block"
@@ -113,7 +114,7 @@ function TallasCantidades(props) {
 								key={numeros._id}
 								showZero
 								count={numeros.cantidad}
-								style={{ backgroundColor: '#F5F5F5', color: '#7D7D7D' }}
+								//style={{ backgroundColor: '#F5F5F5', color: '#7D7D7D' }}
 							>
 								<Button type="dashed" disabled className="talla-vista-producto d-inline-block">
 									{numeros.numero}
@@ -127,7 +128,7 @@ function TallasCantidades(props) {
 				setRender(
 					productos.tallas.map((tallas) => {
 						return tallas.cantidad > 0 ? (
-							<Badge key={tallas._id} count={tallas.cantidad} style={{ backgroundColor: '#1890FF' }}>
+							<Badge key={tallas._id} count={tallas.cantidad} >
 								<Button
 									type="dashed"
 									className="talla-vista-producto d-inline-block"
@@ -245,7 +246,7 @@ function TallasCantidades(props) {
 								<WhatsAppOutlined style={{ color: '#25d366' }} />
 								{tienda.telefono}
 							</p>
-							<Button className="mt-3" type="default" onClick={() => (window.location.href = '/pedidos')}>
+							<Button className="mt-3 color-boton" type="default" onClick={() => (window.location.href = '/pedidos')}>
 								Ver mis pedidos
 							</Button>
 						</div>
@@ -480,8 +481,8 @@ function TallasCantidades(props) {
 					<div className="contenedor-button-vista">
 						<div>
 							<Button
-								className="d-block size-button-vista"
-								type="primary"
+								className="d-block size-button-vista color-boton color-font-boton"
+								//type="primary"
 								size="large"
 								onClick={() => Pedido()}
 								disabled={disabled}
@@ -490,7 +491,7 @@ function TallasCantidades(props) {
 								Comprar ahora
 							</Button>
 							<Button
-								className="mt-3 d-block size-button-vista boton-compras-secun"
+								className="mt-3 d-block size-button-vista color-boton-sec color-font-boton"
 								size="large"
 								onClick={() => showModal()}
 								disabled={disabled}
@@ -499,7 +500,7 @@ function TallasCantidades(props) {
 								Apartar
 							</Button>
 							<Button
-								className="mt-3 d-block size-button-vista boton-compras-secun"
+								className="mt-3 d-block size-button-vista color-boton-sec color-font-boton"
 								size="large"
 								disabled={disabled}
 								onClick={() => Carrito()}
@@ -525,7 +526,7 @@ function TallasCantidades(props) {
 					<div className="col-12 col-lg-6">
 						<div className="mb-3">
 							<h6 className="d-inline font-weight-bold">Producto: </h6>
-							<p className="d-inline">{productos.nombre}</p>
+							<p className="d-inline ">{productos.nombre}</p>
 						</div>
 
 						{numeros.length !== 0 ? (
@@ -536,7 +537,7 @@ function TallasCantidades(props) {
 						) : tallas.length !== 0 ? (
 							<div className="mb-3">
 								<h6 className="d-inline font-weight-bold">Talla: </h6>
-								<p className="d-inline">{tallas.talla}</p>
+								<p className="d-inline ">{tallas.talla}</p>
 							</div>
 						) : (
 							<p className="d-inline" />
@@ -567,7 +568,7 @@ function TallasCantidades(props) {
 								<Option value="REGOGIDO">Recoger a sucursal</Option>
 							</Select>
 						</div>
-						<Alert description="Para apartar un producto completa tus datos." type="info" showIcon />
+						<Alert  description="Para apartar un producto completa tus datos." type="info" showIcon />
 					</div>
 					<div className="col-12 col-lg-6">
 						<div className="d-flex justify-content-center align-items-center" style={{ height: 220 }}>

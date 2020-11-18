@@ -38,10 +38,6 @@ const Categorias = (props) => {
 			});
 	}
 
-	if(!generos || !categorias){
-		return null;
-	}
-
 	async function obtenerGeneros() {
 		await clienteAxios
 			.get('/productos/agrupar/generos')
@@ -50,6 +46,10 @@ const Categorias = (props) => {
 			})
 			.catch((res) => {
 			});
+	}
+	
+	if(!generos || !categorias){
+		return null;
 	}
 
 	const categorias_nav = categorias.map((categoria) => {
@@ -89,7 +89,7 @@ const Categorias = (props) => {
 
 	return (
 		<Layout className="container-subcategorias-nav d-lg-inline size-layout-cat">
-			<Spin className="ml-5 d-inline spin-nav-categorias" spinning={loading} />
+			{/* <Spin className="ml-5 d-inline spin-nav-categorias" spinning={loading} /> */}
 			<Menu
 				className="categorias-navbar d-inline size-menu-cat"
 				theme="light"

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Divider, notification, Spin, Input, Row, Col } from 'antd';
+import { Button, Form, Divider, notification, Input, Row, Col } from 'antd';
 import clienteAxios from '../../../../config/axios';
+import Spin from '../../../../components/Spin';
 
 const layout = {
 	labelCol: { span: 8 },
 	wrapperCol: { span: 16 }
-};
-
-const tailLayout = {
-	wrapperCol: { offset: 10 }
 };
 
 export default function DatosCliente(props) {
@@ -29,12 +26,10 @@ export default function DatosCliente(props) {
 				}
 			})
 			.then((res) => {
-				if (res.data.telefono.length === 0 || res.data.direccion.length === 0) {
-					setEstadoBoton('Completa tus datos');
-				} else {
-					setEstadoBoton('Apartar');
-				}
+				console.log(res)
+				setLoading(false);
 				if (res.data.direccion.length !== 0) {
+					console.log('entra aqui 1')
 					form.setFieldsValue({
 						nombre: res.data.nombre,
 						apellido: res.data.apellido,
@@ -49,6 +44,7 @@ export default function DatosCliente(props) {
 						pais: res.data.direccion[0].pais
 					});
 				} else {
+					console.log('entra aqui 2')
 					form.setFieldsValue({
 						nombre: res.data.nombre,
 						apellido: res.data.apellido,
@@ -63,8 +59,11 @@ export default function DatosCliente(props) {
 						pais: ''
 					});
 				}
-
-				setLoading(false);
+				if (res.data.telefono.length === 0 || res.data.direccion.length === 0) {
+					setEstadoBoton('Completa tus datos');
+				} else {
+					setEstadoBoton('Apartar');
+				}
 			})
 			.catch((err) => {
 				setLoading(false);
@@ -245,9 +244,8 @@ export default function DatosCliente(props) {
 					<Form.Item className="text-center">
 						{estadoBoton !== 'Guardar' ? (
 							<Button
-								className="holo"
 								htmlType="button"
-								type="primary"
+								className="color-boton color-font-boton"
 								size="large"
 								style={{ width: 170 }}
 								onClick={control}
@@ -257,10 +255,9 @@ export default function DatosCliente(props) {
 						) : (
 							<Button
 								htmlType="submit"
-								type="primary"
+								className="color-boton color-font-boton"
 								size="large"
 								style={{ width: 170 }}
-								className="holi"
 							>
 								{estadoBoton}
 							</Button>

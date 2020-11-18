@@ -11,7 +11,7 @@ export default function pagination(props) {
     }
 
     return (
-        <div className="pagination  mb-3">
+        <div className="pagination mb-3">
             <Pagination
                 defaultCurrent={currentPage}
                 total={blogs.totalDocs}

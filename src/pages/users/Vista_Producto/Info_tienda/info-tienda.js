@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import clienteAxios from '../../../../config/axios';
-import { Spin } from 'antd';
 import './info-tienda.scss';
 import Geolocalizacion from '../../../../pages/users/geolocalizacion';
 import { withRouter } from 'react-router-dom';
 import aws from '../../../../config/aws';
+import Spin from '../../../../components/Spin';
 
 const InfoTienda = (props) => {
 	const [ loading, setLoading ] = useState(false);

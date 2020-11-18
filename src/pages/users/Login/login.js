@@ -1,7 +1,8 @@
 import React from 'react';
 import clienteAxios from '../../../config/axios';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { notification, Form, Input, Button } from 'antd';
+
 
 const layout = {
 	labelCol: { span: 6 },
@@ -45,6 +46,38 @@ function Login(props) {
 			});
 	};
 
+	const onRecuperar = async (email) => {
+			await clienteAxios.post('/cliente/restablecer/pass',email)
+			.then((res) => {
+				console.log(res.data);
+			})
+			.catch((err) => {
+				if(err.response){
+					if (err.response.status === 404 || err.response.status === 500) {
+						notification.error({
+							message: 'Error',
+							description: err.response.data.message,
+							duration: 2
+						});
+					} else {
+						notification.error({
+							message: 'Error',
+							description: 'Hubo un error',
+							duration: 2
+						});
+					}
+				}else{
+					notification.error({
+						message: 'Error de conexion.',
+						description:
+						  'Al parecer no se a podido conectar al servidor.',
+					  });
+				}
+			});
+
+
+	}
+
 	return (
 		<div className="col-12">
 			<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
@@ -59,11 +92,26 @@ function Login(props) {
 					</Form.Item>
 				</Form.Item>
 				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit">
+					<Button type="primary" htmlType="submit" className="color-boton">
 						Continuar
 					</Button>
 				</Form.Item>
+				<p className ="text-primary">¿Has olvidado tu contrasena?</p>				
 			</Form>
+			<div  className="d-none col-12 mt-2">
+				<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onRecuperar}>
+					<Form.Item label="Correo" >
+						<Form.Item name="emailCliente" rules={[ { required: true, message: 'El email es obligatorio!' } ]} noStyle >
+							<Input />
+						</Form.Item>
+					</Form.Item>
+					<Form.Item {...tailLayout}>
+					<Button type="primary" htmlType="submit" className="color-boton">
+						Enviar
+					</Button>
+				</Form.Item>
+				</Form>
+			</div>
 		</div>
 	);
 }

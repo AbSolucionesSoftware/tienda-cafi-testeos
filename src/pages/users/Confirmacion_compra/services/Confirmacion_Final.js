@@ -1,26 +1,28 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useState, useEffect, useContext } from 'react';
 import Traer_pedido from './traer_pedido';
-import { Button, Spin ,notification} from 'antd';
+import { Button ,notification} from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import clienteAxios from '../../../../config/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import { MenuContext } from '../../../../context/carritoContext';
+import Spin from '../../../../components/Spin';
 
 import './Confirnacion_Final.scss';
 
 export default function Confirmacion_Final(props) {
 	const { active, setActive } = useContext(MenuContext);
-	const { datosPedido, idPago, pedidoCompleto, token, history } = props;
+	const { datosPedido, idPago, pedidoCompleto, token, history,datosActualizados } = props;
 	const [ direccion, setDireccion ] = useState({});
 	const [ datosEnvio, setDatosEnvio ] = useState({});
 	const [ total, setTotal ] = useState(null);
 	const [ loading, setLoading ] = useState(false);
 
 	useEffect(() => {
-		setDireccion(pedidoCompleto.cliente.direccion[0]);
+		console.log(pedidoCompleto);
+		setDireccion(datosActualizados);
 		traerCostosEnvio();
 		setLoading(true);
 	}, []);
@@ -101,7 +103,7 @@ export default function Confirmacion_Final(props) {
 	};
 
 	return (
-		<Spin spinning={loading} size="large">
+		<Spin spinning={loading}>
 			<div className="d-flex justify-content-center">
 				<h3 className="font-weight-bold">Resumen de compra</h3>
 			</div>
@@ -166,7 +168,7 @@ export default function Confirmacion_Final(props) {
 					</div>
 				</div>
 				<div className="d-flex flex-row-reverse justify-content-center align-items-center text-center pb-3 mr-5 mt-5">
-					<Button size="large" type="primary" style={{ width: 200, textAlign: 'center' }} onClick={crearPago}>
+					<Button size="large" className="color-boton" style={{ width: 200, textAlign: 'center' }} onClick={crearPago}>
 						<ShoppingCartOutlined /> COMPRAR AHORA
 					</Button>
 				</div>
