@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
+import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../config/axios';
 import jwt_decode from 'jwt-decode';
 import aws from '../../../config/aws';
 
-import { notification, Row} from 'antd';
+import {Row, Button} from 'antd';
 
 
 import ReactExport from "react-export-excel";
@@ -15,11 +15,14 @@ const ExcelColumn = ReactExport.ExcelColumn;//COLUMNA DE EXCEL
 
 
 
+  
+
 function ConsutaExcel(props) {
     const token = localStorage.getItem('token');
 	var decoded = Jwt(token);
 
-    const [ consulta, setConsulta ] = useState([]);
+	const [ consulta, setConsulta ] = useState([]);
+	//const [data, setData] = useState([]);
 
     function Jwt(token) {
 		try {
@@ -46,42 +49,45 @@ function ConsutaExcel(props) {
                 })
 			.then((res) => {
                     setConsulta(res.data);
-                    console.log(res.data);
 				})
                 .catch((res) => {});
 		};
 		obtenerConsulta();
-    }, []);
+	}, []);
 
+	
 
-    const datos = [
-		{
-			render: (direccion) => {
-				return direccion.map((res) => {
-					return (
-						<div key={res._id}>
-							<p className="h5">
-								{res.calle_numero}, {res.colonia}
-							</p>
-						</div>
-					);
-				});
+	
+		
+	const datos =  consulta.map((datos) => {
+
+		const clientes = {}
+
+			clientes.nombre = `${datos.nombre} ${datos.apellido}`
+			clientes.telefono = datos.telefono
+			clientes.email = datos.email
+
+			if (datos.direccion.length === 0) {
+				clientes.direccion = ""
+				clientes.ciudad = ""
+			}else{
+				clientes.direccion = `${datos.direccion[0].calle_numero} ${datos.direccion[0].colonia}` 
+				clientes.ciudad = `${datos.direccion[0].ciudad}, ${datos.direccion[0].estado}, ${datos.direccion[0].pais}` 
 			}
-        }
-    ]
- 
 
-    //
+		return clientes;
+		});	
 
     return (
         <div>
             <Row justify="center">
-            <ExcelFile element={<button>Descargar datos</button>} filename="Datos Clientes">
-                <ExcelSheet data={consulta} name="Datos de clientes">
-                    {/* <ExcelColumn label="Nombre" value="nombre" />
-                    <ExcelColumn label="Apellido" value="apellido" />
-                    <ExcelColumn label="E-Mail" value="email" />
-                    <ExcelColumn label="Telefono" value="telefono" /> */}
+            <ExcelFile element={<Button size="large" type="primary">Descargar datos de clientes</Button>} filename="Datos Clientes">
+                <ExcelSheet data={datos} name="Datos de clientes">
+                    <ExcelColumn label="Nombre" value="nombre" />
+					<ExcelColumn label="Telefonos" value="telefono" />
+					<ExcelColumn label="E-mail" value="email" />
+					<ExcelColumn label="Domicilio" value="direccion" />
+					<ExcelColumn label="Ciudad" value="ciudad" />
                 </ExcelSheet>
             </ExcelFile>
 			</Row>
