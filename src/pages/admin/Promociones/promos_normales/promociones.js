@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import clienteAxios from '../../../config/axios';
+import clienteAxios from '../../../../config/axios';
 import jwt_decode from 'jwt-decode';
 import { Button, Row, Input, Drawer, Space, Modal, notification, List, Result, Spin } from 'antd';
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import RegistrarPromocion from './services/registrar_promocion';
 import ActualizarPromocion from './services/actualizar_promocion';
-import { IdProductoContext } from '../contexts/ProductoContext';
-import './promociones.scss';
-import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
-import aws from '../../../config/aws';
+import { IdProductoContext } from '../../contexts/ProductoContext';
+import '../promociones.scss';
+import '../registrar_promocion.scss';
+import { formatoMexico, agregarPorcentaje } from '../../../../config/reuserFunction';
+import aws from '../../../../config/aws';
 
 const { Search } = Input;
 const { confirm } = Modal;
 
-function Promociones(props) {
+function PromocionesNormales(props) {
 	const token = localStorage.getItem('token');
 	const [ productos, setProductos ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
@@ -189,7 +190,7 @@ function Promociones(props) {
 						<img
 							className="imagen-promocion-principal"
 							alt="producto"
-							src={aws+productos.productoPromocion.imagen}
+							src={aws + productos.productoPromocion.imagen}
 						/>
 					</div>
 				}
@@ -211,13 +212,7 @@ function Promociones(props) {
 	return (
 		<Spin size="large" spinning={loading}>
 			<div>
-				<p className="text-center font-weight-bold" style={{ fontSize: 20 }}>
-					SISTEMA DE PROMOCIONES
-				</p>
-				<p className="text-center" style={{ fontSize: 15 }}>
-					En este apartado puedes agregar ofertas especiales a tu producto y aparecer en la página principal
-				</p>
-				<Row justify="center mt-5">
+				<Row justify="center mt-2">
 					<Search
 						className="search-width"
 						placeholder="Busca un producto"
@@ -256,7 +251,7 @@ function Promociones(props) {
 					placement={'right'}
 					onClose={drawnerClose}
 					visible={visible}
-					bodyStyle={{ paddingBottom: 80 }}
+					bodyStyle={{ paddingBottom: 30 }}
 					footer={
 						<div
 							style={{
@@ -283,4 +278,4 @@ function Promociones(props) {
 		</Spin>
 	);
 }
-export default withRouter(Promociones);
+export default withRouter(PromocionesNormales);
