@@ -214,7 +214,6 @@ function Clientes(props) {
 
 			<ConsutaExcel />
 
-
 			<Table
 				className="tabla-inventario mt-5"
 				columns={columns}

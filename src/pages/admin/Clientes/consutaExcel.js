@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../config/axios';
 import jwt_decode from 'jwt-decode';
-import aws from '../../../config/aws';
 
 import {Row, Button} from 'antd';
 
-
-import ReactExport from "react-export-excel";
-
+import ReactExport from "react-export-excel";//LIBRERIA EXCEL
 const ExcelFile = ReactExport.ExcelFile;//ARCHIVO DE EXCEL
 const ExcelSheet = ReactExport.ExcelSheet;//HOJA DE EXCEL
 const ExcelColumn = ReactExport.ExcelColumn;//COLUMNA DE EXCEL
 
 
-
-  
-
-function ConsutaExcel(props) {
+export default function ConsutaExcel(props) {
     const token = localStorage.getItem('token');
 	var decoded = Jwt(token);
 
@@ -38,7 +31,6 @@ function ConsutaExcel(props) {
 		props.history.push('/');
 	}
     
-   
     useEffect(() => {
 		const obtenerConsulta = async () => {
 			await clienteAxios
@@ -54,10 +46,6 @@ function ConsutaExcel(props) {
 		};
 		obtenerConsulta();
 	}, []);
-
-	
-
-	
 		
 	const datos =  consulta.map((datos) => {
 
@@ -79,7 +67,7 @@ function ConsutaExcel(props) {
 		});	
 
     return (
-        <div>
+        <>
             <Row justify="center">
             <ExcelFile element={<Button size="large" type="primary">Descargar datos de clientes</Button>} filename="Datos Clientes">
                 <ExcelSheet data={datos} name="Datos de clientes">
@@ -91,8 +79,6 @@ function ConsutaExcel(props) {
                 </ExcelSheet>
             </ExcelFile>
 			</Row>
-        </div>
+        </>
     )
 }
-
-export default ConsutaExcel;
