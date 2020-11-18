@@ -8,6 +8,8 @@ import queryString from 'query-string';
 import './clientes.scss';
 import aws from '../../../config/aws';
 
+import ConsutaExcel from './consutaExcel';
+
 const { Search } = Input;
 
 function Clientes(props) {
@@ -129,6 +131,7 @@ function Clientes(props) {
 				setClientes(res.data.posts.docs);
 				setClientesPaginados(res.data.posts);
 				setLoading(false);
+				console.log();
 			})
 			.catch((err) => {
 				setLoading(false);
@@ -208,6 +211,9 @@ function Clientes(props) {
 					Volver
 				</Button>
 			</Row>
+
+			<ConsutaExcel />
+
 			<Table
 				className="tabla-inventario mt-5"
 				columns={columns}

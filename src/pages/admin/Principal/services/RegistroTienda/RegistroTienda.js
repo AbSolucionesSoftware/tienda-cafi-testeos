@@ -537,7 +537,7 @@ export default function RegistroTienda(props) {
 							)
 						}
 					>
-						{control === false ? 'Registrar informacion de la tienda' : 'Editar informacion de la tienda'}
+						{control === false ? 'Registrar informacion de la tienda' : 'Actualizar información de la tienda'}
 					</Button>
 				</Form.Item>
 			</Form>

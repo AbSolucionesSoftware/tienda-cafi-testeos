@@ -41,6 +41,10 @@ import Search404 from '../pages/users/Resultado_Busqueda/404'
 import Success from '../pages/users/Success/success';
 import ErrorPago from '../pages/users/Success/error';
 
+import Recuperar_pass from '../components/Recuperar_pass/Recuperar_pass';
+
+
+
 const routes = [
 	{
 		path: '/admin',
@@ -205,6 +209,11 @@ const routes = [
 			{
 				path: '/error/:id/:error',
 				component: ErrorPago,
+				exact: true
+			},
+			{
+				path: '/resetPass/',
+				component: Recuperar_pass,
 				exact: true
 			},
 			{
