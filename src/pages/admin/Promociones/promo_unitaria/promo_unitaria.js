@@ -18,7 +18,6 @@ import {
 	Checkbox
 } from 'antd';
 import { RollbackOutlined, ClearOutlined } from '@ant-design/icons';
-import './registrar_promocion.scss';
 import InfiniteScroll from 'react-infinite-scroller';
 import { formatoMexico } from '../../../../config/reuserFunction';
 import aws from '../../../../config/aws';

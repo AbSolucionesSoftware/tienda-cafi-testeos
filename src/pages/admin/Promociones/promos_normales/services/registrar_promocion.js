@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import clienteAxios from '../../../../config/axios';
+import clienteAxios from '../../../../../config/axios';
 import {
 	Button,
 	Input,
@@ -14,19 +14,16 @@ import {
 	Col,
 	Alert,
 	Select,
-	Tooltip,
-	Checkbox
+	Tooltip
 } from 'antd';
 import { RollbackOutlined, ClearOutlined } from '@ant-design/icons';
-import './registrar_promocion.scss';
 import InfiniteScroll from 'react-infinite-scroller';
-import { formatoMexico } from '../../../../config/reuserFunction';
-import aws from '../../../../config/aws';
+import { formatoMexico } from '../../../../../config/reuserFunction';
+import aws from '../../../../../config/aws';
 
 const { Search } = Input;
 const demo = { height: '500px', overflow: 'auto' };
 const { Option } = Select;
-const CheckboxGroup = Checkbox.Group;
 
 const RegistrarPromocion = (props) => {
 	const token = localStorage.getItem('token');
@@ -301,7 +298,6 @@ const RegistrarPromocion = (props) => {
 		await clienteAxios
 			.get(`/productos/filter?categoria=${cat}&subcategoria=${sub}&genero=${gen}`)
 			.then((res) => {
-				console.log(res);
 				setData(res.data.posts);
 				setLoadingList(false);
 			})
@@ -396,36 +392,10 @@ const RegistrarPromocion = (props) => {
 		form.resetFields();
 	};
 
-	/* Checklist */
-	//  const plainOptions = [ 'Apple', 'Pear', 'Orange' ];
-	// const [ checkedList, setCheckedList ] = useState();
-	// const [ indeterminate, setIndeterminate ] = useState(true);
-	// const [ checkAll, setCheckAll ] = useState(false);
-
-	// const onChangeC = (checkedList) => {
-	// 	console.log(checkedList)
-	// 	setCheckedList(checkedList);
-	// 	setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
-	// 	setCheckAll(checkedList.length === plainOptions.length);
-	// };
-
-	// const onCheckAllChange = (e) => {
-	// 	console.log(e)
-	// 	setCheckedList(e.target.checked ? plainOptions : []);
-	// 	setIndeterminate(false);
-	// 	setCheckAll(e.target.checked);
-	// };
-	// console.log(checkedList) 
-
-	/* Checklist fin */
-
 	return (
 		<Spin size="large" spinning={loading}>
 			<div className="d-lg-flex d-sm-block">
 				<div className="col-12 col-lg-6 border-bottom">
-				<div className=" mt-2 d-flex justify-content-center">
-					<Alert showIcon message="En este apartado puedes agregar promocion individual por producto" type="info" />
-				</div>
 					<Spin size="large" spinning={loadingList}>
 						<div className="mt-3 row justify-content-center">
 							<Search
@@ -514,28 +484,6 @@ const RegistrarPromocion = (props) => {
 								<ClearOutlined className="ml-2" style={{ fontSize: 20 }} onClick={limpiarFiltros} />
 							</Tooltip>
 						</div>
-						{/* <div>
-							<div className="site-checkbox-all-wrapper">
-								<Checkbox
-									indeterminate={indeterminate}
-									onChange={onCheckAllChange}
-									checked={checkAll}
-								>
-									Check all
-								</Checkbox>
-							</div>
-							<br />
-							<CheckboxGroup
-								options={plainOptions}
-								value={checkedList}
-								onChange={onChangeC}
-
-							>
-								<Checkbox value='a'>a</Checkbox>
-								<Checkbox value='b'>b</Checkbox>
-								<Checkbox value='c'>c</Checkbox>
-							</CheckboxGroup>
-						</div> */}
 						{loading ? (
 							<div />
 						) : data.length === 0 ? (
@@ -593,112 +541,128 @@ const RegistrarPromocion = (props) => {
 						)}
 					</Spin>
 				</div>
-				{content === false ? (
-					<div className="col-12 col-lg-6 d-flex justify-content-center mt-5" />
-				) : (
-					<div className="col-12 col-lg-6">
-						<List className="shadow contenedor-articulo-detalles">
-							<List.Item>
-								<List.Item.Meta
-									className="list-item-producto"
-									avatar={
-										<div
-											className="d-flex justify-content-center align-items-center mr-2"
-											style={{ width: 100, height: 100 }}
-										>
-											<img
-												className="imagen-promocion-principal"
-												alt="producto"
-												src={aws + producto.imagen}
-											/>
-										</div>
-									}
-									title={
-										<div className="precio-box">
-											<div className="titulo-box">
-												<h2>{producto.nombre}</h2>
+
+				<div className="col-12 col-lg-6">
+					<div className=" my-3 d-flex justify-content-center">
+						<Alert
+							showIcon
+							message="En este apartado puedes agregar promocion individual por producto"
+							type="info"
+						/>
+					</div>
+					{content === false ? (
+						<h3>Selecciona un productos que quieres aplicarle una promoción</h3>
+					) : (
+						<div>
+							<List className="shadow contenedor-articulo-detalles">
+								<List.Item>
+									<List.Item.Meta
+										className="list-item-producto"
+										avatar={
+											<div
+												className="d-flex justify-content-center align-items-center mr-2"
+												style={{ width: 100, height: 100 }}
+											>
+												<img
+													className="imagen-promocion-principal"
+													alt="producto"
+													src={aws + producto.imagen}
+												/>
 											</div>
-											{promocion.length !== 0 || disabledSumit === false ? (
-												<div>
-													<p className="precio-producto d-inline mr-2">
+										}
+										title={
+											<div className="precio-box">
+												<div className="titulo-box">
+													<h3>{producto.nombre}</h3>
+												</div>
+												{promocion.length !== 0 || disabledSumit === false ? (
+													<div>
+														<p className="precio-producto d-inline mr-2">
+															${formatoMexico(producto.precio)}
+														</p>
+														<p className="precio-rebaja d-inline mr-2">
+															${formatoMexico(precioPromocion)}
+														</p>
+														<p className="porcentaje-descuento d-inline">
+															{inputValue}%OFF
+														</p>
+													</div>
+												) : (
+													<p className="precio-rebaja d-inline">
 														${formatoMexico(producto.precio)}
 													</p>
-													<p className="precio-rebaja d-inline mr-2">
-														${formatoMexico(precioPromocion)}
-													</p>
-													<p className="porcentaje-descuento d-inline">{inputValue}%OFF</p>
-												</div>
-											) : (
-												<p className="precio-rebaja d-inline">
-													${formatoMexico(producto.precio)}
-												</p>
-											)}
-										</div>
-									}
-								/>
-							</List.Item>
-						</List>
-						<div className="mt-5">
-							<div className="d-flex justify-content-center">
-								<Col>
-									<Slider
-										min={0}
-										max={100}
-										tipFormatter={formatter}
-										onChange={onChange}
-										value={typeof inputValue === 'number' ? inputValue : 0}
-										//tooltipVisible
-										marks={{ 0: '0%', 50: '50%', 100: '100%' }}
+												)}
+											</div>
+										}
 									/>
-									<Form form={form}>
-										<Form.Item
-											name="precio"
-											validateStatus={validateStatus}
-											help="La promoción no debe ser mayor al precio del producto"
-										>
-											<Input
-												prefix="$"
-												type="number"
-												label="Precio"
-												onChange={obtenerCampo}
-												min={0}
-												max={producto.precio}
-											/>
-										</Form.Item>
-										<Form.Item className="text-center">
-											<Button disabled={disabledSumit} onClick={subirPromocion}>
-												Guardar promoción
-											</Button>
-										</Form.Item>
-									</Form>
-								</Col>
-							</div>
-							<div className="row d-none">
-								<p className="mt-2 texto-imagen">
-									Sube una imagen para la promoción, esta imagen aparecerá en el carrucel de
-									promociones
-								</p>
-								<div className="d-flex justify-content-center m-2">
-									<Alert
-										message="Tamaño recomendado para la imagen es: 1710x330px"
-										type="info"
-										showIcon
-									/>
+								</List.Item>
+							</List>
+							<div className="mt-5">
+								<div className="d-flex justify-content-center">
+									<Col>
+										<Slider
+											min={0}
+											max={100}
+											tipFormatter={formatter}
+											onChange={onChange}
+											value={typeof inputValue === 'number' ? inputValue : 0}
+											//tooltipVisible
+											marks={{ 0: '0%', 50: '50%', 100: '100%' }}
+										/>
+										<Form form={form}>
+											<Form.Item
+												name="precio"
+												validateStatus={validateStatus}
+												help="La promoción no debe ser mayor al precio del producto"
+											>
+												<Input
+													prefix="$"
+													type="number"
+													label="Precio"
+													onChange={obtenerCampo}
+													min={0}
+													max={producto.precio}
+												/>
+											</Form.Item>
+											<Form.Item className="text-center">
+												<Button disabled={disabledSumit} onClick={subirPromocion}>
+													Guardar promoción
+												</Button>
+											</Form.Item>
+										</Form>
+									</Col>
 								</div>
-								<Upload {...propsUpload} className="d-flex justify-content-center mt-3 mr-3">
-									<Button disabled={disabled}>Subir</Button>
-								</Upload>
-								{imagen.length !== 0 ? (
-									<div className="imagen-box-promocion shadow-sm border">
-										<img className="img-producto-promocion" alt="img-producto" src={aws + imagen} />
+								<div className="row d-none">
+									<p className="mt-2 texto-imagen">
+										Sube una imagen para la promoción, esta imagen aparecerá en el carrucel de
+										promociones
+									</p>
+									<div className="d-flex justify-content-center m-2">
+										<Alert
+											message="Tamaño recomendado para la imagen es: 1710x330px"
+											type="info"
+											showIcon
+										/>
 									</div>
-								) : (
-									<div />
-								)}
+									<Upload {...propsUpload} className="d-flex justify-content-center mt-3 mr-3">
+										<Button disabled={disabled}>Subir</Button>
+									</Upload>
+									{imagen.length !== 0 ? (
+										<div className="imagen-box-promocion shadow-sm border">
+											<img
+												className="img-producto-promocion"
+												alt="img-producto"
+												src={aws + imagen}
+											/>
+										</div>
+									) : (
+										<div />
+									)}
+								</div>
 							</div>
 						</div>
-					</div>
-				)}
+					)}
+				</div>
 			</div>
 		</Spin>
 	);

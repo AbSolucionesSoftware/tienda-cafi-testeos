@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import clienteAxios from '../../../../config/axios';
+import clienteAxios from '../../../../../config/axios';
 import { Button, Input, Space, Upload, Spin, notification, Form, Col, Slider, List, Alert } from 'antd';
-import { IdProductoContext } from '../../contexts/ProductoContext';
-import './registrar_promocion.scss';
-import { formatoMexico } from '../../../../config/reuserFunction';
-import aws from '../../../../config/aws';
+import { IdProductoContext } from '../../../contexts/ProductoContext';
+import { formatoMexico } from '../../../../../config/reuserFunction';
+import aws from '../../../../../config/aws';
 
 const ActualizarPromocion = (props) => {
 	const token = localStorage.getItem('token');
