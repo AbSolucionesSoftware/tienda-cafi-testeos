@@ -13,6 +13,8 @@ const PromoMasivaPrincipal = (props) => {
 	const [ loading, setLoading ] = useState(false);
 	const [ data, setData ] = useState([]);
 	const [ reload, setReload ] = useState(true);
+
+	const [ actualizar, setActualizar ] = useState(false);
 	const [ visible, setVisible ] = useState(false);
 	const [ promo, setPromo ] = useState([]);
 
@@ -87,7 +89,8 @@ const PromoMasivaPrincipal = (props) => {
 		});
 	}
 
-	const actualizar = (promo) => {
+	const actualizarActive = (promo) => {
+		setActualizar(true);
 		setPromo(promo);
 		setVisible(true);
 	};
@@ -101,12 +104,16 @@ const PromoMasivaPrincipal = (props) => {
 
 	return (
 		<div>
-			<RegistroPromocionMasiva reload={[ reload, setReload ]} />
-			<ActualizarPromocionMasiva
+			<RegistroPromocionMasiva
 				reload={[ reload, setReload ]}
 				visible={[ visible, setVisible ]}
 				promoMasiva={promo}
+				actualizar={[ actualizar, setActualizar ]}
 			/>
+			{/* <ActualizarPromocionMasiva
+				reload={[ reload, setReload ]}
+				
+			/> */}
 			<Spin size="large" spinning={loading}>
 				<List
 					itemLayout="horizontal"
@@ -119,7 +126,7 @@ const PromoMasivaPrincipal = (props) => {
 										className="d-flex justify-content-center align-items-center"
 										style={{ fontSize: 16 }}
 										type="primary"
-										onClick={() => actualizar(item.productosPromoMasiva)}
+										onClick={() => actualizarActive(item.productosPromoMasiva)}
 									>
 										<EditOutlined /> Editar
 									</Button>
