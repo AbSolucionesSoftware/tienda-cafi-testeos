@@ -11,12 +11,11 @@ import {
 	Result,
 	Spin,
 	Col,
-	Alert,
 	Select,
 	Tooltip,
 	Tag
 } from 'antd';
-import { ClearOutlined, EditOutlined } from '@ant-design/icons';
+import { ClearOutlined, EditOutlined, UserOutlined, AntDesignOutlined } from '@ant-design/icons';
 import aws from '../../../../config/aws';
 import QueueAnim from 'rc-queue-anim';
 
@@ -43,7 +42,7 @@ export default function ActualizarPromocionMasiva(props) {
 		promoMasiva.map((promo) => {
 			setInputValue(promo.porsentajePromocionMasiva);
 		});
-    };
+	};
 
 	const actualizarPromocion = async () => {
 		setLoading(true);
@@ -51,7 +50,7 @@ export default function ActualizarPromocionMasiva(props) {
 			.put(
 				`/promocion/masiva/`,
 				{
-                    idPromocionMasiva: promoMasiva[0].idPromocionMasiva,
+					idPromocionMasiva: promoMasiva[0].idPromocionMasiva,
 					descuento: inputValue
 				},
 				{
@@ -67,8 +66,8 @@ export default function ActualizarPromocionMasiva(props) {
 					duration: 2
 				});
 				onClose();
-                setReload(!reload);
-                setLoading(false);
+				setReload(!reload);
+				setLoading(false);
 			})
 			.catch((err) => {
 				setLoading(false);
@@ -120,6 +119,20 @@ export default function ActualizarPromocionMasiva(props) {
 				<Spin size="large" spinning={loading}>
 					<div className="contenedor-masivas">
 						<div>
+							<div>
+								<Avatar.Group
+									maxCount={2}
+									size="large"
+									maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+								>
+									<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+									<Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+									<Tooltip title="Ant User" placement="top">
+										<Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+									</Tooltip>
+									<Avatar style={{ backgroundColor: '#1890ff' }} icon={<AntDesignOutlined />} />
+								</Avatar.Group>
+							</div>
 							<div className="d-flex justify-content-center my-3">
 								<QueueAnim type={[ 'top', 'bottom' ]} leaveReverse className="d-flex">
 									{promoMasiva.map((res, index) => {
