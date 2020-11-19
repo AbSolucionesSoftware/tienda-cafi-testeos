@@ -16,6 +16,12 @@ const EstadoPedido = (props) => {
 	const [ disabled, setDisabled ] = useState(false);
 	const [ datos, setDatos ] = useState({});
 
+	const [visible, setVisible] = useState(false);
+
+	const modalClose = () => {
+		setVisible(false);
+	};
+
 	useEffect(
 		() => {
 			obtenerPedido();
@@ -165,7 +171,7 @@ const EstadoPedido = (props) => {
 					<Input name="codigo_seguimiento" placeholder="Nombre del Autor" />
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit" className="float-right">
+					<Button type="primary" htmlType="submit" className="float-right" onClose={true}>
 						Guardar
 					</Button>
 				</Form.Item>

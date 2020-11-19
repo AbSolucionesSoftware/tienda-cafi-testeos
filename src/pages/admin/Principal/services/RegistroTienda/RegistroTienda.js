@@ -218,6 +218,7 @@ export default function RegistroTienda(props) {
 		}
 	};
 
+
 	return (
 		<div>
 			<Form onFinish={SendForm} form={form} onFinishFailed={onError}>

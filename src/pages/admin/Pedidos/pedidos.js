@@ -279,11 +279,6 @@ function Pedidos(props) {
 				title=""
 				visible={visible}
 				onCancel={handleCancel}
-				footer={[
-					<Button key="detalle" type="primary" onClick={handleCancel}>
-						Cerrar
-					</Button>
-				]}
 			>
 				<DetallesPedido datosDetalle={detallePedido} />
 			</Modal>
@@ -293,7 +288,8 @@ function Pedidos(props) {
 				title="Estado del pedido"
 				visible={estadoVisible}
 				onCancel={handleCancelEstado}
-				footer={[""]}
+				// footer={[""]}
+				onOk={estadoVisible}
 			>
 				<EstadoPedido datosPedido={detallePedido} reload={setReload} />
 			</Modal>

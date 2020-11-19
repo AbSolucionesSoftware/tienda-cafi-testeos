@@ -36,6 +36,7 @@ function MostrarRegistroTienda(props) {
 
 	const showDrawer = () => {
 		setVisible(true);
+		
 	};
 	const drawnerClose = () => {
 		setVisible(false);
