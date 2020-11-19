@@ -4,6 +4,7 @@ import { PlusCircleOutlined, EditOutlined, UploadOutlined } from '@ant-design/ic
 import { Editor } from '@tinymce/tinymce-react';
 import clienteAxios from '../../../../../config/axios';
 import PoliticasEnvio from './politicas_envio';
+import Cobertura_envio from './cobertura_envios'
 import aws from '../../../../../config/aws';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
@@ -542,6 +543,9 @@ export default function RegistroTienda(props) {
 				</Form.Item>
 			</Form>
 			<PoliticasEnvio datosNegocio={datosNegocio} setReloadInfo={setReloadInfo} />
+
+			<Cobertura_envio />
+
 		</div>
 	);
 }

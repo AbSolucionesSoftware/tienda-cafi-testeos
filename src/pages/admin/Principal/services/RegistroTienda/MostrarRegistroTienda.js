@@ -354,6 +354,7 @@ function MostrarRegistroTienda(props) {
 									Costo de promocion de envío: <strong>${politicasEnvio.descuento}</strong>
 								</p>
 							</div>
+							
 						)}
 					</div>
 					<div className="col-lg-4 col-sm-12">
