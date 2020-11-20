@@ -109,7 +109,7 @@ function Login(props) {
 				</Form.Item>
 				<p className ="text-primary">¿Has olvidado tu contrasena?</p>				
 			</Form>
-			<div className="col-12 mt-2">
+			<div  className="d-none col-12 mt-2">
 				<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onRecuperar}>
 					<Form.Item label="Correo" >
 						<Form.Item name="emailCliente" rules={[ { required: true, message: 'El email es obligatorio!' } ]} noStyle >

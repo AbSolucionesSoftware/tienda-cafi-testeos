@@ -263,10 +263,10 @@ function RegistrarProductos(props) {
 						<h1 className="titulo-producto-admin titulo-producto-admin-responsivo font-weight-bold">
 							{productos.nombre}
 						</h1>
-						{!productos.todos.length ? (
+						{!productos.promocion.length ? (
 							<h2 className="h5 ">$ {formatoMexico(productos.precio)}</h2>
 						) : (
-							productos.todos.map((promo) => {
+							productos.promocion.map((promo) => {
 								return (
 									<div className="" key={promo._id}>
 										<h2 className="h5 precio-producto rebajado mr-2">

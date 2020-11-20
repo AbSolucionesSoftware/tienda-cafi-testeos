@@ -20,7 +20,7 @@ import Spin from '../../../../components/Spin';
 
 export default function Verificacion_Tarjeta(props) {
     const {setIdPago,prev,setCurrent,current} = props;
-    const stripePromise = loadStripe('pk_test_51HepqMCUpJnsv7ilMqt7ENjThxyxOuwzN6nMEWVozn2D4AwKf0ookzZ78ruY1DVyl0oH2gCDq4hDXfDswpcnhd9p00UT7tz4ag');
+    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LLAVE);
     return (
         <div>
             <Elements stripe={stripePromise}>

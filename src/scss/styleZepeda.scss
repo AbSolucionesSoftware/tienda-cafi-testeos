@@ -3,18 +3,14 @@
 $color-blog: #ffff;
 
 /* NAVBAR VARIABLES */
+/* $bg-color-navbar: #B11F24; */
 $bg-color-navbar: #ffffff;
-$bg-color-navbar-active: #EDA1AB;
-$border-color-active: #8C384E;
+$bg-color-navbar-active: #ffffff;
+$border-color-active: #B11F24;
 /* $border-color-navbar: #B11F24; */
 $font-color-navbar: rgb(0, 0, 0);
 $font-color-navbar-hover: #771128;
 $font-color-navbar-active: #CE414B;
-
-/* NAVBAR CATEGORIAS VARIABLES */
-$bg-color-navbar-categorias:  #CE414B;
-$font-color-navbar-categorias: rgb(255, 255, 255);
-$font-color-navbar-categorias-hover: #EDA1AB;
 
 /* NAVBAR CATEGORIAS VARIABLES */
 $bg-color-navbar-categorias:  #CE414B;
@@ -33,10 +29,18 @@ $color-botones-hover: #CE414B;
 $color-botones-font:  #F7F7F7;
 $color-botones-secundario: #343434;
 $color-botones-sec-hover: #727272;
+
+/* STEPS VARIABLES */
+$bg-color-steps: #EDA1AB;
+$font-color-steps-inactive: #ffff;
+$bg-color-steps-active: #B11F24;
+$border-color-steps: #771128;
 /* TABS VARIABLES */
 $color-tabs: #B11F24;
 $color-tabs-hover: #B11F24;
 $color-tabs-border: #CE414B;
+
+$bg-color-tags: #EDA1AB;
 
 /* FOOTER VARIABLES */
 $bg-color-footer: #343434;
@@ -71,7 +75,9 @@ p, a, li{
 }
 .navbar-menu-general > .ant-menu-item-selected {
     color: $font-color-navbar-active!important;
-    border-bottom: 2px solid $border-color-active!important
+    border-bottom: 3px solid $border-color-active!important;
+    /* border-top: 2px solid $border-color-active!important;
+    border-bottom: none!important; */
 }
 .drawer-background .ant-drawer-body{
     background-color: $bg-color-navbar;
@@ -83,10 +89,13 @@ p, a, li{
 }
 .nav-font-color{
     color: $font-color-navbar;
+   /*  border-bottom: none!important; */
 } 
 .nav-font-color:hover{
     color: $font-color-navbar-hover!important;
-    border-bottom: 2px solid $border-color-active!important
+    border-bottom: 3px solid $border-color-active!important;
+    /* border-top: 2px solid $border-color-active!important;
+    border-bottom: none!important; */
 }
 .menu-responsivo-icon{
     color: $font-color-navbar;
@@ -108,6 +117,9 @@ p, a, li{
     color: $font-color-navbar-categorias;
     border-bottom: none!important;
 } 
+.nav-font-color-categorias:hover{
+    color: $font-color-navbar-categorias-hover!important;
+}
 .nav-font-color-categorias:hover{
     color: $font-color-navbar-categorias-hover!important;
 }
@@ -185,7 +197,7 @@ p, a, li{
 
 // COLOR DE TAGS
 .color-tags{
-    background-color: $border-color-active;
+    background-color: $bg-color-tags;
 }
 .color-border-tags{
     border: 1px solid $border-color-active;
@@ -193,46 +205,34 @@ p, a, li{
 
 
 //ICONOS DE AVANCES
-.ant-steps-item-process .ant-steps-item-icon{
-    background-color:  $color-spiner;
-    border-color: $color-spiner;
+.steps-colors .ant-steps-item-icon{
+    background-color:  $bg-color-steps;
+    border-color: $border-color-steps;
+    
 }
-.ant-steps-item-finish .ant-steps-item-icon{
-    border-color: $color-spiner;
-    color: $color-spiner;
+.steps-colors .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon{
+    background-color:  $bg-color-steps-active;
 }
-.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after{
-    border-color: $color-spiner;
-    color: $color-spiner;
-    background-color: $color-spiner;
+.steps-colors .ant-steps-icon{
+    color: $font-color-steps-inactive!important;
+
 }
-.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon{
-    border-color: $color-spiner;
-    color: $color-spiner;
+.steps-colors .ant-steps-item-title::after{
+    border-color:  $bg-color-steps-active!important;
+    background-color:  $bg-color-steps-active!important;
 }
+
 
 /* TABS */
-//tabs de pedidos
-.ant-tabs-tab-active{
+.tabs-colors .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     color: $color-tabs;
 }
 
-.ant-tabs-tab:hover{
+.tabs-colors .ant-tabs-tab:hover{
     color: $color-tabs;
 }
-.ant-tabs-ink-bar{
-    //  color: $color-tabs; 
+.tabs-colors .ant-tabs-ink-bar{
     background-color: $color-tabs-border!important;
-}
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active{
-    color: $color-tabs;
-}
-.ant-tabs-nav .ant-tabs-tab:hover{
-    color: $color-tabs;
-}
-//tab inicio de sesion
-.ant-tabs-nav .ant-tabs-tab-active{
-    color: $color-tabs;
 }
 
 

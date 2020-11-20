@@ -10,6 +10,9 @@ import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function RegistroTienda(props) {
+
+	const {drawnerClose} = props;
+
 	const { datosNegocio, token, setLoading, setReloadInfo } = props;
 
 	const [ datos, setDatos ] = useState({});
@@ -157,6 +160,7 @@ export default function RegistroTienda(props) {
 					.then((res) => {
 						setLoading(false);
 						setReloadInfo(true);
+						drawnerClose();
 						notification.success({
 							message: 'Registro exitoso',
 							description: res.data.message
@@ -194,6 +198,7 @@ export default function RegistroTienda(props) {
 				.then((res) => {
 					setLoading(false);
 					setReloadInfo(true);
+					drawnerClose();
 					notification.success({
 						message: 'Registro exitoso',
 						description: res.data.message
@@ -217,6 +222,7 @@ export default function RegistroTienda(props) {
 				});
 		}
 	};
+
 
 	return (
 		<div>
@@ -541,7 +547,7 @@ export default function RegistroTienda(props) {
 					</Button>
 				</Form.Item>
 			</Form>
-			<PoliticasEnvio datosNegocio={datosNegocio} setReloadInfo={setReloadInfo} />
+			<PoliticasEnvio datosNegocio={datosNegocio} setReloadInfo={setReloadInfo} drawnerClose ={drawnerClose}/>
 		</div>
 	);
 }
