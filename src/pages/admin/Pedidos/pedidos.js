@@ -279,13 +279,8 @@ function Pedidos(props) {
 				title=""
 				visible={visible}
 				onCancel={handleCancel}
-				footer={[
-					<Button key="detalle" type="primary" onClick={handleCancel}>
-						Cerrar
-					</Button>
-				]}
 			>
-				<DetallesPedido datosDetalle={detallePedido} />
+				<DetallesPedido datosDetalle={detallePedido}  />
 			</Modal>
 			<Modal
 				key="estado"
@@ -293,9 +288,9 @@ function Pedidos(props) {
 				title="Estado del pedido"
 				visible={estadoVisible}
 				onCancel={handleCancelEstado}
-				footer={[""]}
+				onOk={estadoVisible}
 			>
-				<EstadoPedido datosPedido={detallePedido} reload={setReload} />
+				<EstadoPedido datosPedido={detallePedido} reload={setReload} handleCancelEstado={handleCancelEstado} />
 			</Modal>
 			<Pagination blogs={pedidosPaginacion} location={location} history={history} limite={12} />
 		</Spin>

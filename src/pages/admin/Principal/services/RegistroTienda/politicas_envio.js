@@ -5,6 +5,9 @@ import clienteAxios from '../../../../../config/axios';
 import jwt_decode from 'jwt-decode';
 
 export default function PoliticasEnvio(props) {
+
+	const {drawnerClose} = props;
+
 	const { datosNegocio, setReloadInfo } = props;
 	const [ disabled, setDisabled ] = useState(false);
 	const [ datos, setDatos ] = useState({});
@@ -101,6 +104,7 @@ export default function PoliticasEnvio(props) {
 				.then((res) => {
 					setLoading(false);
 					setReloadInfo(true);
+					drawnerClose();
 					notification.success({
 						message: '¡Listo!',
 						description: res.data.message,
@@ -142,6 +146,7 @@ export default function PoliticasEnvio(props) {
 				.then((res) => {
 					setLoading(false);
 					setReloadInfo(true);
+					drawnerClose();
 					notification.success({
 						message: '¡Listo!',
 						description: res.data.message,
