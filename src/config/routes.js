@@ -112,6 +112,11 @@ const routes = [
 		]
 	},
 	{
+		path: '/resetPass/',
+		component: Recuperar_pass,
+		exact: false
+	},
+	{
 		path: '/',
 		component: LayoutBasic,
 		exact: false,
@@ -209,11 +214,6 @@ const routes = [
 			{
 				path: '/error/:id/:error',
 				component: ErrorPago,
-				exact: true
-			},
-			{
-				path: '/resetPass/',
-				component: Recuperar_pass,
 				exact: true
 			},
 			{
