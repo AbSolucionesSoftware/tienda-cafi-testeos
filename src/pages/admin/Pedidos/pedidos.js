@@ -188,7 +188,7 @@ function Pedidos(props) {
 								</div>
 								<div className="my-2">
 									<h6 className="titulos-info-pedidos">Fecha de pedido:</h6>
-									<p className="data-info-pedidos">{formatoFecha(pedidos.createdAt)}</p>
+									<p className="data-info-pedidos fecha-pedidos">{formatoFecha(pedidos.createdAt)}</p>
 								</div>
 								{pedidos.fecha_envio ? (
 									<div className="my-2">

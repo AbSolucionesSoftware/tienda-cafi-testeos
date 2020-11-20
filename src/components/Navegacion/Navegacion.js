@@ -102,7 +102,7 @@ const Navegacion = (props) => {
 			<Header className="navbar-menu-general a1">
 				<div className="menuCon navbar-menu-general a2">
 					<div className="top-menu row a3">
-						<div className="col-lg-6 row-logo-search">
+						<div className="col-lg-5 row-logo-search">
 							<div className="row row-logo-search-2">
 								{!tienda.imagenLogo ? (
 									<div className="d-none" />
@@ -128,7 +128,7 @@ const Navegacion = (props) => {
 								</div>
 							</div>
 						</div>
-						<div className="col-lg-6 nav-menu-enlaces a4 ">
+						<div className="col-lg-7 nav-menu-enlaces a4 ">
 							<Menu
 								className="float-right navbar-menu-general a5"
 								/* theme="light" */
@@ -186,7 +186,7 @@ const Navegacion = (props) => {
 								)}
 								{token && decoded['rol'] === false ? (
 									<SubMenu
-										className="nav-font-color nav-border-color a6"
+										className="nav-font-color a6"
 										icon={
 											!decoded.imagen && !decoded.imagenFireBase ? (
 												<Avatar size="large" style={{ backgroundColor: '#87d068' }}>
@@ -199,7 +199,7 @@ const Navegacion = (props) => {
 											)
 										}
 									>
-										<Menu.Item className=" nav-border-color">
+										<Menu.Item className="">
 											<SettingOutlined />Mi cuenta<Link to="/perfiles" />
 										</Menu.Item>
 										<Menu.Item>
@@ -232,10 +232,10 @@ const Navegacion = (props) => {
 											)
 										}
 									>
-										<Menu.Item className="nav-border-color a6">
+										<Menu.Item className=" a6">
 											<SettingOutlined />Panel de administrador<Link to="/admin" />
 										</Menu.Item>
-										<Menu.Item className="nav-font-color nav-border-color a6">
+										<Menu.Item className=" a6">
 											<p
 												className="text-danger"
 												onClick={() => {

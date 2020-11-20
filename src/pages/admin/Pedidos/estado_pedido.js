@@ -132,10 +132,10 @@ const EstadoPedido = (props) => {
 
 	const menu = (
 		<Menu onClick={handleMenuClick}>
-			<Menu.Item key="En proceso" icon={<UserOutlined />}>
+			<Menu.Item key="En proceso">
 				En proceso
 			</Menu.Item>
-			<Menu.Item key="Enviado" icon={<UserOutlined />}>
+			<Menu.Item key="Enviado">
 				Enviado
 			</Menu.Item>
 		</Menu>
