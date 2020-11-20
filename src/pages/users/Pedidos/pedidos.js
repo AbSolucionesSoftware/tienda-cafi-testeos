@@ -292,7 +292,6 @@ function Pedido(props) {
 						className="d-flex justify-content-center align-items-center my-3"
 						style={{ width: 100, height: 100 }}
 					>
-						<p>Pedido del producto sdsdsdsd</p>
 						<img
 							className="img-fluid"
 							alt="producto"

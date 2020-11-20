@@ -573,7 +573,7 @@ function RegistrarProducto(props) {
 											<Button
 												className="d-inline ml-2"
 												size="middle"
-												type="text"
+												type="default"
 												onClick={resetColor}
 											>
 												Quitar color

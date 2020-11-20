@@ -5,8 +5,8 @@ $color-blog: #ffff;
 /* NAVBAR VARIABLES */
 /* $bg-color-navbar: #B11F24; */
 $bg-color-navbar: #ffffff;
-$bg-color-navbar-active: #EDA1AB;
-$border-color-active: #8C384E;
+$bg-color-navbar-active: #ffffff;
+$border-color-active: #B11F24;
 /* $border-color-navbar: #B11F24; */
 $font-color-navbar: rgb(0, 0, 0);
 $font-color-navbar-hover: #771128;
@@ -69,7 +69,9 @@ p, a, li{
 }
 .navbar-menu-general > .ant-menu-item-selected {
     color: $font-color-navbar-active!important;
-    border-bottom: 2px solid $border-color-active!important
+    border-bottom: 3px solid $border-color-active!important;
+    /* border-top: 2px solid $border-color-active!important;
+    border-bottom: none!important; */
 }
 .drawer-background .ant-drawer-body{
     background-color: $bg-color-navbar;
@@ -81,10 +83,13 @@ p, a, li{
 }
 .nav-font-color{
     color: $font-color-navbar;
+   /*  border-bottom: none!important; */
 } 
 .nav-font-color:hover{
     color: $font-color-navbar-hover!important;
-    border-bottom: 2px solid $border-color-active!important
+    border-bottom: 3px solid $border-color-active!important;
+    /* border-top: 2px solid $border-color-active!important;
+    border-bottom: none!important; */
 }
 .menu-responsivo-icon{
     color: $font-color-navbar;
@@ -106,6 +111,9 @@ p, a, li{
     color: $font-color-navbar-categorias;
     border-bottom: none!important;
 } 
+.nav-font-color-categorias:hover{
+    color: $font-color-navbar-categorias-hover!important;
+}
 .nav-font-color-categorias:hover{
     color: $font-color-navbar-categorias-hover!important;
 }
