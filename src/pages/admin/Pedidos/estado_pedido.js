@@ -6,6 +6,9 @@ import clienteAxios from '../../../config/axios';
 const { TextArea } = Input;
 
 const EstadoPedido = (props) => {
+
+	const {handleCancelEstado} = props;
+
 	const [ form ] = Form.useForm();
 	const token = localStorage.getItem('token');
 	const IDpedido = props.datosPedido;
@@ -16,11 +19,6 @@ const EstadoPedido = (props) => {
 	const [ disabled, setDisabled ] = useState(false);
 	const [ datos, setDatos ] = useState({});
 
-	const [visible, setVisible] = useState(false);
-
-	const modalClose = () => {
-		setVisible(false);
-	};
 
 	useEffect(
 		() => {
@@ -42,6 +40,7 @@ const EstadoPedido = (props) => {
 				setReload(true);
 				setLoading(false);
 				setDisabled(true);
+				handleCancelEstado();
 				notification.success({
 					message: 'Hecho!',
 					description: res.data.message,
