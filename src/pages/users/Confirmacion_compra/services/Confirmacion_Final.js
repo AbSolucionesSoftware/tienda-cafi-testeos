@@ -21,7 +21,6 @@ export default function Confirmacion_Final(props) {
 	const [ loading, setLoading ] = useState(false);
 
 	useEffect(() => {
-		console.log(pedidoCompleto);
 		setDireccion(datosActualizados);
 		traerCostosEnvio();
 		setLoading(true);
@@ -64,7 +63,7 @@ export default function Confirmacion_Final(props) {
 				}
 			})
 			.then(async (res) => {
-				let centavo = 100 * parseFloat(total);
+				let centavo = Math.round(100 * parseFloat(total));
 				const newPedido = pedidoCompleto;
 				newPedido.total = total;
 				const datosPago = {

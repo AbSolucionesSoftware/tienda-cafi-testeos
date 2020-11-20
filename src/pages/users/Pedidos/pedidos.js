@@ -159,8 +159,8 @@ export default function PedidosUsuario(props) {
 		<Spin spinning={loading}>
 			<div className="container">
 				<h4 className="text-center m-3">Mis Compras</h4>
-				<Tabs className="shadow bg-white rounded " defaultActiveKey="1" type="card" size="large">
-					<TabPane tab="Mis compras"  key="1">
+				<Tabs centered className="shadow bg-white rounded tabs-colors" defaultActiveKey="1" type="card" size="large">
+					<TabPane tab="Mis compras" key="1">
 						<div>
 							{showInfo !== true ? (
 								<Result

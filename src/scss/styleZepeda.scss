@@ -29,6 +29,12 @@ $color-botones-hover: #CE414B;
 $color-botones-font:  #F7F7F7;
 $color-botones-secundario: #343434;
 $color-botones-sec-hover: #727272;
+
+/* STEPS VARIABLES */
+$bg-color-steps: #EDA1AB;
+$font-color-steps-inactive: #ffff;
+$bg-color-steps-active: #B11F24;
+$border-color-steps: #771128;
 /* TABS VARIABLES */
 $color-tabs: #B11F24;
 $color-tabs-hover: #B11F24;
@@ -191,46 +197,34 @@ p, a, li{
 
 
 //ICONOS DE AVANCES
-.ant-steps-item-process .ant-steps-item-icon{
-    background-color:  $color-spiner;
-    border-color: $color-spiner;
+.steps-colors .ant-steps-item-icon{
+    background-color:  $bg-color-steps;
+    border-color: $border-color-steps;
+    
 }
-.ant-steps-item-finish .ant-steps-item-icon{
-    border-color: $color-spiner;
-    color: $color-spiner;
+.steps-colors .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon{
+    background-color:  $bg-color-steps-active;
 }
-.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after{
-    border-color: $color-spiner;
-    color: $color-spiner;
-    background-color: $color-spiner;
+.steps-colors .ant-steps-icon{
+    color: $font-color-steps-inactive!important;
+
 }
-.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon{
-    border-color: $color-spiner;
-    color: $color-spiner;
+.steps-colors .ant-steps-item-title::after{
+    border-color:  $bg-color-steps-active!important;
+    background-color:  $bg-color-steps-active!important;
 }
+
 
 /* TABS */
-//tabs de pedidos
-.ant-tabs-tab-active{
+.tabs-colors .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     color: $color-tabs;
 }
 
-.ant-tabs-tab:hover{
+.tabs-colors .ant-tabs-tab:hover{
     color: $color-tabs;
 }
-.ant-tabs-ink-bar{
-    //  color: $color-tabs; 
+.tabs-colors .ant-tabs-ink-bar{
     background-color: $color-tabs-border!important;
-}
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active{
-    color: $color-tabs;
-}
-.ant-tabs-nav .ant-tabs-tab:hover{
-    color: $color-tabs;
-}
-//tab inicio de sesion
-.ant-tabs-nav .ant-tabs-tab-active{
-    color: $color-tabs;
 }
 
 
