@@ -39,6 +39,8 @@ function ActualizarProducto(props) {
 	const [ genero, setGenero ] = useState('');
 	const [ valueSelect, setValueSelect ] = useState();
 
+	const [ categoriasDefault, setCategoriasDefault ] = useState([ 'Ropa', 'Calzado' ]);
+
 	const [ productos, setProductos ] = useState([
 		{
 			codigo: '',
@@ -332,6 +334,47 @@ function ActualizarProducto(props) {
 								<Input name="nombre" />
 							</Form.Item>
 						</Form.Item>
+						{productos.tipoCategoria === 'Otros' ? (
+							<Form.Item>
+								<Form.Item>
+									<Select
+										/* disabled={loadingCombo} */
+										/* loading={loadingCombo} */
+										/* value={valueSelect} */
+										style={{ width: 300 }}
+										placeholder="Seleciona una categoria"
+										/* onChange={onSelect} */
+										dropdownRender={(menu) => (
+											<div>
+												{menu}
+												<Divider style={{ margin: '4px 0' }} />
+												<div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+													<Input style={{ flex: 'auto' }} /* onChange={onCategoriaChange} */ />
+													<Button /* disabled={buttonCat} */ /* onClick={addItemCategoria} */>
+														<PlusOutlined style={{ fontSize: 20 }} /> Nueva
+													</Button>
+												</div>
+											</div>
+										)}
+									>
+										{categoriasDefault.map((item) => <Option key={item}>{item}</Option>)}
+										{/* {categoriasBD.length === 0 ? (
+											<Option />
+										) : (
+											categoriasBD.map((item) => {
+												if (item._id === 'Ropa' || item._id === 'Calzado') {
+													return null;
+												} else {
+													return <Option key={item._id}>{item._id}</Option>;
+												}
+											})
+										)} */}
+									</Select>
+								</Form.Item>
+							</Form.Item>
+						) : (
+							<Form.Item className="d-none" />
+						)}
 						<Form.Item label="Subcategoria" name="categoria" onChange={obtenerValores}>
 							<Form.Item name="categoria">
 								<Select
@@ -477,7 +520,7 @@ function ActualizarProducto(props) {
 								className="d-block img-fluid mt-2"
 								width="200"
 								alt="imagen de base"
-								src={aws+files}
+								src={aws + files}
 							/>
 						</Form.Item>
 						<Form.Item className="d-flex justify-content-center align-items-center text-center">
