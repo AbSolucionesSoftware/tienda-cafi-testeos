@@ -71,6 +71,9 @@ export default function RegistroPromocionMasiva(props) {
 	};
 
 	const limpiar = () => {
+		setCategoria();
+		setSubcategoria();
+		setGenero();
 		setInputValue(0);
 		setSelectedRowKeys([]);
 		setDataPromocion([]);
@@ -108,6 +111,8 @@ export default function RegistroPromocionMasiva(props) {
 				error(err);
 			});
 	};
+
+	console.log(data)
 
 	const formatter = (value) => `${value}%`;
 
@@ -284,6 +289,9 @@ export default function RegistroPromocionMasiva(props) {
 		() => {
 			if (actualizar) {
 				checkearChecks();
+			}
+			if(visible){
+				showDrawer();
 			}
 		},
 		[ actualizar, promoMasiva ]

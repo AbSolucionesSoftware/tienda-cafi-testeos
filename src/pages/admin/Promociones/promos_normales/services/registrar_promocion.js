@@ -512,7 +512,7 @@ const RegistrarPromocion = (props) => {
 												className={producto._id === productos._id ? 'list-item-promocion' : ''}
 												key={productos._id}
 												actions={[
-													!productos.todos.length ? (
+													!productos.promocion.length ? (
 														<Button
 															onClick={() => {
 																setProducto(productos);
