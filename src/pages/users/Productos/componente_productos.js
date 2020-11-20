@@ -68,8 +68,8 @@ export default function ComponenteProductos(props) {
 							className="contenedor-card-body"
 							cover={
 								<div className="contenedor-imagen-oferta">
-									{productos.todos.length !== 0 ? (
-										productos.todos.map((promo) => {
+									{productos.promocion.length !== 0 ? (
+										productos.promocion.map((promo) => {
 											return (
 												<div key={promo._id} className="contenedor-oferta">
 													<h5 className="shadow">OFERTA</h5>
@@ -99,12 +99,12 @@ export default function ComponenteProductos(props) {
 									}}
 								/>
 							</div>
-							{!productos.todos.length ? (
+							{!productos.promocion.length ? (
 								<div className="contenedor-precios-productos">
 									<h3 className="h5 precio-rebaja">${formatoMexico(productos.precio)}</h3>
 								</div>
 							) : (
-								productos.todos.map((promo) => {
+								productos.promocion.map((promo) => {
 									return (
 										<div className="contenedor-precios-productos" key={promo._id}>
 											<h2 className="h5 precio-producto rebajado mr-2">

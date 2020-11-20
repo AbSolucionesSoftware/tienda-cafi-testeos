@@ -43,13 +43,13 @@ function Scroll(props) {
 							</div>
 						}
 					>
-						{!productos.todos.length ? (
+						{!productos.promocion.length ? (
 							<div className="contenedor-titulos-productos">
 								<h1 className="titulo-producto">{productos.nombre}</h1>
 								<h2 className="h5 precio-rebaja">${formatoMexico(productos.precio)}</h2>
 							</div>
 						) : (
-							productos.todos.map((promo) => {
+							productos.promocion.map((promo) => {
 								return (
 									<div className="contenedor-titulos-productos" key={promo._id}>
 										<h1 className="titulo-producto">{productos.nombre}</h1>
