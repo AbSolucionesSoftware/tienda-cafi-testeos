@@ -27,6 +27,7 @@ function ActualizarProducto(props) {
 	const [ select, setSelect ] = useState('');
 	const [ editor, setEditor ] = useState();
 	const [ loading, setLoading ] = useState(false);
+	const [ loadingCombo, setLoadingCombo ] = useState(false);
 	const reload = props.reloadProductos;
 	const setCloseDraw = props.closeDraw;
 	const [ upload, setUpload ] = useState(false);
@@ -38,8 +39,12 @@ function ActualizarProducto(props) {
 	const [ subCategoria, setSubCategoria ] = useState([]);
 	const [ genero, setGenero ] = useState('');
 	const [ valueSelect, setValueSelect ] = useState();
+	const [ valueSelectCat, setValueSelectCat ] = useState();
 
-	const [ categoriasDefault, setCategoriasDefault ] = useState([ 'Ropa', 'Calzado' ]);
+	const [ categoriasDefault, setCategoriasDefault ] = useState([]);
+	const [ itemCat, setItemCat ] = useState();
+	/* const [ buttonCat, setButtonCat ] = useState(true); */
+	const [ categoriasBD, setCategoriasBD ] = useState([]);
 
 	const [ productos, setProductos ] = useState([
 		{
@@ -112,8 +117,15 @@ function ActualizarProducto(props) {
 			}
 			obtenerDatos();
 			obtenerSubcategorias();
+			obtenerCategorias();
 		},
-		[ productoID, reload, form, select ]
+		[ productoID, reload, form /* , select */ ]
+	);
+	useEffect(
+		() => {
+			obtenerSubcategorias();
+		},
+		[ select ]
 	);
 
 	///UPLOAD ANTD PRODUCTO
@@ -144,7 +156,8 @@ function ActualizarProducto(props) {
 				form.setFieldsValue({
 					codigo: res.data.codigo,
 					nombre: res.data.nombre,
-					categoria: res.data.subCategoria,
+					categoria: res.data.categoria,
+					subCategoria: res.data.subCategoria,
 					genero: res.data.genero,
 					precio: res.data.precio,
 					color: res.data.color,
@@ -190,8 +203,46 @@ function ActualizarProducto(props) {
 		});
 	};
 
+	const onCategoriaChange = (e) => {
+		if (e.target.value.length !== 0) {
+			setItemCat(e.target.value.capitalize());
+			setButtonCat(false);
+		} else {
+			setButtonCat(true);
+		}
+	};
+	const addItemCategoria = () => {
+		if (itemCat === 'Ropa' || itemCat === 'Calzado') {
+			notification.error({
+				message: 'Categoria no valida',
+				duration: 2
+			});
+		} else {
+			form.setFieldsValue({ categoria: itemCat });
+			setValueSelectCat(itemCat);
+			setCategoriasDefault([ ...categoriasDefault, itemCat ]);
+			setSelect(itemCat);
+
+			/* reset subcategoria */
+			setValueSelect();
+			setSubCategoria([]);
+			form.resetFields([ 'subCategoria' ]);
+		}
+	};
+
+	const onSelect = (value) => {
+		setSelect(value);
+		setValueSelectCat(value);
+
+		/* reset subcategoria */
+		setValueSelect();
+		setSubCategoria([]);
+		form.resetFields([ 'subCategoria' ]);
+	};
+
 	const addItemSubCategoria = () => {
 		setSubcategoriasDefault([ ...subcategoriasDefault, item ]);
+		form.setFieldsValue({ subCategoria: item });
 		setSubCategoria(item);
 		setValueSelect(item);
 	};
@@ -207,6 +258,36 @@ function ActualizarProducto(props) {
 			setButtonCat(true);
 		}
 	};
+
+	async function obtenerCategorias() {
+		setLoadingCombo(true);
+		await clienteAxios
+			.get('/productos/categorias', {
+				headers: {
+					Authorization: `bearer ${token}`
+				}
+			})
+			.then((res) => {
+				setLoadingCombo(false);
+				setCategoriasBD(res.data);
+			})
+			.catch((err) => {
+				setLoadingCombo(false);
+				if (err.response) {
+					notification.error({
+						message: 'Error',
+						description: err.response.data.message,
+						duration: 2
+					});
+				} else {
+					notification.error({
+						message: 'Error de conexion',
+						description: 'Al parecer no se a podido conectar al servidor.',
+						duration: 2
+					});
+				}
+			});
+	}
 
 	async function obtenerSubcategorias() {
 		if (!select) {
@@ -253,7 +334,7 @@ function ActualizarProducto(props) {
 		if (productos.tipoCategoria === 'Otros') {
 			formData.append('codigo', productos.codigo);
 			formData.append('nombre', productos.nombre);
-			formData.append('categoria', productos.categoria);
+			formData.append('categoria', select);
 			formData.append('subCategoria', subCategoria);
 			formData.append('genero', genero);
 			formData.append('color', productos.color);
@@ -265,7 +346,7 @@ function ActualizarProducto(props) {
 		} else {
 			formData.append('codigo', productos.codigo);
 			formData.append('nombre', productos.nombre);
-			formData.append('categoria', productos.categoria);
+			formData.append('categoria', select);
 			formData.append('subCategoria', subCategoria);
 			formData.append('genero', genero);
 			formData.append('color', productos.color);
@@ -335,22 +416,22 @@ function ActualizarProducto(props) {
 							</Form.Item>
 						</Form.Item>
 						{productos.tipoCategoria === 'Otros' ? (
-							<Form.Item>
-								<Form.Item>
+							<Form.Item label="Categoria" onChange={obtenerValores}>
+								<Form.Item name="categoria">
 									<Select
-										/* disabled={loadingCombo} */
-										/* loading={loadingCombo} */
-										/* value={valueSelect} */
+										disabled={loadingCombo}
+										loading={loadingCombo}
+										value={valueSelectCat}
 										style={{ width: 300 }}
 										placeholder="Seleciona una categoria"
-										/* onChange={onSelect} */
+										onChange={onSelect}
 										dropdownRender={(menu) => (
 											<div>
 												{menu}
 												<Divider style={{ margin: '4px 0' }} />
 												<div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-													<Input style={{ flex: 'auto' }} /* onChange={onCategoriaChange} */ />
-													<Button /* disabled={buttonCat} */ /* onClick={addItemCategoria} */>
+													<Input style={{ flex: 'auto' }} onChange={onCategoriaChange} />
+													<Button disabled={buttonCat} onClick={addItemCategoria}>
 														<PlusOutlined style={{ fontSize: 20 }} /> Nueva
 													</Button>
 												</div>
@@ -358,7 +439,7 @@ function ActualizarProducto(props) {
 										)}
 									>
 										{categoriasDefault.map((item) => <Option key={item}>{item}</Option>)}
-										{/* {categoriasBD.length === 0 ? (
+										{categoriasBD.length === 0 ? (
 											<Option />
 										) : (
 											categoriasBD.map((item) => {
@@ -368,7 +449,7 @@ function ActualizarProducto(props) {
 													return <Option key={item._id}>{item._id}</Option>;
 												}
 											})
-										)} */}
+										)}
 									</Select>
 								</Form.Item>
 							</Form.Item>
@@ -376,7 +457,11 @@ function ActualizarProducto(props) {
 							<Form.Item className="d-none" />
 						)}
 						<Form.Item label="Subcategoria" name="categoria" onChange={obtenerValores}>
-							<Form.Item name="categoria">
+							<Form.Item
+								name="subCategoria"
+								rules={[ { required: true, message: 'Este campo es requerido' } ]}
+								noStyle
+							>
 								<Select
 									style={{ width: 300 }}
 									placeholder="Seleciona una subcategoria"

@@ -49,11 +49,11 @@ export default function RegistroPromocionMasiva(props) {
 		setVisible(true);
 		obtenerCategorias();
 		obtenerGeneros();
-		limpiar();
 	};
 
 	const onClose = () => {
 		setVisible(false);
+		limpiar();
 	};
 
 	useEffect(
