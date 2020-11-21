@@ -179,7 +179,7 @@ function MostrarRegistroTienda(props) {
 					token={token}
 					setLoading={setLoading}
 					setReloadInfo={setReloadInfo}
-					drawnerClose ={drawnerClose}
+					drawnerClose={drawnerClose}
 				/>
 			</Drawer>
 
@@ -188,7 +188,7 @@ function MostrarRegistroTienda(props) {
 					type="primary"
 					className="m-3"
 					size="large"
-					drawnerClose ={drawnerClose}
+					drawnerClose={drawnerClose}
 					icon={
 						action === false ? (
 							<PlusCircleOutlined style={{ fontSize: 24 }} />
