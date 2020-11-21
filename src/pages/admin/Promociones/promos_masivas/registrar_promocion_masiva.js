@@ -37,6 +37,7 @@ export default function RegistroPromocionMasiva(props) {
 	const [ visible, setVisible ] = props.visible;
 	const [ actualizar, setActualizar ] = props.actualizar;
 	const { promoMasiva } = props;
+	const [ checkall, setCheckAll ] = useState(false);
 
 	const [ categoriasDB, setCategoriasDB ] = useState([]);
 	const [ categoria, setCategoria ] = useState();
@@ -49,11 +50,11 @@ export default function RegistroPromocionMasiva(props) {
 		setVisible(true);
 		obtenerCategorias();
 		obtenerGeneros();
-		limpiar();
 	};
 
 	const onClose = () => {
 		setVisible(false);
+		limpiar();
 	};
 
 	useEffect(
@@ -112,8 +113,6 @@ export default function RegistroPromocionMasiva(props) {
 			});
 	};
 
-	console.log(data)
-
 	const formatter = (value) => `${value}%`;
 
 	const onChange = (value) => setInputValue(value);
@@ -159,6 +158,28 @@ export default function RegistroPromocionMasiva(props) {
 			.then((res) => {
 				setData(res.data.posts);
 				setLoadingList(false);
+				
+				if(actualizar){
+					const checks = [];
+					const data = [];
+					const listaBD = [];
+					res.data.posts.forEach((res) => {
+						promoMasiva.forEach((promo) => {
+							if(res._id === promo.productoPromocion._id){
+								checks.push(res._id)
+								data.push(res);
+								listaBD.push({ idProducto: res._id })
+							}
+						})
+					})
+					setSelectedRowKeys(checks);
+					setDataPromocion(data); 
+					setPromocionMasiva(listaBD);
+					
+				}else{
+					limpiarChecks()
+				}
+				
 			})
 			.catch((err) => {
 				setLoadingList(false);
@@ -297,6 +318,12 @@ export default function RegistroPromocionMasiva(props) {
 		[ actualizar, promoMasiva ]
 	);
 
+	const limpiarChecks = () => {
+		setSelectedRowKeys([]);
+		setDataPromocion([]);
+		setPromocionMasiva([]);
+	}
+
 	const checkearChecks = () => {
 		setInputValue(parseInt(promoMasiva[0].porsentajePromocionMasiva));
 		const listaPromosActuales = promoMasiva.map((producto) => {
@@ -406,8 +433,8 @@ export default function RegistroPromocionMasiva(props) {
 				}
 			>
 				<Spin size="large" spinning={loading}>
-					<div className="d-lg-flex d-sm-block">
-						<div className="col-12 col-lg-6 border-bottom">
+					<div className="row d-flex">
+						<div className="order-1 order-lg-0  col-12 col-lg-6 border-bottom">
 							<Spin size="large" spinning={loadingList}>
 								<div className=" mt-2 row justify-content-center">
 									<Search
@@ -515,7 +542,7 @@ export default function RegistroPromocionMasiva(props) {
 								)}
 							</Spin>
 						</div>
-						<div className="col-12 col-lg-6">
+						<div className="order-0 order-lg-1 col-12 col-lg-6">
 							<div className=" mt-2 d-flex justify-content-center">
 								<Alert
 									showIcon

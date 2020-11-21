@@ -146,45 +146,15 @@ const PromoMasivaPrincipal = (props) => {
 						>
 							<List.Item.Meta
 								avatar={
-									window.screen.width > 768 ? (
-										<div>
-											{item.productosPromoMasiva.map((promo, index) => {
-												if (index < 10) {
-													return (
-														<Avatar
-															key={promo._id}
-															size={64}
-															src={aws + promo.productoPromocion.imagen}
-														/>
-													);
-												}
-											})}
-											{item.productosPromoMasiva.length > 10 ? (
-												<Avatar size={64} style={{ fontSize: 25 }}>
-													+{item.productosPromoMasiva.length - 10}
-												</Avatar>
-											) : null}
-										</div>
-									) : (
-										<div>
-											{item.productosPromoMasiva.map((promo, index) => {
-												if (index < 1) {
-													return (
-														<Avatar
-															key={promo._id}
-															size={64}
-															src={aws + promo.productoPromocion.imagen}
-														/>
-													);
-												}
-											})}
-											{item.productosPromoMasiva.length > 1 ? (
-												<Avatar size={64} style={{ fontSize: 25 }}>
-													+{item.productosPromoMasiva.length - 1}
-												</Avatar>
-											) : null}
-										</div>
-									)
+									<Avatar.Group
+										maxCount={5}
+										size={64}
+										maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+									>
+										{item.productosPromoMasiva.map((res, index) => {
+											return <Avatar key={index} src={aws + res.productoPromocion.imagen} />;
+										})}
+									</Avatar.Group>
 								}
 								title={
 									<div>

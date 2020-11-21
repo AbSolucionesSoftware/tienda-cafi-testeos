@@ -439,8 +439,8 @@ function RegistrarProducto(props) {
 								<Form.Item label="Subcategoria" onChange={datosForm}>
 									<Form.Item
 										name="subCategoria"
-										/* rules={[ { required: true, message: 'Este campo es requerido' } ]}
-										noStyle */
+										rules={[ { required: true, message: 'Este campo es requerido' } ]}
+										noStyle
 									>
 										{console.log()}
 										<Select
