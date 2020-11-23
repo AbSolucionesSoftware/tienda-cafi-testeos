@@ -125,7 +125,6 @@ function MostrarDatosProductos(props) {
 					dataSource={carrito.articulos}
 					renderItem={(carrito) => <ListaCarrito carrito={carrito} cliente={cliente} token={token} />}
 				/>
-
 				<div className="row mt-5 justify-content-center p-5">
 					<div className="col-lg-5 d-flex justify-content-center align-items-center">
 						<div>

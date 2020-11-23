@@ -26,6 +26,9 @@ const demo = { height: '500px', overflow: 'auto' };
 const { Option } = Select;
 
 const RegistrarPromocion = (props) => {
+
+	const {drawnerClose} = props;
+
 	const token = localStorage.getItem('token');
 	const [ content, setContent ] = useState(false);
 
@@ -216,6 +219,7 @@ const RegistrarPromocion = (props) => {
 				setDisabled(false);
 				setDisabledSumit(true);
 				setLoading(false);
+				drawnerClose();
 				notification.success({
 					message: '¡Hecho!',
 					description: res.data.message,

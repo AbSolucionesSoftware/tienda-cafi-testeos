@@ -17,7 +17,7 @@ export default function Traer_pedido(props) {
 						<div>
 							<p className="h6 font-weight-bold">
 								Subtotal ({datosPedido.length}): ${' '}
-								{formatoMexico(pedidoCompleto.total + datosEnvio.costoEnvio)}{' '}
+								{formatoMexico(pedidoCompleto.total )}{' '}
 							</p>
 							{/* <p className="h6 font-weight-bold">Descuento de: $ {datosEnvio.descuento}</p> */}
 							{/* <p className="text-success h6 font-weight-bold">El descuento si aplica</p> */}
@@ -26,7 +26,7 @@ export default function Traer_pedido(props) {
 						<div>
 							<p className="h6 font-weight-bold">
 								Subtotal ({datosPedido.length}): ${' '}
-								{formatoMexico(pedidoCompleto.total + datosEnvio.costoEnvio)}{' '}
+								{formatoMexico(pedidoCompleto.total )}{' '}
 							</p>
 							{/* <p className="text-danger h6 font-weight-bold">El descuento no aplica</p> */}
 						</div>
@@ -34,7 +34,7 @@ export default function Traer_pedido(props) {
 						<div>
 							<p className="h6 font-weight-bold">
 								Subtotal ({datosPedido.length}): ${' '}
-								{formatoMexico(pedidoCompleto.total + datosEnvio.costoEnvio)}{' '}
+								{formatoMexico(pedidoCompleto.total )}{' '}
 							</p>
 							{/* <p className="text-danger h6 font-weight-bold">El descuento no aplica</p> */}
 						</div>

@@ -14,7 +14,7 @@ export default function MostrarDatosTargeta(props) {
 
 	const deleteApartado = (id) => {
 		confirm({
-			title: 'Eliminando Blog',
+			title: 'Eliminando Apartado',
 			icon: <ExclamationCircleOutlined />,
 			content: `¿Estás seguro que deseas eliminar el apartado?`,
 			okText: 'Eliminar',
@@ -30,7 +30,7 @@ export default function MostrarDatosTargeta(props) {
 					})
 					.then((res) => {
 						notification.success({
-							message: 'Blog Eliminado',
+							message: 'Apartado Eliminado',
 							description: res.data.message
 						});
 						setEstado(true);

@@ -209,20 +209,20 @@ function Sugerencias(props) {
 					>
 						<Space>
 							<Button onClick={drawnerClose}>Cancelar</Button>
-							<Button
+							{/* <Button
 								onClick={() => {
 									window.location.reload();
 								}}
 								type="primary"
 							>
 								Guardar
-							</Button>
+							</Button> */}
 						</Space>
 					</div>
 				}
 			>
 				<IdProductoContext.Provider value={productoID}>
-					<Sugerencia />
+					<Sugerencia drawnerClose={drawnerClose}/>
 				</IdProductoContext.Provider>
 			</Drawer>
 		</Spin>

@@ -224,23 +224,15 @@ export default function PedidosUsuario(props) {
 				onCancel={() => {
 					showModal(false);
 				}}
-				footer={[
-					<Button
-						style={{ fontSize: 16 }}
-						type="primary"
-						onClick={() => {
-							showModal(false);
-						}}
-					>
-						Cerrar
-					</Button>
-				]}
+				footer={null}
 			>
+
 				{Elige === true ? (
 					<DetalleApartado detalleApartado={detalleApartado} />
 				) : (
 					<DetallesPedido detallePedido={detallePedido} />
 				)}
+				
 			</Modal>
 		</Spin>
 	);

@@ -279,6 +279,7 @@ function Pedidos(props) {
 				title=""
 				visible={visible}
 				onCancel={handleCancel}
+				footer={null}
 			>
 				<DetallesPedido datosDetalle={detallePedido}  />
 			</Modal>
@@ -288,7 +289,7 @@ function Pedidos(props) {
 				title="Estado del pedido"
 				visible={estadoVisible}
 				onCancel={handleCancelEstado}
-				onOk={estadoVisible}
+				footer={null}
 			>
 				<EstadoPedido datosPedido={detallePedido} reload={setReload} handleCancelEstado={handleCancelEstado} />
 			</Modal>
