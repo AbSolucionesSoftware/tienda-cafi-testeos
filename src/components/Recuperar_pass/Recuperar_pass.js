@@ -46,7 +46,7 @@ export default function Recuperar_pass(props) {
                 confirmPassword,
                 idRecuperacion,
             }
-            await clienteAxios.put('/cliente/reset/pass',datos)
+            await clienteAxios.put('/cliente/reset/pass/',datos)
             .then((res) => {
                 const token = res.data.token;
                 localStorage.setItem('token', token);
