@@ -40,7 +40,7 @@ export default function Recuperar_pass(props) {
         if(password !== confirmPassword){
             setmostrarError("");
         }else{
-            console.log();
+            console.log(values);
             const datos = {
                 password,
                 confirmPassword,
@@ -52,6 +52,7 @@ export default function Recuperar_pass(props) {
                 localStorage.setItem('token', token);
             })
             .catch((err) => {
+                console.log(err.response);
                 notification.error({
                     message: 'Error',
                     description: 'Hubo un error',
@@ -92,7 +93,7 @@ function FormResetPass(props){
                         </Form.Item>
                     </Form.Item>
                     <Alert
-                        className={`mb-4 ${mostrarError}`}
+                        className={`my-4 ${mostrarError}`}
                         message="Contraseña distintas"
                         description="Las contraseñas son distintas, favor de poner la misma"
                         type="error"
