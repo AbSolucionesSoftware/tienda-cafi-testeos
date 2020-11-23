@@ -1,35 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.0f69c569.chunk.css",
-<<<<<<< HEAD
-    "main.js": "/static/js/main.27cb8bd4.chunk.js",
-    "main.js.map": "/static/js/main.27cb8bd4.chunk.js.map",
+    "main.css": "/static/css/main.c70d6972.chunk.css",
+    "main.js": "/static/js/main.b95a742a.chunk.js",
+    "main.js.map": "/static/js/main.b95a742a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.5aecc905.js",
     "runtime-main.js.map": "/static/js/runtime-main.5aecc905.js.map",
     "static/css/2.13cf92e7.chunk.css": "/static/css/2.13cf92e7.chunk.css",
-    "static/js/2.25954d12.chunk.js": "/static/js/2.25954d12.chunk.js",
-    "static/js/2.25954d12.chunk.js.map": "/static/js/2.25954d12.chunk.js.map",
+    "static/js/2.7dea422a.chunk.js": "/static/js/2.7dea422a.chunk.js",
+    "static/js/2.7dea422a.chunk.js.map": "/static/js/2.7dea422a.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.c67f1772960aa216f7914aca9cf4f661.js": "/precache-manifest.c67f1772960aa216f7914aca9cf4f661.js",
+    "precache-manifest.0198b5bb6272ce92d699618d360ac768.js": "/precache-manifest.0198b5bb6272ce92d699618d360ac768.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.13cf92e7.chunk.css.map": "/static/css/2.13cf92e7.chunk.css.map",
-    "static/css/main.0f69c569.chunk.css.map": "/static/css/main.0f69c569.chunk.css.map",
-    "static/js/2.25954d12.chunk.js.LICENSE.txt": "/static/js/2.25954d12.chunk.js.LICENSE.txt",
-=======
-    "main.js": "/static/js/main.a7f60fe5.chunk.js",
-    "main.js.map": "/static/js/main.a7f60fe5.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.5aecc905.js",
-    "runtime-main.js.map": "/static/js/runtime-main.5aecc905.js.map",
-    "static/css/2.13cf92e7.chunk.css": "/static/css/2.13cf92e7.chunk.css",
-    "static/js/2.e5c56f4b.chunk.js": "/static/js/2.e5c56f4b.chunk.js",
-    "static/js/2.e5c56f4b.chunk.js.map": "/static/js/2.e5c56f4b.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.8ba9494a392315f714088077a95a916f.js": "/precache-manifest.8ba9494a392315f714088077a95a916f.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.13cf92e7.chunk.css.map": "/static/css/2.13cf92e7.chunk.css.map",
-    "static/css/main.0f69c569.chunk.css.map": "/static/css/main.0f69c569.chunk.css.map",
-    "static/js/2.e5c56f4b.chunk.js.LICENSE.txt": "/static/js/2.e5c56f4b.chunk.js.LICENSE.txt",
->>>>>>> c2a7e05f065ebad8f10dd966bf466e8f56d6ebb8
+    "static/css/main.c70d6972.chunk.css.map": "/static/css/main.c70d6972.chunk.css.map",
+    "static/js/2.7dea422a.chunk.js.LICENSE.txt": "/static/js/2.7dea422a.chunk.js.LICENSE.txt",
     "static/media/Animacion_Tarjeta.scss": "/static/media/bg-tarjeta-01.3c6258e5.jpg",
     "static/media/chip-tarjeta.png": "/static/media/chip-tarjeta.6611645b.png",
     "static/media/mastercard.png": "/static/media/mastercard.ae0915fe.png",
@@ -38,14 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.5aecc905.js",
     "static/css/2.13cf92e7.chunk.css",
-<<<<<<< HEAD
-    "static/js/2.25954d12.chunk.js",
-    "static/css/main.0f69c569.chunk.css",
-    "static/js/main.27cb8bd4.chunk.js"
-=======
-    "static/js/2.e5c56f4b.chunk.js",
-    "static/css/main.0f69c569.chunk.css",
-    "static/js/main.a7f60fe5.chunk.js"
->>>>>>> c2a7e05f065ebad8f10dd966bf466e8f56d6ebb8
+    "static/js/2.7dea422a.chunk.js",
+    "static/css/main.c70d6972.chunk.css",
+    "static/js/main.b95a742a.chunk.js"
   ]
 }
