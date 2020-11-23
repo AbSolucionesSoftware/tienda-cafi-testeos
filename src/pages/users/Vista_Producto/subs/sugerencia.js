@@ -184,7 +184,6 @@ const Sugerencia = (props) => {
 		}else{
 			sugerenciaPrecio = sugerencia.precio;
 		}
-		console.log(productoPrecio, sugerenciaPrecio);
 		
 		AgregarPedido(
 			decoded._id,

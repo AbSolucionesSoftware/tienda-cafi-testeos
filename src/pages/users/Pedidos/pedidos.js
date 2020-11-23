@@ -144,7 +144,6 @@ export default function PedidosUsuario(props) {
 					setEstado(true);
                 })
                 .catch((err) => {
-                    console.log(err.response)
                     notification.error({
                         message: 'Error del servidor',
                         description:

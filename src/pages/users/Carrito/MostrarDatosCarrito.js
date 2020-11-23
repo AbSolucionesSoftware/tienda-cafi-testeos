@@ -49,7 +49,6 @@ function MostrarDatosProductos(props) {
 			})
 			.catch((err) => {
 				setLoading(false);
-				console.log(err);
 			});
 	}
 

@@ -65,7 +65,6 @@ function Login(props) {
 			await clienteAxios.post('/cliente/restablecer/pass',email)
 			.then((res) => {
 				setmostrarMensaje("");
-				console.log(res.data);
 			})
 			.catch((err) => {
 				if(err.response){

@@ -306,7 +306,6 @@ const Promo_unitaria = (props) => {
 		await clienteAxios
 			.get(`/productos/filter?categoria=${cat}&subcategoria=${sub}&genero=${gen}`)
 			.then((res) => {
-				console.log(res);
 				setData(res.data.posts);
 				setLoadingList(false);
 			})

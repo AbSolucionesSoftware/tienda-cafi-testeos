@@ -27,15 +27,12 @@ export default function Geolocalizacion({
 			zoom
 		});
 
-          /* console.log(map); */
-
           window.L.marker(center, {
             icon: window.L.mapquest.icons.marker(),
             draggable: false
           }).bindPopup(nombreMarcador).addTo(map);
 
           map.addControl(window.L.mapquest.control());
-         /*  console.log(window.L.mapquest.control()) */
     })
 
 	return (

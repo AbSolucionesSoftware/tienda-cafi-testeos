@@ -66,7 +66,6 @@ export async function AgregarPedido(idcliente, idproducto, categoria, cantidad, 
 			window.location.href = `/confirmacion_compra/${res.data.pedido._id}`;
 		})
 		.catch((res) => {
-			console.log(res.response);
 			if (res.response.status === 404 || res.response.status === 500) {
 				return notification.error({
 					message: 'Error',

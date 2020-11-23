@@ -13,7 +13,6 @@ const tailLayout = {
 
 function Registro(props) {
 	const onFinish = async (values) => {
-		console.log(values);
 		await clienteAxios
 			.post('/cliente/', values)
 			.then((res) => {

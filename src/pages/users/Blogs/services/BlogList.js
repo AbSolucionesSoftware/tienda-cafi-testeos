@@ -31,7 +31,6 @@ export default function BlogList(props) {
 					message: 'Error del servidor',
 					description: 'Paso algo en el servidor, al parecer la conexion esta fallando.'
 				});
-				console.log(err);
 			});
 	}
 

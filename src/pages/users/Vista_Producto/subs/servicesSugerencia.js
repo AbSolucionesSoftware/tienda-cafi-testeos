@@ -157,8 +157,6 @@ export async function AgregarPedido(
 		];
 	}
 
-	// console.log(pedido);
-
 	await clienteAxios
 		.post(
 			'/pedidos/',

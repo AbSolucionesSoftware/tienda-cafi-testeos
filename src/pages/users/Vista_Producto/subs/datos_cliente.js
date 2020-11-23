@@ -26,10 +26,8 @@ export default function DatosCliente(props) {
 				}
 			})
 			.then((res) => {
-				console.log(res)
 				setLoading(false);
 				if (res.data.direccion.length !== 0) {
-					console.log('entra aqui 1')
 					form.setFieldsValue({
 						nombre: res.data.nombre,
 						apellido: res.data.apellido,
@@ -44,7 +42,6 @@ export default function DatosCliente(props) {
 						pais: res.data.direccion[0].pais
 					});
 				} else {
-					console.log('entra aqui 2')
 					form.setFieldsValue({
 						nombre: res.data.nombre,
 						apellido: res.data.apellido,
