@@ -28,7 +28,7 @@ export default function Recuperar_pass(props) {
                 console.log(res);
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.response);
                 setAcceso(true);
             })
         }
