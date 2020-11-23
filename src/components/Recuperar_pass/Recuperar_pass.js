@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from 'react';
-import { withRouter, Link } from 'react-router-dom';
 import { notification, Form, Input, Button,Alert  } from 'antd';
 import {useParams} from 'react-router-dom';
 import clienteAxios from '../../config/axios';
@@ -25,10 +24,8 @@ export default function Recuperar_pass(props) {
             await clienteAxios.put(`/cliente/restablecer/pass/${idRecuperacion}`)
             .then((res) => {
                 setAcceso(false);
-                console.log(res);
             })
             .catch((err) => {
-                console.log(err.response);
                 setAcceso(true);
             })
         }
@@ -40,7 +37,6 @@ export default function Recuperar_pass(props) {
         if(password !== confirmPassword){
             setmostrarError("");
         }else{
-            console.log(values);
             const datos = {
                 password,
                 confirmPassword,
@@ -52,7 +48,6 @@ export default function Recuperar_pass(props) {
                 localStorage.setItem('token', token);
             })
             .catch((err) => {
-                console.log(err.response);
                 notification.error({
                     message: 'Error',
                     description: 'Hubo un error',
@@ -64,7 +59,6 @@ export default function Recuperar_pass(props) {
     }
 
     if(acceso){
-        console.log(acceso);
         props.history.push('/');
     }
     
