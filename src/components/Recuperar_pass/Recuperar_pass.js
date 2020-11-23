@@ -15,10 +15,9 @@ export default function Recuperar_pass(props) {
 
     const {location,history} = props;
     const {idRecuperacion} = useParams();
-    console.log(idRecuperacion);
 
     const [mostrarError, setmostrarError] = useState("d-none");
-    const [acceso, setAcceso] = useState(false)
+    const [acceso, setAcceso] = useState(false);
 
     useEffect(() => {
         setAcceso(false);
@@ -29,6 +28,7 @@ export default function Recuperar_pass(props) {
                 console.log(res);
             })
             .catch((err) => {
+                console.log(err);
                 setAcceso(true);
             })
         }
@@ -63,6 +63,7 @@ export default function Recuperar_pass(props) {
     }
 
     if(acceso){
+        console.log(acceso);
         props.history.push('/');
     }
     
