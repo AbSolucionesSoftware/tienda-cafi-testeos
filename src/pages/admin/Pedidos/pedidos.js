@@ -62,7 +62,6 @@ function Pedidos(props) {
 				}
 			})
 			.then((res) => {
-				console.log(res);
 				setPedidos(res.data.docs);
 				// setPedidosPaginacion(res.data);
 				setLoading(false);
