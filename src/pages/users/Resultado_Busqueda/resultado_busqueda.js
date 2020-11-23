@@ -42,7 +42,7 @@ function ResultadoBusqueda(props) {
 		[ url ]
 	);
 
-	const render = productos.map((productos) => <ComponenteProductos productos={productos} />);
+	const render = productos.map((productos) => <ComponenteProductos key={productos._id} productos={productos} />);
 
 	if (!productos) {
 		return (

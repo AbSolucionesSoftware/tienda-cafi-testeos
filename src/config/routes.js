@@ -33,6 +33,7 @@ import Confirmacion_compra from '../pages/users/Confirmacion_compra/confirmacion
 import Politicas from '../pages/users/Politicas/politicas'
 //Secondary Component
 import VistaProducto from '../pages/users/Vista_Producto/vista_producto'
+import BusquedaCategorias from '../components/BusquedaCategorias/busqueda_categorias';
 
 //other
 import Error404 from '../pages/users/error404'
@@ -112,7 +113,7 @@ const routes = [
 		]
 	},
 	{
-		path: '/resetPass/',
+		path: '/resetPass/:idRecuperacion',
 		component: Recuperar_pass,
 		exact: false
 	},
@@ -189,6 +190,31 @@ const routes = [
 			{
 				path: '/searching/',
 				component: Search404,
+				exact: true
+			},
+			{
+				path: '/categorias/:categoria',
+				component: BusquedaCategorias,
+				exact: true
+			},
+			{
+				path: '/categorias/:categoria/:subcategoria',
+				component: BusquedaCategorias,
+				exact: true
+			},
+			{
+				path: '/categoria/:genero',
+				component: BusquedaCategorias,
+				exact: true
+			},
+			{
+				path: '/categoria/:categoria/:genero',
+				component: BusquedaCategorias,
+				exact: true
+			},
+			{
+				path: '/categoria/:categoria/:subcategoria/:genero',
+				component: BusquedaCategorias,
 				exact: true
 			},
 			{
