@@ -131,8 +131,8 @@ function Login(props) {
 					</Button>
 					<Alert
 						className={`${mostrarMensaje}`}
-						message="Success Text"
-						description="Success Description Success Description Success Description"
+						message="Correo enviado"
+						description="Se a enviado un correo para actualizar su contraseña"
 						type="success"
 					/>
 				</Form.Item>

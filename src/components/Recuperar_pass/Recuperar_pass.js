@@ -18,26 +18,52 @@ export default function Recuperar_pass(props) {
     console.log(idRecuperacion);
 
     const [mostrarError, setmostrarError] = useState("d-none");
+    const [acceso, setAcceso] = useState(false)
 
     useEffect(() => {
+        setAcceso(false);
         const cambiarEstadoPass = async () => {
-            await clienteAxios.put(`/restablecer/pass/:idPassword`)
+            await clienteAxios.put(`/cliente/restablecer/pass/${idRecuperacion}`)
             .then((res) => {
-                
+                setAcceso(false);
+                console.log(res);
             })
             .catch((err) => {
-
+                setAcceso(true);
             })
         }
+        cambiarEstadoPass();
     }, [])
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         const {password,confirmPassword} = values;
         if(password !== confirmPassword){
             setmostrarError("");
         }else{
-            console.log("Son iguales");
+            console.log();
+            const datos = {
+                password,
+                confirmPassword,
+                idRecuperacion,
+            }
+            await clienteAxios.put('/cliente/reset/pass',datos)
+            .then((res) => {
+                const token = res.data.token;
+                localStorage.setItem('token', token);
+            })
+            .catch((err) => {
+                notification.error({
+                    message: 'Error',
+                    description: 'Hubo un error',
+                    duration: 2
+                });
+            })
+            props.history.push('/');
         }
+    }
+
+    if(acceso){
+        props.history.push('/');
     }
     
 
