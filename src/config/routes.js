@@ -112,7 +112,7 @@ const routes = [
 		]
 	},
 	{
-		path: '/resetPass/',
+		path: '/resetPass/:idRecuperacion',
 		component: Recuperar_pass,
 		exact: false
 	},
