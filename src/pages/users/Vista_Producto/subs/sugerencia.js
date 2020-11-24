@@ -169,6 +169,22 @@ const Sugerencia = (props) => {
 
 	async function Pedido() {
 		////AGREGAR PEDIDO
+
+		let productoPrecio;
+		let sugerenciaPrecio;
+
+		if(productoPromocion.length !== 0){
+			productoPrecio = productoPromocion.precioPromocion;
+		}else{
+			productoPrecio = producto.precio;
+		}
+
+		if(sugerenciaPromocion.length !== 0){
+			sugerenciaPrecio = sugerenciaPromocion.precioPromocion;
+		}else{
+			sugerenciaPrecio = sugerencia.precio;
+		}
+		
 		AgregarPedido(
 			decoded._id,
 			producto._id,
@@ -179,6 +195,8 @@ const Sugerencia = (props) => {
 			cantidadFinalSugerencia,
 			medida[0],
 			medidaSugerencia[0],
+			productoPrecio,
+			sugerenciaPrecio,
 			total,
 			token
 		);
@@ -186,6 +204,7 @@ const Sugerencia = (props) => {
 
 	function showConfirm() {
 		if (!token) {
+			localStorage.setItem("vistas", `/vista_producto/${producto._id}`);
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',

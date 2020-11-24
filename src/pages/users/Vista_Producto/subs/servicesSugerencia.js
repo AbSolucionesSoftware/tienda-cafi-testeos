@@ -11,6 +11,8 @@ export async function AgregarPedido(
 	cantidadSugerencia,
 	medidaProducto,
 	medidaSugerencia,
+	precioProducto,
+	precioSugerencia,
 	total,
 	token
 ) {
@@ -21,12 +23,14 @@ export async function AgregarPedido(
 			{
 				producto: producto,
 				cantidad: cantidadProducto,
-				talla: medidaProducto
+				talla: medidaProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
 				cantidad: cantidadSugerencia,
-				talla: medidaSugerencia
+				talla: medidaSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Ropa' && categoriaSugerencia === 'Calzado') {
@@ -35,12 +39,14 @@ export async function AgregarPedido(
 			{
 				producto: producto,
 				cantidad: cantidadProducto,
-				talla: medidaProducto
+				talla: medidaProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
 				cantidad: cantidadSugerencia,
-				numero: medidaSugerencia
+				numero: medidaSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Ropa' && categoriaSugerencia === 'Otros') {
@@ -49,11 +55,13 @@ export async function AgregarPedido(
 			{
 				producto: producto,
 				cantidad: cantidadProducto,
-				talla: medidaProducto
+				talla: medidaProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
-				cantidad: cantidadSugerencia
+				cantidad: cantidadSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Calzado' && categoriaSugerencia === 'Calzado') {
@@ -62,12 +70,14 @@ export async function AgregarPedido(
 			{
 				producto: producto,
 				cantidad: cantidadProducto,
-				numero: medidaProducto
+				numero: medidaProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
 				cantidad: cantidadSugerencia,
-				talla: medidaSugerencia
+				talla: medidaSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Calzado' && categoriaSugerencia === 'Ropa') {
@@ -76,12 +86,14 @@ export async function AgregarPedido(
 			{
 				producto: producto,
 				cantidad: cantidadProducto,
-				numero: medidaProducto
+				numero: medidaProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
 				cantidad: cantidadSugerencia,
-				talla: medidaSugerencia
+				talla: medidaSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Calzado' && categoriaSugerencia === 'Otros') {
@@ -90,11 +102,13 @@ export async function AgregarPedido(
 			{
 				producto: producto,
 				cantidad: cantidadProducto,
-				numero: medidaProducto
+				numero: medidaProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
-				cantidad: cantidadSugerencia
+				cantidad: cantidadSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Otros' && categoriaSugerencia === 'Otros') {
@@ -102,11 +116,13 @@ export async function AgregarPedido(
 		pedido = [
 			{
 				producto: producto,
-				cantidad: cantidadProducto
+				cantidad: cantidadProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
-				cantidad: cantidadSugerencia
+				cantidad: cantidadSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Otros' && categoriaSugerencia === 'Ropa') {
@@ -114,12 +130,14 @@ export async function AgregarPedido(
 		pedido = [
 			{
 				producto: producto,
-				cantidad: cantidadProducto
+				cantidad: cantidadProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
 				cantidad: cantidadSugerencia,
-				talla: medidaSugerencia
+				talla: medidaSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	} else if (categoriaProducto === 'Otros' && categoriaSugerencia === 'Calzado') {
@@ -127,12 +145,14 @@ export async function AgregarPedido(
 		pedido = [
 			{
 				producto: producto,
-				cantidad: cantidadProducto
+				cantidad: cantidadProducto,
+				precio: precioProducto
 			},
 			{
 				producto: sugerencia,
 				cantidad: cantidadSugerencia,
-				numero: medidaSugerencia
+				numero: medidaSugerencia,
+				precio: precioSugerencia
 			}
 		];
 	}
@@ -145,6 +165,7 @@ export async function AgregarPedido(
 				pedido: pedido,
 				total: total,
 				estado_pedido: 'En proceso'
+
 			},
 			{
 				headers: {

@@ -154,7 +154,6 @@ export default function Publicidad(props) {
 				setReload(!reload);
 			})
 			.catch((err) => {
-				console.log(err);
 				setLoading(false);
 				errors(err);
 			});

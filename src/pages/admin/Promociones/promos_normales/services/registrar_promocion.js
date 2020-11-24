@@ -26,6 +26,9 @@ const demo = { height: '500px', overflow: 'auto' };
 const { Option } = Select;
 
 const RegistrarPromocion = (props) => {
+
+	const {drawnerClose} = props;
+
 	const token = localStorage.getItem('token');
 	const [ content, setContent ] = useState(false);
 
@@ -216,6 +219,7 @@ const RegistrarPromocion = (props) => {
 				setDisabled(false);
 				setDisabledSumit(true);
 				setLoading(false);
+				drawnerClose();
 				notification.success({
 					message: '¡Hecho!',
 					description: res.data.message,
@@ -512,7 +516,7 @@ const RegistrarPromocion = (props) => {
 												className={producto._id === productos._id ? 'list-item-promocion' : ''}
 												key={productos._id}
 												actions={[
-													!productos.todos.length ? (
+													!productos.promocion.length ? (
 														<Button
 															onClick={() => {
 																setProducto(productos);

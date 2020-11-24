@@ -6,6 +6,9 @@ import { formatoMexico } from '../../../../../config/reuserFunction';
 import aws from '../../../../../config/aws';
 
 const ActualizarPromocion = (props) => {
+
+	const {drawnerClose} = props;
+
 	const token = localStorage.getItem('token');
 	const productoContext = useContext(IdProductoContext);
 	const [ loading, setLoading ] = useState(false);
@@ -231,6 +234,7 @@ const ActualizarPromocion = (props) => {
 			.then((res) => {
 				setLoading(false);
 				obtenerPromocion();
+				drawnerClose();
 				notification.success({
 					message: '¡Hecho!',
 					description: res.data.message,

@@ -51,11 +51,17 @@ function Firebase() {
 							setUser(!!user);
 							const token = res.data.token;
 							localStorage.setItem('token', token);
-							window.location.href = '/'
-							notification['success']({
-								message: 'Listo!',
-								duration: 2
-							});
+							const vista = localStorage.getItem("vistas");
+							if (vista) {
+								localStorage.getItem("vistas");
+								window.location.href = `${vista}`
+								setTimeout(() => {
+									localStorage.removeItem("vistas");
+								}, 300);
+								
+							}else{
+								window.location.href = '/'
+							}
 						})
 						.catch((err) => {
 							if(err.response){

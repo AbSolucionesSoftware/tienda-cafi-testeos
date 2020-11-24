@@ -259,7 +259,7 @@ function PromocionesNormales(props) {
 							}}
 						>
 							<Space>
-								<Button type="primary" onClick={drawnerClose}>
+								<Button type="primary" onClick={drawnerClose} >
 									Cerrar
 								</Button>
 							</Space>
@@ -268,10 +268,10 @@ function PromocionesNormales(props) {
 				>
 					{accion === true ? (
 						<IdProductoContext.Provider value={productoID}>
-							<ActualizarPromocion reload={reload} />
+							<ActualizarPromocion reload={reload} drawnerClose={drawnerClose}/>
 						</IdProductoContext.Provider>
 					) : (
-						<RegistrarPromocion reload={reload} />
+						<RegistrarPromocion reload={reload} drawnerClose={drawnerClose}/>
 					)}
 				</Drawer>
 			</div>

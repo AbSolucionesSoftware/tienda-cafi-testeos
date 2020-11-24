@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Result, Button } from 'antd';
 import './success.scss';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,13 @@ import { Link } from 'react-router-dom';
 export default function ErrorPago(props) {
 	const pedidoID = props.match.params.id;
 	const error = props.match.params.error;
+	const token = localStorage.getItem('token');
+
+	useEffect(() => {
+		if (!token) {
+			props.history.push('/');
+		}
+	}, []);
 
 	return (
 		<div className="contenedor-bgcolor-error">
@@ -22,13 +29,13 @@ export default function ErrorPago(props) {
 					title="Tu pago no ha sido aprovado"
 					subTitle={error}
 					extra={[
-						<Link to="/">
-							<Button type="primary">
+						<Link key="principal" to="/">
+							<Button type="primary" className="color-boton">
 								Ir a pagina principal
 							</Button>
 						</Link>,
-                        <Link to={`/confirmacion_compra/${pedidoID}`}>
-                            <Button type="primary" ghost className="mb-3">
+                        <Link key="reintentar" to={`/confirmacion_compra/${pedidoID}`}>
+                            <Button type="primary" ghost className="mb-3 color-boton-sec">
                                 Reintentar
                             </Button>
                         </Link>

@@ -36,6 +36,7 @@ function MostrarRegistroTienda(props) {
 
 	const showDrawer = () => {
 		setVisible(true);
+		
 	};
 	const drawnerClose = () => {
 		setVisible(false);
@@ -160,6 +161,7 @@ function MostrarRegistroTienda(props) {
 				onClose={drawnerClose}
 				visible={visible}
 				bodyStyle={{ paddingBottom: 80 }}
+				/* drawnerClose ={drawnerClose} */
 				footer={
 					<div
 						style={{
@@ -177,6 +179,7 @@ function MostrarRegistroTienda(props) {
 					token={token}
 					setLoading={setLoading}
 					setReloadInfo={setReloadInfo}
+					drawnerClose={drawnerClose}
 				/>
 			</Drawer>
 
@@ -185,6 +188,7 @@ function MostrarRegistroTienda(props) {
 					type="primary"
 					className="m-3"
 					size="large"
+					/* drawnerClose={drawnerClose} */
 					icon={
 						action === false ? (
 							<PlusCircleOutlined style={{ fontSize: 24 }} />

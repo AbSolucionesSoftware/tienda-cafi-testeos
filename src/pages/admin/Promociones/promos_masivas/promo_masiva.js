@@ -13,6 +13,8 @@ const PromoMasivaPrincipal = (props) => {
 	const [ loading, setLoading ] = useState(false);
 	const [ data, setData ] = useState([]);
 	const [ reload, setReload ] = useState(true);
+
+	const [ actualizar, setActualizar ] = useState(false);
 	const [ visible, setVisible ] = useState(false);
 	const [ promo, setPromo ] = useState([]);
 
@@ -87,7 +89,8 @@ const PromoMasivaPrincipal = (props) => {
 		});
 	}
 
-	const actualizar = (promo) => {
+	const actualizarActive = (promo) => {
+		setActualizar(true);
 		setPromo(promo);
 		setVisible(true);
 	};
@@ -101,12 +104,16 @@ const PromoMasivaPrincipal = (props) => {
 
 	return (
 		<div>
-			<RegistroPromocionMasiva reload={[ reload, setReload ]} />
-			<ActualizarPromocionMasiva
+			<RegistroPromocionMasiva
 				reload={[ reload, setReload ]}
 				visible={[ visible, setVisible ]}
 				promoMasiva={promo}
+				actualizar={[ actualizar, setActualizar ]}
 			/>
+			{/* <ActualizarPromocionMasiva
+				reload={[ reload, setReload ]}
+				
+			/> */}
 			<Spin size="large" spinning={loading}>
 				<List
 					itemLayout="horizontal"
@@ -119,7 +126,7 @@ const PromoMasivaPrincipal = (props) => {
 										className="d-flex justify-content-center align-items-center"
 										style={{ fontSize: 16 }}
 										type="primary"
-										onClick={() => actualizar(item.productosPromoMasiva)}
+										onClick={() => actualizarActive(item.productosPromoMasiva)}
 									>
 										<EditOutlined /> Editar
 									</Button>
@@ -139,45 +146,15 @@ const PromoMasivaPrincipal = (props) => {
 						>
 							<List.Item.Meta
 								avatar={
-									window.screen.width > 768 ? (
-										<div>
-											{item.productosPromoMasiva.map((promo, index) => {
-												if (index < 10) {
-													return (
-														<Avatar
-															key={promo._id}
-															size={64}
-															src={aws + promo.productoPromocion.imagen}
-														/>
-													);
-												}
-											})}
-											{item.productosPromoMasiva.length > 10 ? (
-												<Avatar size={64} style={{ fontSize: 25 }}>
-													+{item.productosPromoMasiva.length - 10}
-												</Avatar>
-											) : null}
-										</div>
-									) : (
-										<div>
-											{item.productosPromoMasiva.map((promo, index) => {
-												if (index < 1) {
-													return (
-														<Avatar
-															key={promo._id}
-															size={64}
-															src={aws + promo.productoPromocion.imagen}
-														/>
-													);
-												}
-											})}
-											{item.productosPromoMasiva.length > 1 ? (
-												<Avatar size={64} style={{ fontSize: 25 }}>
-													+{item.productosPromoMasiva.length - 1}
-												</Avatar>
-											) : null}
-										</div>
-									)
+									<Avatar.Group
+										maxCount={5}
+										size={64}
+										maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+									>
+										{item.productosPromoMasiva.map((res, index) => {
+											return <Avatar key={index} src={aws + res.productoPromocion.imagen} />;
+										})}
+									</Avatar.Group>
 								}
 								title={
 									<div>

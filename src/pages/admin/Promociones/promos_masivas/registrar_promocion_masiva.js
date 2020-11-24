@@ -18,7 +18,6 @@ import {
 } from 'antd';
 import { ClearOutlined, PlusOutlined } from '@ant-design/icons';
 import aws from '../../../../config/aws';
-import QueueAnim from 'rc-queue-anim';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -28,13 +27,17 @@ export default function RegistroPromocionMasiva(props) {
 
 	const [ data, setData ] = useState([]);
 	const [ reloadData, setReloadData ] = useState(true);
+	const [ dataPromocion, setDataPromocion ] = useState([]);
 
 	const [ loading, setLoading ] = useState(false);
 	const [ loadingList, setLoadingList ] = useState(true);
 	const [ loadingSelect, setLoadingSelect ] = useState(false);
 	const [ inputValue, setInputValue ] = useState(0);
 	const [ reload, setReload ] = props.reload;
-	const { idPromo, actualizar } = props;
+	const [ visible, setVisible ] = props.visible;
+	const [ actualizar, setActualizar ] = props.actualizar;
+	const { promoMasiva } = props;
+	const [ checkall, setCheckAll ] = useState(false);
 
 	const [ categoriasDB, setCategoriasDB ] = useState([]);
 	const [ categoria, setCategoria ] = useState();
@@ -42,17 +45,17 @@ export default function RegistroPromocionMasiva(props) {
 	const [ subcategoria, setSubcategoria ] = useState();
 	const [ generosDB, setGenerosDB ] = useState([]);
 	const [ genero, setGenero ] = useState();
-	const [ visible, setVisible ] = useState(false);
 
 	const showDrawer = () => {
 		setVisible(true);
 		obtenerCategorias();
 		obtenerGeneros();
-		limpiar();
-	}
+		obtenerProductos();
+	};
 
 	const onClose = () => {
 		setVisible(false);
+		limpiar();
 	};
 
 	useEffect(
@@ -70,10 +73,15 @@ export default function RegistroPromocionMasiva(props) {
 	};
 
 	const limpiar = () => {
+		setCategoria();
+		setSubcategoria();
+		setGenero();
 		setInputValue(0);
 		setSelectedRowKeys([]);
+		setDataPromocion([]);
 		setPromocionMasiva([]);
 		setReloadData(!reloadData);
+		setActualizar(false);
 	};
 
 	const error = (err) => {
@@ -151,6 +159,28 @@ export default function RegistroPromocionMasiva(props) {
 			.then((res) => {
 				setData(res.data.posts);
 				setLoadingList(false);
+				
+				if(actualizar){
+					const checks = [];
+					const data = [];
+					const listaBD = [];
+					res.data.posts.forEach((res) => {
+						promoMasiva.forEach((promo) => {
+							if(res._id === promo.productoPromocion._id){
+								checks.push(res._id)
+								data.push(res);
+								listaBD.push({ idProducto: res._id })
+							}
+						})
+					})
+					setSelectedRowKeys(checks);
+					setDataPromocion(data); 
+					setPromocionMasiva(listaBD);
+					
+				}else{
+					limpiarChecks()
+				}
+				
 			})
 			.catch((err) => {
 				setLoadingList(false);
@@ -242,56 +272,139 @@ export default function RegistroPromocionMasiva(props) {
 
 	const onSelectChange = (selectedRowKeys) => {
 		setSelectedRowKeys(selectedRowKeys);
-		const lista = selectedRowKeys.map((res) => {
-			return { idProducto: res._id };
+		const listaIDs = selectedRowKeys.map((res) => {
+			return { idProducto: res };
 		});
-		setPromocionMasiva(lista);
+		setPromocionMasiva(listaIDs);
 	};
 
 	const rowSelection = {
 		selectedRowKeys,
 		onChange: onSelectChange,
-		getCheckboxProps: (producto) => ({
-			disabled: producto.promocion && producto.promocion.length !== 0, // Column configuration not to be checked
-			name: producto.nombre
-		})
-	}
+		getCheckboxProps: (producto) => {
+			if (actualizar) {
+				return {
+					disabled:
+						producto.promocion &&
+						producto.promocion.length !== 0 &&
+						producto.promocion[0].idPromocionMasiva !== promoMasiva[0].idPromocionMasiva, // Column configuration not to be checked
+					name: producto.nombre
+				};
+			} else {
+				return {
+					disabled: producto.promocion && producto.promocion.length !== 0, // Column configuration not to be checked
+					name: producto.nombre
+				};
+			}
+		},
+		onSelect: (record, selected, selectedRows) => {
+			setDataPromocion(selectedRows);
+		},
+		onSelectAll: (selected, selectedRows) => {
+			setDataPromocion(selectedRows);
+		}
+	};
 	/* Checklist fin */
+
+	/* Actualizar datos */
+	useEffect(
+		() => {
+			if (actualizar) {
+				checkearChecks();
+			}
+			if(visible){
+				showDrawer();
+			}
+		},
+		[ actualizar, promoMasiva ]
+	);
+
+	const limpiarChecks = () => {
+		setSelectedRowKeys([]);
+		setDataPromocion([]);
+		setPromocionMasiva([]);
+	}
+
+	const checkearChecks = () => {
+		setInputValue(parseInt(promoMasiva[0].porsentajePromocionMasiva));
+		const listaPromosActuales = promoMasiva.map((producto) => {
+			return producto.productoPromocion._id;
+		});
+		setSelectedRowKeys(listaPromosActuales);
+
+		const listaIDs = promoMasiva.map((res) => {
+			return { idProducto: res.productoPromocion._id };
+		});
+		setPromocionMasiva(listaIDs);
+		const listaPromosData = promoMasiva.map((producto) => {
+			return producto.productoPromocion;
+		});
+		setDataPromocion(listaPromosData);
+	};
+	/* Actualizar datos */
 
 	const subirPromocion = async () => {
 		const listaPromociones = {
 			productos: promocionMasiva,
 			descuento: inputValue
 		};
-
 		setLoading(true);
-		await clienteAxios
-			.post(`/promocion/masiva/`, listaPromociones, {
-				headers: {
-					Authorization: `bearer ${token}`
-				}
-			})
-			.then((res) => {
-				notification.success({
-					message: '¡Listo!',
-					description: res.data.message,
-					duration: 2
+		if (actualizar) {
+			await clienteAxios
+				.put(`/promocion/masiva/${promoMasiva[0].idPromocionMasiva}`, listaPromociones, {
+					headers: {
+						Authorization: `bearer ${token}`
+					}
+				})
+				.then((res) => {
+					notification.success({
+						message: '¡Listo!',
+						description: res.data.message,
+						duration: 2
+					});
+					onClose();
+					limpiar();
+					setReload(!reload);
+					setLoading(false);
+				})
+				.catch((err) => {
+					setLoading(false);
+					error(err);
 				});
-				onClose();
-				limpiar();
-				setReload(!reload);
-				setLoading(false);
-			})
-			.catch((err) => {
-				setLoading(false);
-				error(err);
-			});
+		} else {
+			await clienteAxios
+				.post(`/promocion/masiva/`, listaPromociones, {
+					headers: {
+						Authorization: `bearer ${token}`
+					}
+				})
+				.then((res) => {
+					notification.success({
+						message: '¡Listo!',
+						description: res.data.message,
+						duration: 2
+					});
+					onClose();
+					limpiar();
+					setReload(!reload);
+					setLoading(false);
+				})
+				.catch((err) => {
+					setLoading(false);
+					error(err);
+				});
+		}
 	};
 
 	return (
 		<div>
 			<div className="d-flex justify-content-end">
-				<Button className="d-flex justify-content-center align-items-center" type="primary" onClick={showDrawer} size="large">
+				<Button
+					className="d-flex justify-content-center align-items-center"
+					type="primary"
+					onClick={showDrawer}
+					size="large"
+				>
 					<PlusOutlined /> Nueva promoción masiva
 				</Button>
 			</div>
@@ -321,8 +434,8 @@ export default function RegistroPromocionMasiva(props) {
 				}
 			>
 				<Spin size="large" spinning={loading}>
-					<div className="d-lg-flex d-sm-block">
-						<div className="col-12 col-lg-6 border-bottom">
+					<div className="row d-flex">
+						<div className="order-1 order-lg-0  col-12 col-lg-6 border-bottom">
 							<Spin size="large" spinning={loadingList}>
 								<div className=" mt-2 row justify-content-center">
 									<Search
@@ -420,7 +533,7 @@ export default function RegistroPromocionMasiva(props) {
 											</span>
 										</div>
 										<Table
-											rowKey={(producto) => producto}
+											rowKey={(producto) => producto._id}
 											rowSelection={rowSelection}
 											columns={columns}
 											dataSource={data}
@@ -430,7 +543,7 @@ export default function RegistroPromocionMasiva(props) {
 								)}
 							</Spin>
 						</div>
-						<div className="col-12 col-lg-6">
+						<div className="order-0 order-lg-1 col-12 col-lg-6">
 							<div className=" mt-2 d-flex justify-content-center">
 								<Alert
 									showIcon
@@ -440,36 +553,19 @@ export default function RegistroPromocionMasiva(props) {
 							</div>
 							<div className="mt-5">
 								<div className="d-flex justify-content-center my-3">
-									{selectedRowKeys.length !== 0 ? (
-										<QueueAnim type={[ 'top', 'bottom' ]} leaveReverse className="d-flex">
-											{selectedRowKeys.map((res, index) => {
-												if (index < 6) {
-													return <Avatar key={index} size={64} src={aws + res.imagen} />;
-												}
+									{dataPromocion.length !== 0 ? (
+										<Avatar.Group
+											maxCount={5}
+											size={64}
+											maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+										>
+											{dataPromocion.map((res, index) => {
+												return <Avatar key={index} src={aws + res.imagen} />;
 											})}
-										</QueueAnim>
+										</Avatar.Group>
 									) : (
 										<h3>Selecciona los productos que quieres aplicarles una promoción</h3>
 									)}
-
-									{selectedRowKeys.length > 6 ? (
-										<QueueAnim type={[ 'top', 'bottom' ]} leaveReverse>
-											<Tooltip
-												key="demo"
-												title={selectedRowKeys.map((res, index) => {
-													if (index >= 6) {
-														return <p key={res._id}>{res.nombre}</p>;
-													}
-												})}
-												placement="bottomRight"
-												autoAdjustOverflow
-											>
-												<Avatar size={64} style={{ fontSize: 25 }}>
-													+{selectedRowKeys.length - 6}
-												</Avatar>
-											</Tooltip>
-										</QueueAnim>
-									) : null}
 								</div>
 								<div className="d-flex justify-content-center">
 									<Col>
@@ -485,14 +581,6 @@ export default function RegistroPromocionMasiva(props) {
 											value={typeof inputValue === 'number' ? inputValue : 0}
 											marks={{ 0: '0%', 50: '50%', 100: '100%' }}
 										/>
-										{/* <div className="mt-4 text-center">
-											<Button
-												disabled={inputValue > 0 && selectedRowKeys.length !== 0 ? false : true}
-												onClick={subirPromocion}
-											>
-												Guardar promoción masiva
-											</Button>
-										</div> */}
 									</Col>
 								</div>
 							</div>

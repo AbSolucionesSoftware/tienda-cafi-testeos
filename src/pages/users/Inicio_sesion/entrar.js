@@ -23,7 +23,7 @@ function Entrar(props) {
                 Si aun no tienes cuenta regístrate dando click en <strong>Crear cuenta</strong>
             </p>
             <div className="tabs">
-                <Tabs className="shadow col-12 col-lg-4 bg-white rounded" defaultActiveKey="1">
+                <Tabs centered className="shadow col-12 col-lg-4 bg-white rounded tabs-colors" defaultActiveKey="1">
                     <TabPane className="tab-color" tab="Iniciar Sesión" key="1">
                         <div className="mt-3">
                             <Login />

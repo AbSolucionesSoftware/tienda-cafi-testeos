@@ -62,7 +62,6 @@ function Pedidos(props) {
 				}
 			})
 			.then((res) => {
-				console.log(res);
 				setPedidos(res.data.docs);
 				// setPedidosPaginacion(res.data);
 				setLoading(false);
@@ -188,7 +187,7 @@ function Pedidos(props) {
 								</div>
 								<div className="my-2">
 									<h6 className="titulos-info-pedidos">Fecha de pedido:</h6>
-									<p className="data-info-pedidos">{formatoFecha(pedidos.createdAt)}</p>
+									<p className="data-info-pedidos fecha-pedidos">{formatoFecha(pedidos.createdAt)}</p>
 								</div>
 								{pedidos.fecha_envio ? (
 									<div className="my-2">
@@ -279,13 +278,9 @@ function Pedidos(props) {
 				title=""
 				visible={visible}
 				onCancel={handleCancel}
-				footer={[
-					<Button key="detalle" type="primary" onClick={handleCancel}>
-						Cerrar
-					</Button>
-				]}
+				footer={null}
 			>
-				<DetallesPedido datosDetalle={detallePedido} />
+				<DetallesPedido datosDetalle={detallePedido}  />
 			</Modal>
 			<Modal
 				key="estado"
@@ -293,9 +288,9 @@ function Pedidos(props) {
 				title="Estado del pedido"
 				visible={estadoVisible}
 				onCancel={handleCancelEstado}
-				footer={[""]}
+				footer={null}
 			>
-				<EstadoPedido datosPedido={detallePedido} reload={setReload} />
+				<EstadoPedido datosPedido={detallePedido} reload={setReload} handleCancelEstado={handleCancelEstado} />
 			</Modal>
 			<Pagination blogs={pedidosPaginacion} location={location} history={history} limite={12} />
 		</Spin>

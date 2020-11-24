@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Layout, Menu, Spin } from 'antd';
+import { Layout, Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
 import './categorias.scss';
 import './preloading.scss';
@@ -11,9 +11,13 @@ const { SubMenu } = Menu;
 const Categorias = (props) => {
 	const token = localStorage.getItem('token');
 	const [ categorias, setCategorias ] = useState([]);
-	const [ generos, setGeneros ] = useState([]);
+	const [ generos, setGeneros ] = useState([{_id: 'Todos'}]);
 /* 	const [ loading, setLoading ] = useState(false); */
 	const { loading, setLoading } = useContext(MenuContext);
+
+	const [ categoriaSeleccionada, setCategoriaSeleccionada, ] = useState('');
+	const [ subcategoriaSeleccionada, setSubcategoriaSeleccionada, ] = useState('');
+	const [ generoSeleccionado, setGeneroSeleccionado ] = useState('');
 
 	useEffect(() => {
 		obtenerCategorias();
@@ -42,7 +46,7 @@ const Categorias = (props) => {
 		await clienteAxios
 			.get('/productos/agrupar/generos')
 			.then((res) => {
-				setGeneros(res.data);
+				setGeneros([...generos, ...res.data]);
 			})
 			.catch((res) => {
 			});
@@ -58,14 +62,22 @@ const Categorias = (props) => {
 				key={categoria.categoria}
 				title={categoria.categoria}
 				className="submenu-categoria nav-font-color-categorias container-subcategorias-nav size-submenu-cat"
-				onTitleClick={() => props.history.push(`/searching/${categoria.categoria}`)}
+				onTitleClick={() => {
+					props.history.push(`/categorias/${categoria.categoria}`);
+					setCategoriaSeleccionada(categoria.categoria);
+					setSubcategoriaSeleccionada();
+				}}
+
 			>
 				{categoria.subcCategoria.map((sub) => {
 					return (
 						<Menu.Item
 							/* className="nav-font-color-categorias" */
 							key={sub._id}
-							onClick={() => props.history.push(`/searching/${sub._id}`)}
+							onClick={() => {
+								props.history.push(`/categorias/${categoriaSeleccionada}/${sub._id}`);
+								setSubcategoriaSeleccionada(sub._id);
+							}}
 						>
 							{sub._id}
 						</Menu.Item>
@@ -80,7 +92,16 @@ const Categorias = (props) => {
 			<Menu.Item
 				/* className="nav-font-color-categorias " */
 				key={generos._id}
-				onClick={() => props.history.push(`/searching/${generos._id}`)}
+				onClick={() => {
+					if(!categoriaSeleccionada && !subcategoriaSeleccionada ){
+						props.history.push(`/categoria/${generos._id}`)
+					}else if(categoriaSeleccionada && !subcategoriaSeleccionada){
+						props.history.push(`/categoria/${categoriaSeleccionada}/${generos._id}`)
+					}else if(categoriaSeleccionada && subcategoriaSeleccionada){
+						props.history.push(`/categoria/${categoriaSeleccionada}/${subcategoriaSeleccionada}/${generos._id}`)
+					}
+				}}
+				
 			>
 				{generos._id}
 			</Menu.Item>
@@ -95,6 +116,7 @@ const Categorias = (props) => {
 				theme="light"
 				mode="horizontal"
 				defaultSelectedKeys={[ window.location.pathname ]}
+				triggerSubMenuAction="click"
 			>
 				{categorias_nav}
 				{generos.length !== 0 ? (

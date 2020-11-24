@@ -346,10 +346,13 @@ function RegistrarProducto(props) {
 		setSubcategoriasDefault([ ...subcategoriasDefault, item ]);
 		setValueSelectSubCat(item);
 		setSubCategoria(item);
+		form.setFieldsValue({ subCategoria: item });
 	};
 
 	const onSelectSubCategoria = (value) => {
 		setSubCategoria(value);
+		setValueSelectSubCat(value);
+		form.setFieldsValue({ subCategoria: value });
 	};
 	const onCategoriaChange = (e) => {
 		if (e.target.value.length !== 0) {
@@ -439,10 +442,9 @@ function RegistrarProducto(props) {
 								<Form.Item label="Subcategoria" onChange={datosForm}>
 									<Form.Item
 										name="subCategoria"
-										/* rules={[ { required: true, message: 'Este campo es requerido' } ]}
-										noStyle */
+										rules={[ { required: true, message: 'Este campo es requerido' } ]}
+										noStyle
 									>
-										{console.log()}
 										<Select
 											disabled={loadingCombo}
 											loading={loadingCombo}
@@ -573,7 +575,7 @@ function RegistrarProducto(props) {
 											<Button
 												className="d-inline ml-2"
 												size="middle"
-												type="text"
+												type="default"
 												onClick={resetColor}
 											>
 												Quitar color

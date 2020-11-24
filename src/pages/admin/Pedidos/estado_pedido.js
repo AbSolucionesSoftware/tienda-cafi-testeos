@@ -6,6 +6,9 @@ import clienteAxios from '../../../config/axios';
 const { TextArea } = Input;
 
 const EstadoPedido = (props) => {
+
+	const {handleCancelEstado} = props;
+
 	const [ form ] = Form.useForm();
 	const token = localStorage.getItem('token');
 	const IDpedido = props.datosPedido;
@@ -15,6 +18,7 @@ const EstadoPedido = (props) => {
 	const [ loading, setLoading ] = useState(false);
 	const [ disabled, setDisabled ] = useState(false);
 	const [ datos, setDatos ] = useState({});
+
 
 	useEffect(
 		() => {
@@ -36,6 +40,7 @@ const EstadoPedido = (props) => {
 				setReload(true);
 				setLoading(false);
 				setDisabled(true);
+				handleCancelEstado();
 				notification.success({
 					message: 'Hecho!',
 					description: res.data.message,
@@ -127,10 +132,10 @@ const EstadoPedido = (props) => {
 
 	const menu = (
 		<Menu onClick={handleMenuClick}>
-			<Menu.Item key="En proceso" icon={<UserOutlined />}>
+			<Menu.Item key="En proceso">
 				En proceso
 			</Menu.Item>
-			<Menu.Item key="Enviado" icon={<UserOutlined />}>
+			<Menu.Item key="Enviado">
 				Enviado
 			</Menu.Item>
 		</Menu>
@@ -165,7 +170,7 @@ const EstadoPedido = (props) => {
 					<Input name="codigo_seguimiento" placeholder="Nombre del Autor" />
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit" className="float-right">
+					<Button type="primary" htmlType="submit" className="float-right" onClose={true}>
 						Guardar
 					</Button>
 				</Form.Item>

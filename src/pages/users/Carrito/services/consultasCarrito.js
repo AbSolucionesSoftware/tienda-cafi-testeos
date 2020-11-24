@@ -34,7 +34,6 @@ export async function actualizarCantidad(cliente, articulo, categoria, cantidad,
             message.success(res.data.message);
 		})
 		.catch((err) => {
-			console.log(err);
         });
         return true;
 }

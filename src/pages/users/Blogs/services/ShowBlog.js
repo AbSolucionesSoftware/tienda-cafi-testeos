@@ -20,7 +20,6 @@ export default function ShowBlog(props) {
 			})
 			.catch((err) => {
 				setLoading(false);
-				console.log(err.response);
 			});
 	}
 

@@ -18,12 +18,13 @@ p{
     line-height: 0;
     display: inline;
     font-weight: bold;
+    font-size: 15px;
 }
 .data-info-pedidos{
     float: right;
-    max-width: 80%;
-    overflow:hidden;
-    white-space:nowrap;
+    max-width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 .precio-total-pedidos{
@@ -44,8 +45,12 @@ p{
     height: 100%;
 }
 .card-p-pedidos p {
-    font-size: 16px;
+    font-size: 15px;
 }
 .form-paqueteria h6{
 font-weight: bold;
+}
+.fecha-pedidos{
+    
+    
 }

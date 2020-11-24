@@ -192,6 +192,7 @@ function TallasCantidades(props) {
 
 	const showModal = () => {
 		if (!token) {
+			localStorage.setItem("vistas", `/vista_producto/${productos._id}`);
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',
@@ -262,6 +263,8 @@ function TallasCantidades(props) {
 	async function Carrito() {
 		////AGREGAR CARRITO
 		if (!token) {
+			localStorage.setItem("vistas", `/vista_producto/${productos._id}`);
+			
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',
@@ -333,6 +336,7 @@ function TallasCantidades(props) {
 	async function Pedido() {
 		////AGREGAR PEDIDO
 		if (!token) {
+			localStorage.setItem("vistas", `/vista_producto/${productos._id}`);
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',

@@ -131,7 +131,6 @@ function Clientes(props) {
 				setClientes(res.data.posts.docs);
 				setClientesPaginados(res.data.posts);
 				setLoading(false);
-				console.log();
 			})
 			.catch((err) => {
 				setLoading(false);

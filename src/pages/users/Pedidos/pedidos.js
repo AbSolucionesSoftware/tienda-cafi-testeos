@@ -144,7 +144,6 @@ export default function PedidosUsuario(props) {
 					setEstado(true);
                 })
                 .catch((err) => {
-                    console.log(err.response)
                     notification.error({
                         message: 'Error del servidor',
                         description:
@@ -159,8 +158,8 @@ export default function PedidosUsuario(props) {
 		<Spin spinning={loading}>
 			<div className="container">
 				<h4 className="text-center m-3">Mis Compras</h4>
-				<Tabs className="shadow bg-white rounded " defaultActiveKey="1" type="card" size="large">
-					<TabPane tab="Mis compras"  key="1">
+				<Tabs centered className="shadow bg-white rounded tabs-colors" defaultActiveKey="1" type="card" size="large">
+					<TabPane tab="Mis compras" key="1">
 						<div>
 							{showInfo !== true ? (
 								<Result
@@ -224,23 +223,15 @@ export default function PedidosUsuario(props) {
 				onCancel={() => {
 					showModal(false);
 				}}
-				footer={[
-					<Button
-						style={{ fontSize: 16 }}
-						type="primary"
-						onClick={() => {
-							showModal(false);
-						}}
-					>
-						Cerrar
-					</Button>
-				]}
+				footer={null}
 			>
+
 				{Elige === true ? (
 					<DetalleApartado detalleApartado={detalleApartado} />
 				) : (
 					<DetallesPedido detallePedido={detallePedido} />
 				)}
+				
 			</Modal>
 		</Spin>
 	);
@@ -292,7 +283,6 @@ function Pedido(props) {
 						className="d-flex justify-content-center align-items-center my-3"
 						style={{ width: 100, height: 100 }}
 					>
-						<p>Pedido del producto sdsdsdsd</p>
 						<img
 							className="img-fluid"
 							alt="producto"

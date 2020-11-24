@@ -23,6 +23,9 @@ export default function Success(props) {
 				}
 			})
 			.then((res) => {
+				if(res.data.length === 0){
+					props.history.push('/');
+				}
 				setPedido(res.data);
 				setLoading(false);
 			})
@@ -111,7 +114,7 @@ export default function Success(props) {
 						}
 						extra={[
 							<Link to="/">
-								<Button type="primary" className="mb-3">
+								<Button type="primary" className="mb-3 color-boton">
 									Ir a Pagina principal
 								</Button>
 							</Link>

@@ -12,6 +12,8 @@ const { Meta } = Card;
 const { confirm } = Modal;
 
 const Sugerencia = (props) => {
+	const {drawnerClose} = props;
+
 	const token = localStorage.getItem('token');
 	const productoContext = useContext(IdProductoContext);
 	//states de obtener producto
@@ -208,6 +210,9 @@ const Sugerencia = (props) => {
 				setModalVisible(false);
 				obtenerSugerencia();
 				setLoading(false);
+				setTimeout(() => {
+					drawnerClose();
+				}, 400);
 				notification.success({
 					message: '¡Hecho!',
 					description: res.data.message,
@@ -255,6 +260,9 @@ const Sugerencia = (props) => {
 				setModalVisible(false);
 				obtenerSugerencia();
 				setLoading(false);
+				setTimeout(() => {
+					drawnerClose();
+				}, 400);
 				notification.success({
 					message: '¡Hecho!',
 					description: res.data.message,
@@ -323,6 +331,9 @@ const Sugerencia = (props) => {
 			cancelText: 'No',
 			onOk() {
 				eliminarSugerencia();
+				setTimeout(() => {
+					drawnerClose();
+				}, 400);
 			}
 		});
 	}

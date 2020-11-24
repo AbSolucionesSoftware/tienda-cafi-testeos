@@ -301,7 +301,7 @@ export default function ActualizarUsuario(props) {
 					''
 				) : (
 					<div>
-						<Divider style={{ fontSize: 22 }}>Contrasena</Divider>
+						<Divider style={{ fontSize: 22 }}>Contraseña</Divider>
 						<h5>Contraseña Actual:</h5>
 						<Form.Item name="contrasenaActual" onChange={datosPassword}>
 							<Input.Password name="contrasenaActual" placeholder="Contraseña actual" />

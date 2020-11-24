@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{useState} from 'react';
 import clienteAxios from '../../../config/axios';
 import { withRouter, Link } from 'react-router-dom';
-import { notification, Form, Input, Button } from 'antd';
+import { notification, Form, Input, Button, Alert } from 'antd';
 
 
 const layout = {
@@ -13,13 +13,28 @@ const tailLayout = {
 };
 
 function Login(props) {
+
+	const [mostrarDiv, setMostrarDiv] = useState('d-none');
+	const [mostrarMensaje, setmostrarMensaje] = useState('d-none');
+
 	const onFinish = async (values) => {
 		await clienteAxios
 			.post('/cliente/auth', values)
 			.then((res) => {
 				const token = res.data.token;
 				localStorage.setItem('token', token);
-				props.history.push('/admin');
+				const vista = localStorage.getItem("vistas");
+				if (vista) {
+					localStorage.getItem("vistas");
+					props.history.push(vista);
+					setTimeout(() => {
+						localStorage.removeItem("vistas");
+					}, 300);
+					
+				}else{
+					props.history.push('/');
+				}
+				
 			})
 			.catch((err) => {
 				if(err.response){
@@ -49,7 +64,7 @@ function Login(props) {
 	const onRecuperar = async (email) => {
 			await clienteAxios.post('/cliente/restablecer/pass',email)
 			.then((res) => {
-				console.log(res.data);
+				setmostrarMensaje("");
 			})
 			.catch((err) => {
 				if(err.response){
@@ -78,6 +93,10 @@ function Login(props) {
 
 	}
 
+	const mostrarDivClick = () => {
+		setMostrarDiv("")
+	}
+
 	return (
 		<div className="col-12">
 			<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
@@ -96,9 +115,9 @@ function Login(props) {
 						Continuar
 					</Button>
 				</Form.Item>
-				<p className ="text-primary">¿Has olvidado tu contrasena?</p>				
+				<p onClick={mostrarDivClick} style={{cursor: 'pointer',color: '#0084ff'}}>¿Has olvidado tu contrasena?</p>				
 			</Form>
-			<div  className="d-none col-12 mt-2">
+			<div  className={`${mostrarDiv} col-12 mt-2`}>
 				<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onRecuperar}>
 					<Form.Item label="Correo" >
 						<Form.Item name="emailCliente" rules={[ { required: true, message: 'El email es obligatorio!' } ]} noStyle >
@@ -109,6 +128,12 @@ function Login(props) {
 					<Button type="primary" htmlType="submit" className="color-boton">
 						Enviar
 					</Button>
+					<Alert
+						className={`${mostrarMensaje}`}
+						message="Correo enviado"
+						description="Se a enviado un correo para actualizar su contraseña"
+						type="success"
+					/>
 				</Form.Item>
 				</Form>
 			</div>

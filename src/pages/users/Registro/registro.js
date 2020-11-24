@@ -13,18 +13,22 @@ const tailLayout = {
 
 function Registro(props) {
 	const onFinish = async (values) => {
-		console.log(values);
 		await clienteAxios
 			.post('/cliente/', values)
 			.then((res) => {
 				const token = res.data.token;
 				localStorage.setItem('token', token);
-				props.history.push('/');
-				notification['success']({
-					message: 'Bienvenido!',
-					description: 'Te has registrado correctamente',
-					duration: 2
-				});
+				const vista = localStorage.getItem("vistas");
+				if (vista) {
+					localStorage.getItem("vistas");
+					props.history.push(vista);
+					setTimeout(() => {
+						localStorage.removeItem("vistas");
+					}, 300);
+					
+				}else{
+					props.history.push('/');
+				}
 			})
 			.catch((err) => {
 				if (err.response) {
