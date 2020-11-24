@@ -346,10 +346,13 @@ function RegistrarProducto(props) {
 		setSubcategoriasDefault([ ...subcategoriasDefault, item ]);
 		setValueSelectSubCat(item);
 		setSubCategoria(item);
+		form.setFieldsValue({ subCategoria: item });
 	};
 
 	const onSelectSubCategoria = (value) => {
 		setSubCategoria(value);
+		setValueSelectSubCat(value);
+		form.setFieldsValue({ subCategoria: value });
 	};
 	const onCategoriaChange = (e) => {
 		if (e.target.value.length !== 0) {
@@ -442,7 +445,6 @@ function RegistrarProducto(props) {
 										rules={[ { required: true, message: 'Este campo es requerido' } ]}
 										noStyle
 									>
-										{console.log()}
 										<Select
 											disabled={loadingCombo}
 											loading={loadingCombo}
