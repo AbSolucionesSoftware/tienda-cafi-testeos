@@ -288,7 +288,6 @@ function ListaCarrito(props) {
 									<div className="text-center">
 										<Button
 											className="color-boton-sec color-font-boton"
-											ghost
 											size="large"
 											onClick={() => actualizar(carrito._id, carrito.idarticulo.tipoCategoria)}
 										>

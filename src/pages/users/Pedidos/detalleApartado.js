@@ -10,6 +10,19 @@ const { Meta } = Card;
 
 export default function detalleApartado(props) {
 	const { detalleApartado } = props;
+	let multiple;
+
+	if (detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0) {
+		multiple = detalleApartado.apartadoMultiple.map((info) => {
+			const producto = detalleApartado.productosMultiple.map((producto) => {
+				if (info.producto === producto._id) {
+					return <ProductosMultiple key={producto._id} producto={producto} info={info} />;
+				}
+			});
+			return producto;
+		});
+	}
+
 	return (
 		<div className="card-p-pedidos">
 			<Divider className="text-center">Detalles del Apartado</Divider>
@@ -89,9 +102,13 @@ export default function detalleApartado(props) {
 
 			<Divider className="text-center">Productos del apartado</Divider>
 
-			<div className="row">
-				<Producto producto={detalleApartado.producto} />
-			</div>
+			{detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0 ? (
+				<div className="row">{multiple}</div>
+			) : (
+				<div className="row">
+					<Producto producto={detalleApartado.producto} />
+				</div>
+			)}
 
 			{detalleApartado.tipoEntrega === 'ENVIO' ? detalleApartado.estado === 'ENVIADO' ? (
 				<div>
@@ -136,18 +153,18 @@ export default function detalleApartado(props) {
 			) : (
 				''
 			)}
-			<div className="my-2">
-				<h6 className="titulos-info-pedidos h4 mt-3">
-					Total: $ {formatoMexico(detalleApartado.producto.precio)}
-				</h6>
+			<div className="mt-3 d-flex justify-content-end">
+				{detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0  ? (
+					<h3>Total: $ {formatoMexico(detalleApartado.total)}</h3>
+				) : (
+					<h3>Total: $ {formatoMexico(detalleApartado.producto.precio)}</h3>
+				)}
 			</div>
 		</div>
 	);
 }
 
-function Producto(props) {
-	const { producto } = props;
-
+function Producto({ producto }) {
 	return (
 		<div>
 			<Col span={4} key={producto._id} className="col-lg-12 col-sm-12">
@@ -157,11 +174,7 @@ function Producto(props) {
 						style={{ width: 250 }}
 						cover={
 							<div className="contenedor-imagen-detalle-apartado">
-								<img
-									alt="example"
-									className="imagen-detalle-apartado"
-									src={aws+producto.imagen}
-								/>
+								<img alt="example" className="imagen-detalle-apartado" src={aws + producto.imagen} />
 							</div>
 						}
 					>
@@ -172,6 +185,40 @@ function Producto(props) {
 					</Card>
 				</Link>
 			</Col>
+		</div>
+	);
+}
+
+function ProductosMultiple({ producto, info }) {
+	return (
+		<div key={producto._id} className="col-lg-4 col-sm-12">
+			<Link to={`/vista_producto/${producto._id}`}>
+				<Card
+					hoverable
+					style={{ width: 250 }}
+					cover={
+						<div className="contenedor-imagen-detalle-apartado">
+							<img alt="example" className="imagen-detalle-apartado" src={aws + producto.imagen} />
+						</div>
+					}
+				>
+					<Meta
+						title={producto.nombre}
+						description={
+							<div className="row">
+								<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(info.precio)}</h2>
+								{info.medida ? info.medida.talla ? (
+									<h2 className="h5 precio-rebaja col-lg-6">Talla: {info.medida.talla}</h2>
+								) : (
+									<h2 className="h5 precio-rebaja col-lg-6">Talla: {info.medida.numero}</h2>
+								) : (
+									<div />
+								)}
+							</div>
+						}
+					/>
+				</Card>
+			</Link>
 		</div>
 	);
 }

@@ -137,30 +137,30 @@ const Navegacion = (props) => {
 								inlineIndent={0}
 							>
 								<Menu.Item className="nav-font-color nav-border-color a6" key="/">
-									<p>Inicio</p>
+									<div className="centrar-nav" >Inicio</div>
 									<Link to="/" />
 								</Menu.Item>
 								<Menu.Item className="nav-font-color nav-border-color a6" key="/productos">
-									<p>Productos</p>
+									<div className="centrar-nav" >Productos</div>
 									<Link to="/productos" />
 								</Menu.Item>
 								{ofertas.length ? (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/ofertas">
-										<p>Ofertas</p>
+										<div className="centrar-nav" >Ofertas</div>
 										<Link to="/ofertas" />
 									</Menu.Item>
 								) : (
 									<Menu.Item className="d-none" />
 								)}
 								<Menu.Item className="nav-font-color nav-border-color a6" key="/blog">
-									<p>Blog</p>
+									<div className="centrar-nav" >Blog</div>
 									<Link to="/blog" />
 								</Menu.Item>
 								{tienda.length === 0 ? (
 									<Menu.Item className="d-none" />
 								) : (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/quienes_somos">
-										<p>Quiénes somos</p>
+										<div className="centrar-nav" >Quiénes somos</div>
 										<Link to="/quienes_somos" />
 									</Menu.Item>
 								)}
@@ -168,7 +168,7 @@ const Navegacion = (props) => {
 									<Menu.Item className="d-none" />
 								) : (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/pedidos">
-										<p>Mis compras</p>
+										<div className="centrar-nav" >Mis compras</div>
 										<Link to="/pedidos" />
 									</Menu.Item>
 								)}
@@ -176,12 +176,12 @@ const Navegacion = (props) => {
 									<Menu.Item className="d-none" />
 								) : (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/shopping_cart">
-										<p>
+										<div className="centrar-nav" >
 											<Badge count={carrito}>
 												<ShoppingCartOutlined style={{ fontSize: 25 }} />
 												<Link to="/shopping_cart" />
 											</Badge>
-										</p>
+										</div>
 									</Menu.Item>
 								)}
 								{token && decoded['rol'] === false ? (
@@ -203,8 +203,8 @@ const Navegacion = (props) => {
 											<SettingOutlined />Mi cuenta<Link to="/perfiles" />
 										</Menu.Item>
 										<Menu.Item>
-											<p
-												className="text-danger"
+											<div
+												className="text-danger centrar-nav"
 												onClick={() => {
 													localStorage.removeItem('token');
 													firebase.auth().signOut();
@@ -214,7 +214,7 @@ const Navegacion = (props) => {
 												}}
 											>
 												<LogoutOutlined />Cerrar Sesión
-											</p>
+											</div>
 										</Menu.Item>
 									</SubMenu>
 								) : decoded && decoded['rol'] === true ? (
@@ -236,8 +236,8 @@ const Navegacion = (props) => {
 											<SettingOutlined />Panel de administrador<Link to="/admin" />
 										</Menu.Item>
 										<Menu.Item className=" a6">
-											<p
-												className="text-danger"
+											<div
+												className="text-danger centrar-nav"
 												onClick={() => {
 													localStorage.removeItem('token');
 													firebase.auth().signOut();
@@ -247,7 +247,7 @@ const Navegacion = (props) => {
 												}}
 											>
 												<LogoutOutlined />Cerrar Sesión
-											</p>
+											</div>
 										</Menu.Item>
 									</SubMenu>
 								) : (
@@ -256,7 +256,7 @@ const Navegacion = (props) => {
 
 								{token === '' || token === null ? (
 									<Menu.Item className="nav-font-color nav-border-color a6">
-										<p>Entrar</p>
+										<div className="centrar-nav" >Entrar</div>
 										<Link to="/entrar" />
 									</Menu.Item>
 								) : (

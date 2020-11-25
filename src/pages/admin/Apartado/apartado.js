@@ -102,18 +102,19 @@ function SistemaApartado(props) {
 
 	useEffect(
 		() => {
-			obtenerDatos(24, page);
-			setLoading(true);
-			setEstado(false);
+			if (token === '' || token === null) {
+				props.history.push('/entrar');
+			} else if (decoded['rol'] !== true) {
+				props.history.push('/');
+			} else {
+				obtenerDatos(24, page);
+				setLoading(true);
+				setEstado(false);
+			}
 		},
 		[ page, filter, estado ]
 	);
 
-	if (token === '' || token === null) {
-		props.history.push('/entrar');
-	} else if (decoded['rol'] !== true) {
-		props.history.push('/');
-	}
 	const showModal = () => {
 		setVisible(true);
 	};
@@ -175,7 +176,12 @@ function SistemaApartado(props) {
 					onCancel={handleCancel}
 					footer={[ '' ]}
 				>
-					<DetalleApartado detalleApartado={detalleApartado} setEstado={setEstado} setFilter={setFilter} setVisible={setVisible}/>
+					<DetalleApartado
+						detalleApartado={detalleApartado}
+						setEstado={setEstado}
+						setFilter={setFilter}
+						setVisible={setVisible}
+					/>
 				</Modal>
 				<Pagination blogs={apartadoPaginacion} location={location} history={history} limite={24} />
 			</Spin>

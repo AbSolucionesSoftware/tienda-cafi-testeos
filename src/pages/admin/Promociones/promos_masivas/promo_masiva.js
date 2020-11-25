@@ -4,7 +4,6 @@ import { Space, Button, Avatar, notification, Result, Spin, Modal, List } from '
 import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import aws from '../../../../config/aws';
 import RegistroPromocionMasiva from './registrar_promocion_masiva';
-import ActualizarPromocionMasiva from './actualizar_promo_masiva';
 
 const { confirm } = Modal;
 

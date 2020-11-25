@@ -32,7 +32,7 @@ function Login(props) {
 					}, 300);
 					
 				}else{
-					props.history.push('/');
+					props.history.push('/admin');
 				}
 				
 			})
