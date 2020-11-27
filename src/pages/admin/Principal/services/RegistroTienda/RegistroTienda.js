@@ -548,14 +548,8 @@ export default function RegistroTienda(props) {
 					</Button>
 				</Form.Item>
 			</Form>
-<<<<<<< HEAD
-			<PoliticasEnvio datosNegocio={datosNegocio} setReloadInfo={setReloadInfo} />
-
 			<Cobertura_envio />
-
-=======
 			<PoliticasEnvio datosNegocio={datosNegocio} setReloadInfo={setReloadInfo} drawnerClose ={drawnerClose}/>
->>>>>>> 26a5807948098b4acf8675a07d7d3263b178b989
 		</div>
 	);
 }
