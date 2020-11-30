@@ -8,6 +8,7 @@ import MostrarDatosTargeta from './services/MostrarDatosTargeta';
 import DetalleApartado from './services/DetalleApartado';
 import Pagination from '../../../components/Pagination/pagination';
 import './apartado.scss';
+import MostrarDatosMultiple from './services/MostrarDatosMultiplesTarjeta';
 
 const { Search } = Input;
 
@@ -153,7 +154,16 @@ function SistemaApartado(props) {
 							</div>
 						) : (
 							<Row gutter={16}>
-								{apartados.map((apartado) => (
+								{apartados.map((apartado) => apartado.apartadoMultiple.length ? (
+									<MostrarDatosMultiple 
+										key={apartado._id}
+										setDetalleApartado={setDetalleApartado}
+										showModal={showModal}
+										apartado={apartado}
+										setEstado={setEstado}
+										token={token}
+									/>
+								):(
 									<MostrarDatosTargeta
 										key={apartado._id}
 										setDetalleApartado={setDetalleApartado}
@@ -162,7 +172,7 @@ function SistemaApartado(props) {
 										setEstado={setEstado}
 										token={token}
 									/>
-								))}
+								) )}
 							</Row>
 						)}
 					</div>

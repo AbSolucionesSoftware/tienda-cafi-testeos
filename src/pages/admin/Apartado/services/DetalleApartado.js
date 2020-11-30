@@ -1,18 +1,20 @@
 import React,{useState,useEffect} from 'react'
-import {Col,Row,Badge,Select,Form, Button,Spin,notification,Typography,Tag,Input} from 'antd'
+import {Col,Row,Badge,Select,Form, Button,Spin,notification,Typography,Tag,Input,Card} from 'antd'
 import './DetalleApartado.scss';
 import clienteAxios from '../../../../config/axios';
 import { formatoMexico } from '../../../../config/reuserFunction';
 import aws from '../../../../config/aws';
+import { Link } from 'react-router-dom';
 
 const { TextArea } = Input;
 const { Text } = Typography;
 const { Option } = Select;
+const { Meta } = Card;
 
 export default function DetalleApartado(props) {
 
     const {detalleApartado,setEstado, setVisible} = props;
-    
+    console.log(detalleApartado);
     const [selectEstado, setSelectEstado] = useState('')
     const [promocion, setpromocion] = useState([])
     const [ loading, setLoading ] = useState(false);
@@ -20,7 +22,20 @@ export default function DetalleApartado(props) {
 
     const [ form ] = Form.useForm();
 
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
+
+    let multiple;
+
+	if (detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0) {
+		multiple = detalleApartado.apartadoMultiple.map((info) => {
+			const producto = detalleApartado.productosMultiple.map((producto,index) => {
+				if (info.producto === producto._id) {
+					return <ProductosMultiple key={producto._id} producto={producto} info={info} index={index} />;
+				}
+			});
+			return producto;
+		});
+    }
 
     function obtenerApartado(){
         clienteAxios.get(`/apartado/${detalleApartado._id}`,{
@@ -74,7 +89,8 @@ export default function DetalleApartado(props) {
 
 
     const guardarEstadoApartado = async () => {
-            let data = {};
+        console.log(selectEstado);
+        let data = {};
         if(selectEstado === "ENVIADO"){
             data = {
                 estado: selectEstado,
@@ -131,31 +147,43 @@ export default function DetalleApartado(props) {
                 <Row>
                     <Col span={24} className="detalle-apartado__border d-block detalle-apartados">
                         <p className="h4 font-weight-bold">Datos Usuario</p>
-                        <div className="col-sm-12 col-lg-6 m-2">
-                            <h6 className=" m-2">Nombre: </h6>
-                            <p className=" m-2">{detalleApartado.cliente[0].nombre}</p>
-                            <h6 className=" m-2">Teléfono: </h6>
-                            <p className=" m-2">{detalleApartado.cliente[0].telefono}</p>
-                            <h6 className=" m-2">Calle: </h6>
-                            {<p className=" m-2">{detalleApartado.cliente[0].direccion[0].calle_numero}</p>}
-                            <h6 className=" m-2">Calles referentes a las que vive: </h6>
-                            {<p className=" m-2">{detalleApartado.cliente[0].direccion[0].entre_calles}</p>}
-                            <h6 className=" m-2">Código Postal: </h6>
-                            {<p className=" m-2">{detalleApartado.cliente[0].direccion[0].cp}</p>}
+                        <div className="col-sm-12 col-lg-6">
+                            <h6>Nombre: </h6>
+                            <p>{detalleApartado.cliente[0].nombre}</p>
+                            <h6>Teléfono: </h6>
+                            <p>{detalleApartado.cliente[0].telefono}</p>
+                            <h6>Calle: </h6>
+                            {<p>{detalleApartado.cliente[0].direccion[0].calle_numero}</p>}
+                            <h6>Calles referentes a las que vive: </h6>
+                            {<p>{detalleApartado.cliente[0].direccion[0].entre_calles}</p>}
+                            <h6>Código Postal: </h6>
+                            {<p>{detalleApartado.cliente[0].direccion[0].cp}</p>}
                         </div>
-                        <div className="col-sm-12 col-lg-6 m-2">
-                        <h6 className=" m-2">Colonia: </h6>
-                            {<p className=" m-2">{detalleApartado.cliente[0].direccion[0].colonia}</p>}
-                            <h6 className=" m-2">Ciudad: </h6>
-                            {<p className=" m-2">{detalleApartado.cliente[0].direccion[0].ciudad}</p>}
-                            <h6 className=" m-2">Estado: </h6>
-                            {<p className=" m-2">{detalleApartado.cliente[0].direccion[0].estado}</p>}
-                            <h6 className=" m-2">País: </h6>
-                            {<p className=" m-2">{detalleApartado.cliente[0].direccion[0].pais}</p>}
+                        <div className="col-sm-12 col-lg-6">
+                        <h6>Colonia: </h6>
+                            {<p>{detalleApartado.cliente[0].direccion[0].colonia}</p>}
+                            <h6>Ciudad: </h6>
+                            {<p>{detalleApartado.cliente[0].direccion[0].ciudad}</p>}
+                            <h6>Estado: </h6>
+                            {<p>{detalleApartado.cliente[0].direccion[0].estado}</p>}
+                            <h6>País: </h6>
+                            {<p>{detalleApartado.cliente[0].direccion[0].pais}</p>}
                         </div>
                     </Col>
                     <Col span={24} className="detalle-apartado__border d-block m-2">
                         <p className="h4 font-weight-bold">Datos producto</p>
+                        {detalleApartado.apartadoMultiple.length !== 0 ? (
+                            <div>
+                                <div className="row">
+                                    {multiple}
+                                </div>
+                                <div className="my-2">
+                                    <h6 className="titulos-info-pedidos h3">Total:</h6>
+                                    <p className="precio-total-pedidos data-info-pedidos">$ {formatoMexico(detalleApartado.total)}</p>
+                                </div>
+                            </div>
+
+                        ):(
                         <div className="">
                             <div className="DetalleApartdado-imagen">
                                 <img
@@ -178,14 +206,7 @@ export default function DetalleApartado(props) {
                                     <p className="h4">$ {formatoMexico(promocion[0].precioPromocion)}</p>
                                 </div>
                             ):(<p className=" m-2">$ {formatoMexico(detalleApartado.producto[0].precio)}</p>)}
-
-
-
-                        </div>
-                    </Col>
-                    <Col span={24} className="m-2">
-                        <div>
-                            <div>
+                                                        <div>
                             <p className="h4 font-weight-bold">Estatus del pedido</p>
                                 <h6 className=" m-2">{detalleApartado.producto[0].categoria === 'calzado' ? 'Numero a apartar:': detalleApartado.producto[0].categoria === 'ropa' ? 'Talla a apartar' : '' }</h6>
                                     {detalleApartado.producto[0].categoria === 'calzado' ? (
@@ -208,6 +229,11 @@ export default function DetalleApartado(props) {
                                         </Badge>
                                     ) : '' }
                             </div>
+                        </div>
+                        )}
+                    </Col>
+                    <Col span={24} className="m-2">
+                        <div>
                            {/*  <h6 className=" m-2">Cantidad de artículos por apartar: </h6>
                             <p className=" m-2">{detalleApartado.cantidad}</p> */}
 
@@ -266,8 +292,6 @@ export default function DetalleApartado(props) {
                                     </div>
                                 </div>
                             ) : "" : "" }
-
-
                             <Form.Item wrapperCol={{offset: 10, span: 8}}>
                                  <Button className="d-flex justify-content-center align-items-center" type="primary" htmlType="submit" >
                                     Guardar
@@ -279,5 +303,46 @@ export default function DetalleApartado(props) {
                 </Row>
             </div>
         </Spin>
+    )
+}
+
+function ProductosMultiple({producto,info}){
+    return (
+        <Link to={`/vista_producto/${producto._id}`}>
+            <Card
+                hoverable
+                style={{ width: 250 }}
+                cover={
+                    <div className="contenedor-imagen-detalle-apartado">
+                        <img alt="example" className="imagen-detalle-apartado" src={aws + producto.imagen} />
+                    </div>
+                }
+            >
+                <Meta
+                    title={producto.nombre}
+                    description={
+                        <div className="row">
+                            <h2 className="h5 precio-rebaja col-lg-12">${formatoMexico(info.precio)}</h2>
+                            {info.medida ? info.medida.talla ? (
+                                <div>
+                                    <h2 className="h5 precio-rebaja col-lg-12">Talla: {info.medida.talla}</h2>
+                                    <h2 className="h5 precio-rebaja col-lg-12">Cantidad: {info.cantidad}</h2>
+                                </div>
+                            ) : (
+                                <div>
+                                    <h2 className="h5 precio-rebaja col-lg-12">Talla: {info.medida.numero}</h2>
+                                    <h2 className="h5 precio-rebaja col-lg-12">Cantidad: {info.cantidad}</h2>
+                                </div>
+                                
+                            ) : (
+                                <div>
+                                    <h2 className="h5 precio-rebaja col-lg-12">Cantidad: {info.cantidad}</h2>
+                                </div>
+                            )}
+                        </div>
+                    }
+                />
+            </Card>
+        </Link>
     )
 }
