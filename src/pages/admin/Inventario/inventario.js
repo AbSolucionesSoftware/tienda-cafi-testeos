@@ -180,14 +180,14 @@ function Inventario(props) {
 	const searchBar = (
 		<div className="row mw-100 search-container">
 			<Search
-				className="col-lg-6 search-width"
+				className="col-lg-7 search-width px-0"
 				placeholder="Busca un producto"
 				onSearch={(value) => obtenerProductosFiltrados(value)}
-				style={{ height: 40, marginBottom: 10 }}
+				style={{ height: 40, marginBottom: 10, width: 400 }}
 				enterButton="Buscar"
 				size="large"
 			/>
-			<div className="col-lg-6">
+			<div className="col-lg-5 pl-0 pr-4">
 				<GetDataFromExcelJusTInput reload={[ reload, setReload ]} />
 			</div>
 		</div>
