@@ -17,7 +17,8 @@ function InventarioOtros(props) {
 		setReload,
 		loading,
 		setLoading,
-		token
+		token,
+		limite
 	} = props;
 	const [ form ] = Form.useForm();
 	const [ cantidad, setCantidad ] = useState(0);
@@ -180,7 +181,7 @@ function InventarioOtros(props) {
 				scroll={{ x: 1200 }}
 			/>
 			<div className="mt-5">
-				<Pagination blogs={productos} location={location} history={history} limite={20} />
+				<Pagination blogs={productos} location={location} history={history} limite={limite} />
 			</div>
 		</Spin>
 	);

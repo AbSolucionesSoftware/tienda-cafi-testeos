@@ -22,10 +22,12 @@ function Inventario(props) {
 	const limite = 20;
 	const [ loading, setLoading ] = useState(false);
 	const [ categorias, setCategorias ] = useState([]);
-	const [ tipoCategoria, setTipoCategoria ] = useState('');
+	/* const [ tipoCategoria, setTipoCategoria ] = useState(''); */
 	const [ productos, setProductos ] = useState([]);
 	const [ productosRender, setProductosRender ] = useState([]);
 	const [ reload, setReload ] = useState(true);
+
+	const tipoCategoria = props.match.params.tipoCategoria;
 
 	function Jwt(token) {
 		try {
@@ -51,7 +53,7 @@ function Inventario(props) {
 		() => {
 			obtenerProductos(tipoCategoria, limite, page)
 		},
-		[ page, reload ]
+		[ page, reload, props ]
 	);
 
 	const obtenerCategorias = async () => {
@@ -64,8 +66,9 @@ function Inventario(props) {
 			.then((res) => {
 				if(res.data.length !== 0){
 					setCategorias(res.data);
-					obtenerProductos(res.data[0]._id, limite, page);  
-					setTipoCategoria(res.data[0]._id);
+					/* obtenerProductos(res.data[0]._id, limite, page);  */ 
+					/* setTipoCategoria(res.data[0]._id); */
+					props.history.push(`/admin/inventario/${res.data[0]._id}`);
 				}
 			})
 			.catch((err) => {
@@ -97,7 +100,7 @@ function Inventario(props) {
 	};
 
 	const obtenerProductos = async (tipoCategoria, limit, page) => {
-		setTipoCategoria(tipoCategoria);
+		/* setTipoCategoria(tipoCategoria); */
 		setLoading(true);
 		await clienteAxios
 			.get(`/productos/filter/individuales?tipoCategoria=${tipoCategoria}&limit=${limit}&page=${page}`)
@@ -141,6 +144,7 @@ function Inventario(props) {
 						loading={loading}
 						setLoading={setLoading}
 						page={page}
+						limite={limite}
 					/>
 				</TabPane>
 			);
@@ -156,6 +160,7 @@ function Inventario(props) {
 						loading={loading}
 						setLoading={setLoading}
 						page={page}
+						limite={limite}
 					/>
 				</TabPane>
 			);
@@ -171,6 +176,7 @@ function Inventario(props) {
 						loading={loading}
 						setLoading={setLoading}
 						page={page}
+						limite={limite}
 					/>
 				</TabPane>
 			);
@@ -208,7 +214,10 @@ function Inventario(props) {
 			</Row>
 			<Tabs
 				tabBarExtraContent={searchBar}
-				onChange={(tipoCategoria) => obtenerProductos(tipoCategoria, limite, page)}
+				onChange={(tipoCategoria) => {
+					/* obtenerProductos(tipoCategoria, limite, page); */
+					props.history.push(`/admin/inventario/${tipoCategoria}`)
+				}}
 			>
 				{tabs}
 			</Tabs>

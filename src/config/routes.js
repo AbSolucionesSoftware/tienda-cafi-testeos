@@ -83,6 +83,11 @@ const routes = [
 				exact: true
 			},
 			{
+				path: '/admin/inventario/:tipoCategoria',
+				component: Inventario,
+				exact: true
+			},
+			{
 				path: '/admin/blog',
 				component: BlogAdmin,
 				exact: true

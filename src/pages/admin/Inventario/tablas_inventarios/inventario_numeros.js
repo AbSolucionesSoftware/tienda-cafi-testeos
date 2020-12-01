@@ -16,7 +16,8 @@ function InventarioNumeros(props) {
 		setReload,
 		loading,
 		setLoading,
-		token
+		token,
+		limite
 	} = props;
 	const [ form ] = Form.useForm();
 	const [ cantidad, setCantidad ] = useState(0);
@@ -128,6 +129,7 @@ function InventarioNumeros(props) {
 									key={numeros._id}
 									count={numeros.cantidad}
 									showZero
+									overflowCount={100000}
 									style={
 										numeros.cantidad !== 0 ? (
 											{ backgroundColor: '#52c41a' }
@@ -215,7 +217,7 @@ function InventarioNumeros(props) {
 				scroll={{ x: 1200 }}
 			/>
 			<div className="mt-5">
-				<Pagination blogs={productos} location={location} history={history} limite={20} />
+				<Pagination blogs={productos} location={location} history={history} limite={limite} />
 			</div>
 		</Spin>
 	);

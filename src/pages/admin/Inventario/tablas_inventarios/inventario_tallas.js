@@ -7,7 +7,7 @@ import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import Pagination from '../../../../components/Pagination/pagination';
 
 function InventarioTallas(props) {
-	const { location, history, page, productos, productosRender, reload, setReload, loading, setLoading, token } = props;
+	const { location, history, page, productos, productosRender, reload, setReload, loading, setLoading, token, limite } = props;
 	const [ form ] = Form.useForm();
 	const [ cantidad, setCantidad ] = useState(0);
 	const [ idTallaSeleccionada, setIdTallaSeleccionada ] = useState('');
@@ -118,6 +118,7 @@ function InventarioTallas(props) {
 									key={tallas._id}
 									count={tallas.cantidad}
 									showZero
+									overflowCount={100000}
 									style={
 										tallas.cantidad !== 0 ? (
 											{ backgroundColor: '#52c41a' }
@@ -205,7 +206,7 @@ function InventarioTallas(props) {
 				scroll={{ x: 1200 }}
 			/>
 			<div className="mt-5">
-				<Pagination blogs={productos} location={location} history={history} limite={20} />
+				<Pagination blogs={productos} location={location} history={history} limite={limite} />
 			</div>
 		</Spin>
 	);
