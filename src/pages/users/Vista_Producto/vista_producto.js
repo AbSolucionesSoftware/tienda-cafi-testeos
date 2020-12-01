@@ -37,13 +37,13 @@ function VistaProductos(props) {
 				setCostoEnvio(res.data);
 			})
 			.catch((err) => {
-				if(err.response){
+				if (err.response) {
 					notification.error({
 						message: 'Error',
 						description: err.response.data.message,
 						duration: 2
 					});
-				}else{
+				} else {
 					notification.error({
 						message: 'Error de conexion',
 						description: 'Al parecer no se a podido conectar al servidor.',
@@ -64,13 +64,13 @@ function VistaProductos(props) {
 			})
 			.catch((err) => {
 				props.history.push('/error500');
-				if(err.response){
+				if (err.response) {
 					notification.error({
 						message: 'Error',
 						description: err.response.data.message,
 						duration: 2
 					});
-				}else{
+				} else {
 					notification.error({
 						message: 'Error de conexion',
 						description: 'Al parecer no se a podido conectar al servidor.',
@@ -141,10 +141,10 @@ function VistaProductos(props) {
 						{costoEnvio ? (
 							<div>
 								<p style={{ fontSize: 15 }} className="envio-texto">
-									<FontAwesomeIcon icon={faTruck} style={{ fontSize: 15, marginRight: 10 }} /> <span>Costo del envío:</span>{' '}
-									<span>${costoEnvio.costoEnvio}</span>
+									<FontAwesomeIcon icon={faTruck} style={{ fontSize: 15, marginRight: 10 }} />{' '}
+									<span>Costo del envío:</span> <span>${costoEnvio.costoEnvio}</span>
 								</p>
-								{costoEnvio.promocionEnvio ?  costoEnvio.descuento !== 0 ? (
+								{costoEnvio.promocionEnvio ? costoEnvio.descuento !== 0 ? (
 									<Alert
 										message={
 											costoEnvio.descuento !== 0 ? (
@@ -156,29 +156,49 @@ function VistaProductos(props) {
 										type="success"
 										showIcon
 									/>
-								): "" : (
+								) : (
+									''
+								) : (
 									<div />
 								)}
 							</div>
 						) : (
 							<div className="d-none" />
 						)}
-						<Divider />
-						<div className="row justify-content-center">
-							<div className="col-4">
-								<p style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Género:</p>
-								<Tag className="color-tags" style={{ fontSize: 16 }}>
-									{productos.genero}
-								</Tag>
+						{productos.genero === "Ninguno" && !productos.color && !productos.colorHex ? (
+							<div />
+						) : (
+							<div>
+								<Divider />
+								<div className="row justify-content-center">
+									{productos.genero === 'Ninguno' ? (
+										<div />
+									) : (
+										<div className="col-4">
+											<p style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
+												Género:
+											</p>
+											<Tag className="color-tags" style={{ fontSize: 16 }}>
+												{productos.genero}
+											</Tag>
+										</div>
+									)}
+									{!productos.color && !productos.colorHex ? (
+										<div />
+									) : (
+										<div className="col-6">
+											<p style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 5 }}>
+												Color: {productos.color}
+											</p>
+											<div
+												className="rounded-circle ml-2"
+												style={{ height: 30, width: 30, backgroundColor: productos.colorHex }}
+											/>
+										</div>
+									)}
+								</div>
 							</div>
-							<div className="col-6">
-								<p style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 5 }}>Color: {productos.color}</p>
-								<div
-									className="rounded-circle ml-2"
-									style={{ height: 30, width: 30, backgroundColor: productos.colorHex }}
-								/>
-							</div>
-						</div>
+						)}
 						<Divider />
 						<TallasCantidades producto={productos} /> {/* Componente tallas */}
 						<Divider />

@@ -52,7 +52,7 @@ function RegistrarProducto(props) {
 	const [ subCategoriasBD, setSubCategoriasBD ] = useState([]);
 	const [ subCategoria, setSubCategoria ] = useState([]);
 	const [ displayColorPicker, setDisplayColorPicker ] = useState(false);
-	const [ color, setColor ] = useState('FFFFFF');
+	const [ color, setColor ] = useState('');
 	const [ valueSelect, setValueSelect ] = useState();
 	const [ valueSelectSubCat, setValueSelectSubCat ] = useState();
 
@@ -172,11 +172,12 @@ function RegistrarProducto(props) {
 		nombre: '',
 		cantidad: '',
 		precio: '',
-		imagen: ''
+		imagen: '',
+		color: ''
 	});
 	//// Capturar valores de categoria
 	const [ select, setSelect ] = useState('');
-	const [ genero, setGenero ] = useState('');
+	const [ genero, setGenero ] = useState('Ninguno');
 	const [ tipoCategoria, setTipoCategoria ] = useState('');
 
 	const onSelect = (value) => {
@@ -428,7 +429,7 @@ function RegistrarProducto(props) {
 								name="nest-messages"
 								onFinish={onFinish}
 								onFinishFailed={onError}
-								initialValues={{ categoria: select }}
+								initialValues={{ categoria: select, genero: 'Ninguno' }}
 								form={form}
 								ref={formRef.current}
 							>
@@ -485,8 +486,8 @@ function RegistrarProducto(props) {
 								</Form.Item>
 								<Form.Item label="Género" onChange={datosForm}>
 									<Form.Item
-										name="genero"
-										rules={[ { required: true, message: 'Este campo es requerido' } ]}
+										name="genero"/* 
+										rules={[ { required: true, message: 'Este campo es requerido' } ]} */
 										noStyle
 									>
 										<Select
@@ -496,6 +497,7 @@ function RegistrarProducto(props) {
 											disabled={disabledformProductos}
 											onChange={generoOnChange}
 										>
+											<Option value="Ninguno">Ninguno</Option>
 											<Option value="Niño">Niño</Option>
 											<Option value="Niña">Niña</Option>
 											<Option value="Hombre">Hombre</Option>
@@ -559,7 +561,7 @@ function RegistrarProducto(props) {
 										</Form.Item>
 										<Form.Item
 											name="color"
-											rules={[ { required: true, message: 'Este campo es requerido' } ]}
+											/* rules={[ { required: true, message: 'Este campo es requerido' } ]} */
 											noStyle
 										>
 											<Input

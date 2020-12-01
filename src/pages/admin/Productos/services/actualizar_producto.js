@@ -52,11 +52,12 @@ function ActualizarProducto(props) {
 			nombre: '',
 			precio: '',
 			cantidad: '',
-			imagen: ''
+			imagen: '', 
+			color: ''
 		}
 	]);
 	const [ displayColorPicker, setDisplayColorPicker ] = useState(false);
-	const [ color, setColor ] = useState('FFFFFF');
+	const [ color, setColor ] = useState('');
 	const styles = reactCSS({
 		default: {
 			color: {
@@ -355,6 +356,10 @@ function ActualizarProducto(props) {
 			formData.append('descripcion', editor);
 			formData.append('imagen', files);
 		}
+
+		/* for (var pair of formData.entries()) {
+			console.log(pair[0]+ ', ' + pair[1]); 
+		} */
 
 		setLoading(true);
 		await clienteAxios
