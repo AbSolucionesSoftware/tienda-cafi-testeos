@@ -18,7 +18,7 @@ const EstadoPedido = (props) => {
 	const [ loading, setLoading ] = useState(false);
 	const [ disabled, setDisabled ] = useState(false);
 	const [ datos, setDatos ] = useState({});
-
+	const [ entregado, setEntregado ] = useState(false);
 
 	useEffect(
 		() => {
@@ -110,7 +110,12 @@ const EstadoPedido = (props) => {
 	};
 
 	function handleMenuClick(e) {
-		setDatos({
+		if(e.key === "Entregado"){
+			setEntregado(true);
+			setDatos({estado_pedido: e.key});
+			setPedido({estado_pedido: e.key});
+		}else{
+			setDatos({
 			...datos,
 			estado_pedido: e.key
 		});
@@ -118,6 +123,8 @@ const EstadoPedido = (props) => {
 			...pedido,
 			estado_pedido: e.key
 		});
+		}
+		
 	}
 	function onChange(e) {
 		setDatos({
@@ -132,11 +139,14 @@ const EstadoPedido = (props) => {
 
 	const menu = (
 		<Menu onClick={handleMenuClick}>
-			<Menu.Item key="En proceso">
+			<Menu.Item key="En proceso" disabled={IDpedido.estado_pedido === 'Enviado' || disabled ? true : false}>
 				En proceso
 			</Menu.Item>
 			<Menu.Item key="Enviado">
 				Enviado
+			</Menu.Item>
+			<Menu.Item key="Entregado">
+				Entregado
 			</Menu.Item>
 		</Menu>
 	);
@@ -144,7 +154,7 @@ const EstadoPedido = (props) => {
 	return (
 		<Spin size="large" spinning={loading}>
 			<Divider orientation="left">Actualiza el estado del pedido</Divider>
-			<Dropdown overlay={menu} disabled={IDpedido.estado_pedido === 'Enviado' || disabled ? true : false}>
+			<Dropdown overlay={menu} disabled={IDpedido.estado_pedido === 'Entregado' || disabled ? true : false}>
 				<Button>
 					{pedido.estado_pedido} <DownOutlined />
 				</Button>
@@ -155,22 +165,22 @@ const EstadoPedido = (props) => {
 			<Form onFinish={cambiarEstado} form={form} className="form-paqueteria">
 				<h6>Mensaje:</h6>
 				<Form.Item name="mensaje_admin">
-					<TextArea rows={4} name="mensaje_admin" placeholder="Mensaje para el usuario" onChange={onChange} />
+					<TextArea disabled={entregado} rows={4} name="mensaje_admin" placeholder="Mensaje para el usuario" onChange={onChange} />
 				</Form.Item>
 				<h6>Url de vinculación:</h6>
 				<Form.Item name="url" onChange={onChange}>
-					<Input name="url" placeholder="Url de vinculacion del paquete" />
+					<Input disabled={entregado} name="url" placeholder="Url de vinculacion del paquete" />
 				</Form.Item>
 				<h6>Paquetería:</h6>
 				<Form.Item name="paqueteria" onChange={onChange}>
-					<Input name="paqueteria" placeholder="Nombre del Autor" />
+					<Input disabled={entregado} name="paqueteria" placeholder="Nombre del Autor" />
 				</Form.Item>
 				<h6>Código de seguimiento:</h6>
 				<Form.Item name="codigo_seguimiento" onChange={onChange}>
-					<Input name="codigo_seguimiento" placeholder="Nombre del Autor" />
+					<Input disabled={entregado} name="codigo_seguimiento" placeholder="Nombre del Autor" />
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit" className="float-right" onClose={true}>
+					<Button type="primary" htmlType="submit" className="float-right" /* onClose={true} */>
 						Guardar
 					</Button>
 				</Form.Item>

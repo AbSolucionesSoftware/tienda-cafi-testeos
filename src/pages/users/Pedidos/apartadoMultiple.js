@@ -26,7 +26,7 @@ export default function ApartadoMultiple({ apartado, showModal, setDetalleAparta
 					</Button>
 					<Button
 						className={
-							apartado.estado === 'ACEPTADO' || apartado.estado === 'ENVIADO' ? (
+							apartado.estado === 'ACEPTADO' || apartado.estado === 'ENVIADO' || apartado.estado === 'ENTREGADO' ? (
 								'd-none'
 							) : (
 								'd-flex justify-content-top align-items-top m-2 w-100'
@@ -110,10 +110,12 @@ export default function ApartadoMultiple({ apartado, showModal, setDetalleAparta
 									className="ml-2"
 									color={
 										apartado.estado === 'ACEPTADO' ? (
-											'#5cb85c'
+											'#0088ff'
 										) : apartado.estado === 'PROCESANDO' ? (
-											'#f0ad4e'
+											'#ffc401'
 										) : apartado.estado === 'ENVIADO' ? (
+											'#0088ff'
+										) : apartado.estado === 'ENTREGADO' ? (
 											'#5cb85c'
 										) : (
 											'#F75048'
@@ -126,6 +128,8 @@ export default function ApartadoMultiple({ apartado, showModal, setDetalleAparta
 										'Apartado en proceso'
 									) : apartado.estado === 'ENVIADO' ? (
 										'Apartado enviado'
+									) : apartado.estado === 'ENTREGADO' ? (
+										'Apartado entregado'
 									) : (
 										'Apartado cancelado'
 									)}

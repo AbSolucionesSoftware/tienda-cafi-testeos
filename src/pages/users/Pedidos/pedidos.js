@@ -291,7 +291,7 @@ function Pedido(props) {
 				{/* <p className="h6"><span className="font-weight-bold">Pedido el:</span> {formatoFecha(pedido.createdAt)}</p> */}
 				<p className="m-0" style={{ fontSize: '15px' }}>
 					<span className="font-weight-bold">Pedido:</span>
-					<Tag className="ml-2" color={pedido.estado_pedido === 'En proceso' ? '#f0ad4e' : '#5cb85c'}>
+					<Tag className="ml-2" color={pedido.estado_pedido === 'Entregado' ? '#5cb85c' : pedido.estado_pedido === 'Enviado' ? '#0088ff' : '#ffc401'}>
 						{pedido.estado_pedido}
 					</Tag>
 				</p>
@@ -323,7 +323,7 @@ function Pedido(props) {
 									<span className="font-weight-bold">Estatus:</span>
 									<Tag
 										className="ml-2"
-										color={pedido.estado_pedido === 'En proceso' ? '#f0ad4e' : '#5cb85c'}
+										color={pedido.estado_pedido === 'Entregado' ? '#5cb85c' : pedido.estado_pedido === 'Enviado' ? '#0088ff' : '#ffc401'}
 									>
 										{pedido.estado_pedido}
 									</Tag>
@@ -418,7 +418,7 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 					</Button>
 					<Button
 						className={
-							apartado.estado === 'ACEPTADO' || apartado.estado === 'ENVIADO' ? (
+							apartado.estado === 'ACEPTADO' || apartado.estado === 'ENVIADO' || apartado.estado === 'ENTREGADO' ? (
 								'd-none'
 							) : (
 								'd-flex justify-content-top align-items-top m-2 w-100'
@@ -498,10 +498,12 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 									className="ml-2"
 									color={
 										apartado.estado === 'ACEPTADO' ? (
-											'#5cb85c'
+											'#0088ff'
 										) : apartado.estado === 'PROCESANDO' ? (
-											'#f0ad4e'
+											'#ffc401'
 										) : apartado.estado === 'ENVIADO' ? (
+											'#0088ff'
+										) : apartado.estado === 'ENTREGADO' ? (
 											'#5cb85c'
 										) : (
 											'#F75048'
@@ -514,6 +516,8 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 										'Apartado en proceso'
 									) : apartado.estado === 'ENVIADO' ? (
 										'Apartado enviado'
+									) : apartado.estado === 'ENTREGADO' ? (
+										'Apartado entregado'
 									) : (
 										'Apartado cancelado'
 									)}

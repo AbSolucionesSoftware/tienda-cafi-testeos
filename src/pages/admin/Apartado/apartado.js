@@ -179,7 +179,7 @@ function SistemaApartado(props) {
 				</div>
 				<Modal
 					key="detalle"
-					width={600}
+					width={800}
 					style={{ top: 0 }}
 					title="Detalles de este pedido"
 					visible={visible}

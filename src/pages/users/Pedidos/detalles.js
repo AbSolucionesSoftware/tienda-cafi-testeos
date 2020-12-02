@@ -41,7 +41,7 @@ const DetallesPedido = (props) => {
 						<p>
 							<Tag
 								className="my-2"
-								color={detallePedido.estado_pedido === 'En proceso' ? '#f0ad4e' : '#5cb85c'}
+								color={detallePedido.estado_pedido === 'Entregado' ? '#5cb85c' : detallePedido.estado_pedido === 'Enviado' ? '#0088ff' : '#ffc401'}
 							>
 								{detallePedido.estado_pedido}
 							</Tag>

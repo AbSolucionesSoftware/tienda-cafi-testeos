@@ -107,10 +107,12 @@ const MostrarDatosMultipleTargeta = (props) => {
                                         className="data-info-apartados"
                                         color={
                                             apartado.estado === 'ACEPTADO' ? (
-                                                '#5cb85c'
+                                                '#0088ff'
                                             ) : apartado.estado === 'PROCESANDO' ? (
-                                                '#0275d8'
+                                                '#ffc401'
                                             ) : apartado.estado === 'ENVIADO' ? (
+                                                '#0088ff'
+                                            ) : apartado.estado === 'ENTREGADO' ? (
                                                 '#5cb85c'
                                             ) : (
                                                 '#F75048'

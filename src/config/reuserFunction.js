@@ -16,7 +16,7 @@ export const formatoFecha = (fecha) => {
 		return null;
 	} else {
 		var newdate = new Date(fecha);
-		return newdate.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+		return newdate.toLocaleDateString('es-MX', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
 	}
 };
 
@@ -25,7 +25,7 @@ export const formatoHora = (hora) => {
 		return null;
 	} else {
 		var newtime = new Date(hora);
-		return newtime.toLocaleTimeString('es-MX', { hour12: 'false' });
+		return newtime.toLocaleTimeString('en-US', { hour12: 'false' });
 	}
 };
 

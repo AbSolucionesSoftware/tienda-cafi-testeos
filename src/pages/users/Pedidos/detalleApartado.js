@@ -45,10 +45,12 @@ export default function detalleApartado(props) {
 							className="ml-2"
 							color={
 								detalleApartado.estado === 'ACEPTADO' ? (
-									'#5cb85c'
+									'#0088ff'
 								) : detalleApartado.estado === 'PROCESANDO' ? (
-									'#f0ad4e'
+									'#ffc401'
 								) : detalleApartado.estado === 'ENVIADO' ? (
+									'#0088ff'
+								) : detalleApartado.estado === 'ENTREGADO' ? (
 									'#5cb85c'
 								) : (
 									'#F75048'
@@ -61,6 +63,8 @@ export default function detalleApartado(props) {
 								'Apartado en proceso'
 							) : detalleApartado.estado === 'ENVIADO' ? (
 								'Apartado enviado'
+							) : detalleApartado.estado === 'ENTREGADO' ? (
+								'Apartado entregado'
 							) : (
 								'Apartado cancelado'
 							)}
@@ -154,7 +158,7 @@ export default function detalleApartado(props) {
 				''
 			)}
 			<div className="mt-3 d-flex justify-content-end">
-				{detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0  ? (
+				{detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0 ? (
 					<h3>Total: $ {formatoMexico(detalleApartado.total)}</h3>
 				) : (
 					<h3>Total: $ {formatoMexico(detalleApartado.producto.precio)}</h3>

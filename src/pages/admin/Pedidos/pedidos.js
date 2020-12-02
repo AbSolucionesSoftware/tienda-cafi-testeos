@@ -127,6 +127,9 @@ function Pedidos(props) {
 			case 'enviados':
 				obtenerPedidosFiltrados(10, page, 'Enviado');
 				break;
+			case 'entregados':
+				obtenerPedidosFiltrados(10, page, 'Entregado');
+				break;
 			default:
 				obtenerPedidos(10, page);
 				break;
@@ -209,7 +212,7 @@ function Pedidos(props) {
 									<h6 className="titulos-info-pedidos">Estado:</h6>
 									<Tag
 										className="data-info-pedidos"
-										color={pedidos.estado_pedido === 'Enviado' ? '#5cb85c' : '#0275d8'}
+										color={pedidos.estado_pedido === 'Entregado' ? '#5cb85c' : pedidos.estado_pedido === 'Enviado' ? '#0088ff' : '#ffc401'}
 									>
 										{pedidos.estado_pedido}
 									</Tag>
@@ -259,6 +262,9 @@ function Pedidos(props) {
 						<Radio className="d-lg-inline d-block mb-1" value="enviados" onChange={onChange}>
 							Enviados
 						</Radio>
+						<Radio className="d-lg-inline d-block mb-1" value="entregados" onChange={onChange}>
+							Entregados
+						</Radio>
 					</Radio.Group>
 				</div>
 				<div className="mt-4">
@@ -285,6 +291,7 @@ function Pedidos(props) {
 			<Modal
 				key="estado"
 				width={600}
+				style={{ top: 0 }}
 				title="Estado del pedido"
 				visible={estadoVisible}
 				onCancel={handleCancelEstado}
