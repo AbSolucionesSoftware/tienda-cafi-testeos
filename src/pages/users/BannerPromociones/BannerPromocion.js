@@ -74,7 +74,7 @@ const BgElement = Element.BgElement;
                      </BannerAnim>
                     </div>
                     ) : 
-                    ""
+                    null
                     }
 
                 <div>

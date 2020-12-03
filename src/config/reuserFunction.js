@@ -1,4 +1,5 @@
-
+/* import { parse } from "dotenv/types";
+ */
 
 
 export const formatoMexico = (number) => {
@@ -7,7 +8,8 @@ export const formatoMexico = (number) => {
 	} else {
 		const exp = /(\d)(?=(\d{3})+(?!\d))/g;
 		const rep = '$1,';
-		return number.toString().replace(exp, rep);
+		const nueva =  number.toString().replace(exp, rep);
+		return parseFloat(nueva).toFixed(2);
 	}
 };
 
