@@ -265,7 +265,7 @@ const Navegacion = (props) => {
 							</Menu>
 						</div>
 					</div>
-					<div className="top-menu-responsive nav-font-color">
+					<div className="top-menu-responsive">
 						<Button type="link" className="barsMenu" onClick={showDrawer}>
 							<MenuOutlined className="menu-responsivo-icon" style={{ fontSize: 22 }} />
 						</Button>
@@ -277,11 +277,13 @@ const Navegacion = (props) => {
 						{!decoded || decoded.rol === true ? (
 							<div className="d-none" />
 						) : (
-							<Badge count={carrito}>
-								<Link to="/shopping_cart">
-									<ShoppingCartOutlined className="menu-responsivo-icon" style={{ fontSize: 28 }} />
-								</Link>
-							</Badge>
+							<div className="mx-4">
+								<Badge count={carrito}>
+									<Link to="/shopping_cart">
+										<ShoppingCartOutlined className="menu-responsivo-icon" style={{ fontSize: 28 }} />
+									</Link>
+								</Badge>
+							</div>
 						)}
 					</div>
 					<Drawer

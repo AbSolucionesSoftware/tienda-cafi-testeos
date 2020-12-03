@@ -87,7 +87,7 @@
   align-items: center;
 }
 
-@media(max-width: 768px){
+@media(max-width: 992px){
   .barsMenu{
     display: inline-block;
   }
@@ -97,7 +97,7 @@
   .top-menu-responsive{
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
   }
   .menuCon{
     display: flex;
@@ -109,6 +109,6 @@
 
   } */
   .search-nav-responsive{
-    width: 240px;
+    width: 80%;
   }
 }
