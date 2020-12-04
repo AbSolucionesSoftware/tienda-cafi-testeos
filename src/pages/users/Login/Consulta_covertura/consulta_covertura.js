@@ -12,45 +12,49 @@ export default function Consulta_covertura() {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [cpApi, setCpApi] = useState([]);
-    const [municipios, setMunicipios] = useState([]);
+    const [municipiosApi, setMunicipiosApi] = useState([]);
     // const [value, setValue] = ([]);
      
     const valor = [];
     const onChange = param => {
         console.log(param.target.value)
     }
-    console.log(valor);
+    // console.log(valor);
 
 
-    // const consultaCP = (value) => {
-    //     if(value){
-    //         consultaCodigos
-    //         .get(`/info_cp/`)
-    //         .then((res) => {
-    //           const datosApiMunicipios = res.data.response.municipios;
-    //           setMunicipiosApi(res.data.response.municipios);
-    //           const arrayMunicipio = [];
-    //           dataEstados.forEach(estado => {
-    //             if (value === estado.estado) {
-    //               setIdEstado(estado._id);
-    //               estado.municipios.map((municipio) => {
-    //                 for (let i = 0; i < datosApiMunicipios.length; i++) {
-    //                  if (datosApiMunicipios[i] === municipio.municipio ) {
-    //                    arrayMunicipio.push(municipio.municipio);
-    //                  }
-    //                 }
-    //               })
-    //             }
-    //           });
-    //         })
-    //         .catch((err) => {
-    //           notification.error({
-    //             message: 'Error del servidor',
-    //             description: 'Paso algo en el servidor'
-    //           });
-    //         });
-    //     }
-    //   }
+    const consultaCP = () => {
+        consultaCodigos
+        .get(`/info_cp/48900`)
+        .then((res) => {
+        const data = res.data[0].response.municipio;
+        console.log(data);
+        // const datosApiMunicipios = res.data.response.municipios;
+        //   setMunicipiosApi(res.data.response.municipios);
+        //   const arrayMunicipio = [];
+        //   dataEstados.forEach(estado => {
+        //     if (value === estado.estado) {
+        //       setIdEstado(estado._id);
+        //       estado.municipios.map((municipio) => {
+        //         for (let i = 0; i < datosApiMunicipios.length; i++) {
+        //          if (datosApiMunicipios[i] === municipio.municipio ) {
+        //            arrayMunicipio.push(municipio.municipio);
+        //          }
+        //         }
+        //       })
+        //     }
+        //   });
+        })
+        .catch((err) => {
+            notification.error({
+            message: 'Error del servidor',
+            description: 'Paso algo en el servidor'
+            });
+        });
+    }
+
+    const consulta = () => {
+
+    }
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -91,9 +95,9 @@ export default function Consulta_covertura() {
                 
                 <div className="justify-content-center text-center mt-3">
                     <Button 
-                        type="primary" 
+                        type="primary"
                         style={{textAlign: "center"}}
-                        onClick={valor}
+                        onClick={consultaCP}
                     >
                         Buscar
                     </Button>
