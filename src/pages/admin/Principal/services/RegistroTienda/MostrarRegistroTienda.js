@@ -20,6 +20,8 @@ import aws from '../../../../../config/aws';
 function MostrarRegistroTienda(props) {
 	const { token } = props;
 
+	const {setCurrent, current} = props;
+
 	const [ action, setAction ] = useState(false);
 	const [ visible, setVisible ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
@@ -161,7 +163,6 @@ function MostrarRegistroTienda(props) {
 				onClose={drawnerClose}
 				visible={visible}
 				bodyStyle={{ paddingBottom: 80 }}
-				/* drawnerClose ={drawnerClose} */
 				footer={
 					<div
 						style={{
@@ -178,8 +179,10 @@ function MostrarRegistroTienda(props) {
 					datosNegocio={datosNegocio}
 					token={token}
 					setLoading={setLoading}
-					setReloadInfo={setReloadInfo}
-					drawnerClose={drawnerClose}
+					// setReloadInfo={setReloadInfo}
+					// drawnerClose={drawnerClose}
+					setCurrent={setCurrent}
+					current={current}
 				/>
 			</Drawer>
 

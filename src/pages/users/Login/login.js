@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import clienteAxios from '../../../config/axios';
 import { withRouter, Link } from 'react-router-dom';
 import { notification, Form, Input, Button, Alert } from 'antd';
+import Consulta_covertura from './Consulta_covertura/consulta_covertura.js';
 
 
 const layout = {
@@ -11,6 +12,12 @@ const layout = {
 const tailLayout = {
 	wrapperCol: { offset: 7, span: 10 }
 };
+
+const modal = () => {
+	return(
+		<Consulta_covertura />
+	)
+}
 
 function Login(props) {
 
@@ -24,6 +31,7 @@ function Login(props) {
 				const token = res.data.token;
 				localStorage.setItem('token', token);
 				const vista = localStorage.getItem("vistas");
+				console.log("Lanza modal");
 				if (vista) {
 					localStorage.getItem("vistas");
 					props.history.push(vista);
@@ -136,6 +144,7 @@ function Login(props) {
 					/>
 				</Form.Item>
 				</Form>
+				<Consulta_covertura />
 			</div>
 		</div>
 	);
