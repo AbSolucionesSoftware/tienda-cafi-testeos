@@ -102,12 +102,12 @@ const Navegacion = (props) => {
 			<Header className="navbar-menu-general a1">
 				<div className="menuCon navbar-menu-general a2">
 					<div className="top-menu row a3">
-						<div className="col-lg-5 row-logo-search">
+						<div className="col-lg-4 row-logo-search">
 							<div className="row row-logo-search-2">
 								{!tienda.imagenLogo ? (
 									<div className="d-none" />
 								) : (
-									<div className="col-3">
+									<div className="col-lg-4">
 										<Link to="/">
 											<div className="contenedor-logo">
 												<img
@@ -119,7 +119,7 @@ const Navegacion = (props) => {
 										</Link>
 									</div>
 								)}
-								<div className="col-9">
+								<div className="col-lg-8">
 									<Search
 										placeholder="¿Qué estás buscando?"
 										onSearch={(value) => props.history.push(`/searching/${value}`)}
@@ -128,7 +128,7 @@ const Navegacion = (props) => {
 								</div>
 							</div>
 						</div>
-						<div className="col-lg-7 nav-menu-enlaces a4 ">
+						<div className="col-lg-8 nav-menu-enlaces a4 ">
 							<Menu
 								className="float-right navbar-menu-general a5"
 								/* theme="light" */

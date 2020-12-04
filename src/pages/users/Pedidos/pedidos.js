@@ -291,24 +291,33 @@ function Pedido(props) {
 				{/* <p className="h6"><span className="font-weight-bold">Pedido el:</span> {formatoFecha(pedido.createdAt)}</p> */}
 				<p className="m-0" style={{ fontSize: '15px' }}>
 					<span className="font-weight-bold">Pedido:</span>
-					<Tag className="ml-2" color={pedido.estado_pedido === 'Entregado' ? '#5cb85c' : pedido.estado_pedido === 'Enviado' ? '#0088ff' : '#ffc401'}>
+					<Tag
+						className="ml-2"
+						color={
+							pedido.estado_pedido === 'Entregado' ? (
+								'#5cb85c'
+							) : pedido.estado_pedido === 'Enviado' ? (
+								'#0088ff'
+							) : (
+								'#ffc401'
+							)
+						}
+					>
 						{pedido.estado_pedido}
 					</Tag>
 				</p>
 			</div>
 			<List.Item.Meta
 				avatar={
-					<Avatar.Group
-							maxCount={2}
-							size={80}
-							maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
-						>
+					<div className=" d-flex justify-content-center" style={{width: 200}}>
+						<Avatar.Group maxCount={1} size={90} maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
 							{pedido.pedido.map((res) => (
 								<Tooltip key={res.producto._id} title={res.producto.nombre} placement="top">
 									<Avatar src={aws + res.producto.imagen} />
 								</Tooltip>
 							))}
 						</Avatar.Group>
+					</div>
 				}
 				title={
 					<div className="titulo-producto row mostrar-pedido">
@@ -323,7 +332,15 @@ function Pedido(props) {
 									<span className="font-weight-bold">Estatus:</span>
 									<Tag
 										className="ml-2"
-										color={pedido.estado_pedido === 'Entregado' ? '#5cb85c' : pedido.estado_pedido === 'Enviado' ? '#0088ff' : '#ffc401'}
+										color={
+											pedido.estado_pedido === 'Entregado' ? (
+												'#5cb85c'
+											) : pedido.estado_pedido === 'Enviado' ? (
+												'#0088ff'
+											) : (
+												'#ffc401'
+											)
+										}
 									>
 										{pedido.estado_pedido}
 									</Tag>
@@ -418,7 +435,9 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 					</Button>
 					<Button
 						className={
-							apartado.estado === 'ACEPTADO' || apartado.estado === 'ENVIADO' || apartado.estado === 'ENTREGADO' ? (
+							apartado.estado === 'ACEPTADO' ||
+							apartado.estado === 'ENVIADO' ||
+							apartado.estado === 'ENTREGADO' ? (
 								'd-none'
 							) : (
 								'd-flex justify-content-top align-items-top m-2 w-100'

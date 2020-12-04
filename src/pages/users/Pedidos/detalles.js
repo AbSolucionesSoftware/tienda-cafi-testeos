@@ -138,7 +138,7 @@ function Producto(props) {
 							description={
 								<div>
 									<h6 className="precio-rebaja">Cantidad de articulos: {producto.cantidad}</h6>
-									<h2 className="h5 precio-rebaja">${formatoMexico(producto.producto.precio)}</h2>
+									<h2 className="h5 precio-rebaja">${formatoMexico(producto.precio)}</h2>
 								</div>
 							}
 						/>
