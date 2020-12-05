@@ -33,43 +33,110 @@ function ListaCarrito(props) {
 		setDisponible('')
 		setCantidad(carrito.cantidad);
 		if (carrito.idarticulo.tallas.length !== 0) {
-			carrito.idarticulo.tallas.forEach((tallas) => {
+			for (let index = 0; index < carrito.idarticulo.tallas.length; index++) {
+				const tallas = carrito.idarticulo.tallas[index];
 				if (carrito.medida) {
-					carrito.medida.forEach((medida) => {
-						if (medida.talla === tallas.talla) {
-							setMedida([ medida.talla, tallas.cantidad ]);
-						}
+					if (carrito.medida[0].talla === tallas.talla) {
+						setMedida([ carrito.medida[0].talla, tallas.cantidad ]);
 						if(tallas.cantidad === 0){
 							setValidateStatus('error');
 							setMedidaDisponible('No esta disponible');
 							setValidacion(true);
+							break;
 						}else{
 							setValidacion(false);
 							setValidateStatus('validating');
-								setMedidaDisponible('');
+							setMedidaDisponible('');
+							break;
 						}
-					});
+					}else {
+						setValidateStatus('error');
+						setMedidaDisponible('No esta disponible');
+						setValidacion(true);
+						if(tallas.talla === carrito.medida[0].talla){
+							break
+						}
+					}
 				}
-			});
-		} else if (carrito.idarticulo.numeros.length !== 0) {
-			carrito.idarticulo.numeros.forEach((numeros) => {
+			}
+			/* carrito.idarticulo.tallas.forEach((tallas) => {
 				if (carrito.medida) {
 					carrito.medida.forEach((medida) => {
-						if (medida.numero === numeros.numero) {
-							setMedida([ medida.numero, numeros.cantidad ]);
-							if(numeros.cantidad === 0){
+						if (medida.talla === tallas.talla) {
+							setMedida([ medida.talla, tallas.cantidad ]);
+							if(tallas.cantidad === 0){
 								setValidateStatus('error');
 								setMedidaDisponible('No esta disponible');
 								setValidacion(true);
 							}else{
 								setValidacion(false);
 								setValidateStatus('validating');
-								setMedidaDisponible('');
+									setMedidaDisponible('');
 							}
+						}else {
+							setValidateStatus('error');
+								setMedidaDisponible('No esta disponible');
+								setValidacion(true);
 						}
+						
 					});
 				}
-			});
+			}); */
+		} else if (carrito.idarticulo.numeros.length !== 0) {
+			for (let index = 0; index < carrito.idarticulo.numeros.length; index++) {
+				const numeros = carrito.idarticulo.numeros[index];
+				if (carrito.medida) {
+					if (carrito.medida[0].numero === numeros.numero) {
+						setMedida([ carrito.medida[0].numero, numeros.cantidad ]);
+						if(numeros.cantidad === 0){
+							setValidateStatus('error');
+							setMedidaDisponible('No esta disponible');
+							setValidacion(true);
+							break
+							
+						}else{
+							setValidacion(false);
+							setValidateStatus('validating');
+							setMedidaDisponible('');
+							break
+						}
+					}else{
+						setValidacion(true);
+						setValidateStatus('error');
+						setMedidaDisponible('No esta disponible');
+						if(numeros.numero === carrito.medida[0].numero){
+							break
+						}
+						
+					}
+				}
+				
+			}
+			
+			/* carrito.idarticulo.numeros.forEach((numeros) => {
+				if (carrito.medida) {
+					if (carrito.medida[0].numero === numeros.numero) {
+						setMedida([ carrito.medida[0].numero, numeros.cantidad ]);
+						if(numeros.cantidad === 0){
+							setValidateStatus('error');
+							setMedidaDisponible('No esta disponible');
+							setValidacion(true);
+							
+							
+						}else{
+							setValidacion(false);
+							setValidateStatus('validating');
+							setMedidaDisponible('');
+							throw BreakException
+						}
+					}else{
+						setValidacion(true);
+						setValidateStatus('error');
+						setMedidaDisponible('No esta disponible');
+						
+					}
+				}
+			}); */
 		}
 		if (carrito.idarticulo.activo === false) {
 			setValidateStatus('error');
@@ -82,12 +149,12 @@ function ListaCarrito(props) {
 		} else {
 			setPrecio(carrito.idarticulo.precio);
 		}
-	}, [ carrito, setValidacion ]);
+	}, [ carrito ]);
 
 	function medidaChange(medida) {
 		setCantidad(carrito.cantidad);
 		setMedida(medida);
-		setValidateStatus('validating');
+		setValidacion(true);
 		setMedidaDisponible('');
 		setValidateStatus('warning');
 		setMedidaDisponible('Guarda los cambios');
@@ -95,6 +162,7 @@ function ListaCarrito(props) {
 	function cantidadChange(cantidad) {
 		setCantidad(cantidad);
 		if (cantidad !== 0) {
+			setValidacion(true);
 			setValidateStatus('warning');
 			setMedidaDisponible('Guarda los cambios');
 		}

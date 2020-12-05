@@ -26,7 +26,9 @@ export default function ApartadoMultiple({ apartado, showModal, setDetalleAparta
 					</Button>
 					<Button
 						className={
-							apartado.estado === 'ACEPTADO' || apartado.estado === 'ENVIADO' || apartado.estado === 'ENTREGADO' ? (
+							apartado.estado === 'ACEPTADO' ||
+							apartado.estado === 'ENVIADO' ||
+							apartado.estado === 'ENTREGADO' ? (
 								'd-none'
 							) : (
 								'd-flex justify-content-top align-items-top m-2 w-100'
@@ -61,7 +63,38 @@ export default function ApartadoMultiple({ apartado, showModal, setDetalleAparta
 						{apartado.tipoEntrega === 'ENVIO' ? 'Envío por paquetería' : 'Recoger a sucursal'}
 					</Tag>
 				</p>
-			</div>             
+				<p className="m-0" style={{ fontSize: '15px' }}>
+					<span className="font-weight-bold">Estado:</span>
+					<Tag
+						className="ml-2"
+						color={
+							apartado.estado === 'ACEPTADO' ? (
+								'#0088ff'
+							) : apartado.estado === 'PROCESANDO' ? (
+								'#ffc401'
+							) : apartado.estado === 'ENVIADO' ? (
+								'#0088ff'
+							) : apartado.estado === 'ENTREGADO' ? (
+								'#5cb85c'
+							) : (
+								'#F75048'
+							)
+						}
+					>
+						{apartado.estado === 'ACEPTADO' ? (
+							'Apartado aceptado'
+						) : apartado.estado === 'PROCESANDO' ? (
+							'Apartado en proceso'
+						) : apartado.estado === 'ENVIADO' ? (
+							'Apartado enviado'
+						) : apartado.estado === 'ENTREGADO' ? (
+							'Apartado entregado'
+						) : (
+							'Apartado cancelado'
+						)}
+					</Tag>
+				</p>
+			</div>
 
 			<List.Item.Meta
 				avatar={

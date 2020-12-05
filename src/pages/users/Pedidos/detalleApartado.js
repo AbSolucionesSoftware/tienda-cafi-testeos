@@ -107,10 +107,10 @@ export default function detalleApartado(props) {
 			<Divider className="text-center">Productos del apartado</Divider>
 
 			{detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0 ? (
-				<div className="row">{multiple}</div>
+				<div className="row d-flex justify-content-center">{multiple}</div>
 			) : (
-				<div className="row">
-					<Producto producto={detalleApartado.producto} />
+				<div className="row d-flex justify-content-center">
+					<Producto producto={detalleApartado} />
 				</div>
 			)}
 
@@ -171,23 +171,41 @@ export default function detalleApartado(props) {
 function Producto({ producto }) {
 	return (
 		<div>
-			<Col span={4} key={producto._id} className="col-lg-12 col-sm-12">
-				<Link to={`/vista_producto/${producto._id}`}>
-					<Card
-						hoverable
-						style={{ width: 250 }}
-						cover={
-							<div className="contenedor-imagen-detalle-apartado">
-								<img alt="example" className="imagen-detalle-apartado" src={aws + producto.imagen} />
+			<Col span={4} key={producto.producto._id} className="col-lg-12 col-sm-12">
+				<Card
+					/* hoverable */
+					style={{ width: 250 }}
+					bodyStyle={{ paddingLeft: 15, paddingRight: 15 }}
+					cover={
+						<div className="contenedor-imagen-detalle-apartado">
+							<img
+								alt="example"
+								className="imagen-detalle-apartado"
+								src={aws + producto.producto.imagen}
+							/>
+						</div>
+					}
+				>
+					<Meta
+						title={producto.producto.nombre}
+						description={
+							<div className="row">
+								{producto.promocion && producto.promocion.length !== 0 ? (
+									<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(producto.promocion[0].precioPromocion)}</h2>
+								) : (
+									<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(producto.producto.precio)}</h2>
+								)}
+								{producto.medida && producto.medida.length !== 0 ? producto.medida[0].talla ? (
+									<h2 className="h5 precio-rebaja col-lg-6">Talla: {producto.medida[0].talla}</h2>
+								) : (
+									<h2 className="h5 precio-rebaja col-lg-6">Talla: {producto.medida[0].numero}</h2>
+								) : (
+									<div />
+								)}
 							</div>
 						}
-					>
-						<Meta
-							title={producto.nombre}
-							description={<h2 className="h5 precio-rebaja">${formatoMexico(producto.precio)}</h2>}
-						/>
-					</Card>
-				</Link>
+					/>
+				</Card>
 			</Col>
 		</div>
 	);
@@ -196,33 +214,32 @@ function Producto({ producto }) {
 function ProductosMultiple({ producto, info }) {
 	return (
 		<div key={producto._id} className="col-lg-4 col-sm-12">
-			<Link to={`/vista_producto/${producto._id}`}>
-				<Card
-					hoverable
-					style={{ width: 250 }}
-					cover={
-						<div className="contenedor-imagen-detalle-apartado">
-							<img alt="example" className="imagen-detalle-apartado" src={aws + producto.imagen} />
+			<Card
+				/* hoverable */
+				style={{ width: 250 }}
+				bodyStyle={{ paddingLeft: 15, paddingRight: 15 }}
+				cover={
+					<div className="contenedor-imagen-detalle-apartado">
+						<img alt="example" className="imagen-detalle-apartado" src={aws + producto.imagen} />
+					</div>
+				}
+			>
+				<Meta
+					title={producto.nombre}
+					description={
+						<div className="row">
+							<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(info.precio)}</h2>
+							{info.medida ? info.medida.talla ? (
+								<h2 className="h5 precio-rebaja col-lg-6">Talla: {info.medida.talla}</h2>
+							) : (
+								<h2 className="h5 precio-rebaja col-lg-6">Talla: {info.medida.numero}</h2>
+							) : (
+								<div />
+							)}
 						</div>
 					}
-				>
-					<Meta
-						title={producto.nombre}
-						description={
-							<div className="row">
-								<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(info.precio)}</h2>
-								{info.medida ? info.medida.talla ? (
-									<h2 className="h5 precio-rebaja col-lg-6">Talla: {info.medida.talla}</h2>
-								) : (
-									<h2 className="h5 precio-rebaja col-lg-6">Talla: {info.medida.numero}</h2>
-								) : (
-									<div />
-								)}
-							</div>
-						}
-					/>
-				</Card>
-			</Link>
+				/>
+			</Card>
 		</div>
 	);
 }

@@ -87,7 +87,7 @@ export default function ModalApartado(props) {
 					</div>
 				</List.Item>
 			</List>
-			{console.log(carrito)}
+
 			<div className="d-flex justify-content-end mt-3 border-bottom">
 				{!carrito.promocion ? (
 					<h4>Total: ${formatoMexico(carrito.idarticulo.precio * carrito.cantidad)}</h4>

@@ -309,8 +309,12 @@ function Pedido(props) {
 			</div>
 			<List.Item.Meta
 				avatar={
-					<div className=" d-flex justify-content-center" style={{width: 200}}>
-						<Avatar.Group maxCount={1} size={90} maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
+					<div className=" d-flex justify-content-center" style={{ width: 200 }}>
+						<Avatar.Group
+							maxCount={1}
+							size={90}
+							maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+						>
 							{pedido.pedido.map((res) => (
 								<Tooltip key={res.producto._id} title={res.producto.nombre} placement="top">
 									<Avatar src={aws + res.producto.imagen} />
@@ -470,6 +474,37 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 					<span className="font-weight-bold">Tipo de entrega:</span>
 					<Tag className="" color={apartado.tipoEntrega === 'RECOGIDO' ? '#f0ad4e' : '#5cb85c'}>
 						{apartado.tipoEntrega === 'ENVIO' ? 'Envío por paquetería' : 'Recoger a sucursal'}
+					</Tag>
+				</p>
+				<p className="m-0" style={{ fontSize: '15px' }}>
+					<span className="font-weight-bold">Estado:</span>
+					<Tag
+						className="ml-2"
+						color={
+							apartado.estado === 'ACEPTADO' ? (
+								'#0088ff'
+							) : apartado.estado === 'PROCESANDO' ? (
+								'#ffc401'
+							) : apartado.estado === 'ENVIADO' ? (
+								'#0088ff'
+							) : apartado.estado === 'ENTREGADO' ? (
+								'#5cb85c'
+							) : (
+								'#F75048'
+							)
+						}
+					>
+						{apartado.estado === 'ACEPTADO' ? (
+							'Apartado aceptado'
+						) : apartado.estado === 'PROCESANDO' ? (
+							'Apartado en proceso'
+						) : apartado.estado === 'ENVIADO' ? (
+							'Apartado enviado'
+						) : apartado.estado === 'ENTREGADO' ? (
+							'Apartado entregado'
+						) : (
+							'Apartado cancelado'
+						)}
 					</Tag>
 				</p>
 			</div>
