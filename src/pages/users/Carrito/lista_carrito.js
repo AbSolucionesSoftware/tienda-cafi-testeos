@@ -239,7 +239,10 @@ const algo = verificarArticulos(carrito)
 												validateStatus={validateStatus}
 											>
 												<Select
-													defaultValue={verificarArticulos(carrito).toString()}
+													/* defaultValue={verificarArticulos(carrito)} */
+													defaultValue={carrito.medida.map((res) => {
+														return res.talla ? res.talla : res.numero;
+													})}
 													size="large"
 													style={{ width: 90 }}
 													onChange={medidaChange}
