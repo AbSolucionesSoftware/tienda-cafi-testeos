@@ -55,7 +55,17 @@ const Navegacion = (props) => {
 				}
 			})
 			.then((res) => {
-				setCarrito(res.data.articulos.length);
+				const nuevo = res.data.articulos.map((res) => {
+					if (res.idarticulo.activo === false) {
+						return [];
+					}else if (res.idarticulo.eliminado && res.idarticulo.eliminado === true) {
+						return [];
+					} else {
+						return res;
+					}
+				});
+				const carrito = nuevo.filter((arr) => arr.length !== 0);
+				setCarrito(carrito.length);
 			})
 			.catch((res) => {
 				setCarrito(0);
