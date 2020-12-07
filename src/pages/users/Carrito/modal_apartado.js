@@ -19,10 +19,17 @@ export default function ModalApartado(props) {
 				duration: 2
 			});
 		} else {
+			let precio;
+			if(carrito.promocion && carrito.promocion.length !== 0){
+				precio = carrito.promocion.precioPromocion;
+			}else{
+				precio = carrito.idarticulo.precio;
+			}
 			AgregarApartado(
 				cliente._id,
 				carrito.idarticulo._id,
 				carrito.cantidad,
+				precio,
 				carrito.medida,
 				tipoEnvio,
 				token,
@@ -45,10 +52,11 @@ export default function ModalApartado(props) {
 			style={{ top: 20 }}
 			title="Nuevo Apartado"
 			visible={visible}
-			/* onOk={handleOk} */
 			onCancel={handleCancel}
 			/* cancelText="Cancelar"
-			okText="Apartar" */
+			okText={false}
+			onOk={false} */
+			footer={false}
 			width={700}
 		>
 			<List>

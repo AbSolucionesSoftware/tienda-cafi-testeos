@@ -95,7 +95,6 @@ function MostrarDatosProductos(props) {
 		[ nuevoCarrito ]
 	);
 
-
 	function crearPedido() {
 		if (validacion) {
 			message.error('Aun no se ha modificado la cantidad');

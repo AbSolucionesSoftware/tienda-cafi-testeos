@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../config/axios';
-import { Divider, Row, Col, Tag, Alert, notification } from 'antd';
+import { Divider, Row, Col, Tag, Alert, notification, Result, Button } from 'antd';
 import { CreditCardOutlined } from '@ant-design/icons';
 import Scroll from './subs/scroll';
 import Sugerencia from './subs/sugerencia';
@@ -58,6 +58,11 @@ function VistaProductos(props) {
 		await clienteAxios
 			.get(`/productos/${producto}`)
 			.then((res) => {
+				if (!res.data) {
+					setLoading(false);
+					setProductos([]);
+					return;
+				}
 				setProductos(res.data);
 				res.data.promocion.forEach((res) => setPromocion(res));
 				setLoading(false);
@@ -87,6 +92,17 @@ function VistaProductos(props) {
 			setReadMore('read-less');
 		}
 	};
+
+	if (loading === false && productos.length === 0) {
+		return (
+			<Result
+				status="404"
+				title="404"
+				subTitle="Lo sentimos, este producto ya no existe."
+				extra={<Button className="color-boton" type="primary" onClick={() => props.history.push('/')}>Pagina principal</Button>}
+			/>
+		);
+	}
 
 	return (
 		<Spin spinning={loading}>
@@ -165,7 +181,7 @@ function VistaProductos(props) {
 						) : (
 							<div className="d-none" />
 						)}
-						{productos.genero === "Ninguno" && !productos.color && !productos.colorHex ? (
+						{productos.genero === 'Ninguno' && !productos.color && !productos.colorHex ? (
 							<div />
 						) : (
 							<div>
