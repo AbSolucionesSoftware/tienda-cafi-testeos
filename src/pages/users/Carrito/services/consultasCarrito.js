@@ -23,17 +23,21 @@ export async function actualizarCantidad(cliente, articulo, categoria, cantidad,
 			break;
 		default:
 			break;
-    }
-	await clienteAxios
+	}
+	console.log(datos)
+	/* await clienteAxios
 		.put(`/carrito/${cliente}/articulo/${articulo}`, datos, {
 			headers: {
 				Authorization: `bearer ${token}`
 			}
 		})
 		.then((res) => {
+			console.log(res)
             message.success(res.data.message);
 		})
 		.catch((err) => {
+			console.log(err)
+			message.success(err.response.data.message);
         });
-        return true;
+        return true; */
 }

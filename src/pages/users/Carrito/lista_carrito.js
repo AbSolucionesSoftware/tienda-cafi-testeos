@@ -78,6 +78,8 @@ function ListaCarrito(props) {
 			}
 		}
 	}
+const algo = verificarArticulos(carrito)
+	console.log(algo.toString())
 
 	function medidaChange(medida) {
 		setCantidad(carrito.cantidad);
@@ -237,7 +239,7 @@ function ListaCarrito(props) {
 												validateStatus={validateStatus}
 											>
 												<Select
-													defaultValue={verificarArticulos(carrito)}
+													defaultValue={verificarArticulos(carrito).toString()}
 													size="large"
 													style={{ width: 90 }}
 													onChange={medidaChange}

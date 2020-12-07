@@ -60,7 +60,7 @@ function MostrarDatosProductos(props) {
 				props.history.push('/entrar');
 			} else {
 				obtenerDatosCarrito();
-				setActivador(true);
+				/* setActivador(true); */
 			}
 		},
 		[ activador ]
