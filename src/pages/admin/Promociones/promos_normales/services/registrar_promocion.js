@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import clienteAxios from '../../../../../config/axios';
 import {
 	Button,
@@ -26,8 +26,7 @@ const demo = { height: '500px', overflow: 'auto' };
 const { Option } = Select;
 
 const RegistrarPromocion = (props) => {
-
-	const {drawnerClose} = props;
+	const { drawnerClose } = props;
 
 	const token = localStorage.getItem('token');
 	const [ content, setContent ] = useState(false);
@@ -60,57 +59,36 @@ const RegistrarPromocion = (props) => {
 	const [ generosDB, setGenerosDB ] = useState([]);
 	const [ genero, setGenero ] = useState();
 
-	useEffect(
-		() => {
-			if (reload) {
-				setPage(1);
-				setHasMore(true);
-				setProducto([]);
-				setContent(false);
-				setInputValue(0);
-				setPromocion([]);
-				setPrecioPromocion();
-				setDisabledSumit(true);
-				form.resetFields();
-			}
-			obtenerCategorias();
-			obtenerGeneros();
-			obtenerProductos((res) => {
-				setData(res.data.posts.docs);
-				setTotalDocs(res.data.posts.totalDocs);
-				setPage(res.data.posts.nextPage);
-			});
+	const obtenerProductos = useCallback(
+		(callback) => {
+			setReloadData(false);
+			setVisible('d-none');
+			setLoadingList(true);
+			clienteAxios
+				.get(`/productos?limit=${12}&page=${page}`)
+				.then((res) => {
+					callback(res);
+					setLoadingList(false);
+				})
+				.catch((err) => {
+					setLoadingList(false);
+					if (err.response) {
+						notification.error({
+							message: 'Error',
+							description: err.response.data.message,
+							duration: 2
+						});
+					} else {
+						notification.error({
+							message: 'Error de conexion',
+							description: 'Al parecer no se a podido conectar al servidor.',
+							duration: 2
+						});
+					}
+				});
 		},
-		[ reload, reloadData, form ]
+		[ page ]
 	);
-
-	const obtenerProductos = (callback) => {
-		setReloadData(false);
-		setVisible('d-none');
-		setLoadingList(true);
-		clienteAxios
-			.get(`/productos?limit=${12}&page=${page}`)
-			.then((res) => {
-				callback(res);
-				setLoadingList(false);
-			})
-			.catch((err) => {
-				setLoadingList(false);
-				if (err.response) {
-					notification.error({
-						message: 'Error',
-						description: err.response.data.message,
-						duration: 2
-					});
-				} else {
-					notification.error({
-						message: 'Error de conexion',
-						description: 'Al parecer no se a podido conectar al servidor.',
-						duration: 2
-					});
-				}
-			});
-	};
 
 	const handleInfiniteOnLoad = () => {
 		setLoadingList(true);
@@ -323,22 +301,25 @@ const RegistrarPromocion = (props) => {
 			});
 	};
 
-	async function obtenerCategorias() {
-		setLoadingSelect(true);
-		await clienteAxios
-			.get('/productos/filtrosNavbar', {
-				headers: {
-					Authorization: `bearer ${token}`
-				}
-			})
-			.then((res) => {
-				setCategoriasDB(res.data);
-				setLoadingSelect(false);
-			})
-			.catch((res) => {
-				setLoadingSelect(false);
-			});
-	}
+	const obtenerCategorias = useCallback(
+		async () => {
+			setLoadingSelect(true);
+			await clienteAxios
+				.get('/productos/filtrosNavbar', {
+					headers: {
+						Authorization: `bearer ${token}`
+					}
+				})
+				.then((res) => {
+					setCategoriasDB(res.data);
+					setLoadingSelect(false);
+				})
+				.catch((res) => {
+					setLoadingSelect(false);
+				});
+		},
+		[ token ]
+	);
 	async function obtenerGeneros() {
 		await clienteAxios
 			.get('/productos/agrupar/generos')
@@ -356,7 +337,7 @@ const RegistrarPromocion = (props) => {
 		} else {
 			obtenerFiltrosDivididos(categoria);
 		}
-		categoriasDB.map((res) => {
+		categoriasDB.forEach((res) => {
 			if (categoria === res.categoria) {
 				setSubcategoriasDB(res.subcCategoria);
 			}
@@ -395,6 +376,30 @@ const RegistrarPromocion = (props) => {
 		setImagen([]);
 		form.resetFields();
 	};
+
+	useEffect(
+		() => {
+			if (reload) {
+				setPage(1);
+				setHasMore(true);
+				setProducto([]);
+				setContent(false);
+				setInputValue(0);
+				setPromocion([]);
+				setPrecioPromocion();
+				setDisabledSumit(true);
+				form.resetFields();
+			}
+			obtenerCategorias();
+			obtenerGeneros();
+			obtenerProductos((res) => {
+				setData(res.data.posts.docs);
+				setTotalDocs(res.data.posts.totalDocs);
+				setPage(res.data.posts.nextPage);
+			});
+		},
+		[ reload, reloadData, form, obtenerCategorias ]
+	);
 
 	return (
 		<Spin size="large" spinning={loading}>
@@ -451,7 +456,6 @@ const RegistrarPromocion = (props) => {
 								placeholder="Subcategoria"
 								style={{ width: 120 }}
 								onChange={selectSubCategoria}
-								value={subcategoria}
 							>
 								{subcategoriasDB.length !== 0 ? (
 									subcategoriasDB.map((res) => {

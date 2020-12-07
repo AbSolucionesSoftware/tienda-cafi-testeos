@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './pedidos.scss';
-import { Card, Col, Row, Modal, notification, Result, Spin, Radio, Tag, Button } from 'antd';
+import { Card, Col, Row, Modal, notification, Result, Spin, Radio, Tag } from 'antd';
 import { ContainerOutlined, EditOutlined } from '@ant-design/icons';
 import clienteAxios from '../../../config/axios';
 import DetallesPedido from './detalles_pedido';
@@ -45,15 +45,7 @@ function Pedidos(props) {
 	const [ detallePedido, setDetallePedido ] = useState([]);
 	const [ reload, setReload ] = useState(false);
 
-	useEffect(
-		() => {
-			obtenerPedidos(12, page);
-			setReload(false);
-		},
-		[ reload, page ]
-	);
-
-	const obtenerPedidos = async (limit, page) => {
+	const obtenerPedidos = useCallback(async (limit, page) => {
 		setLoading(true);
 		await clienteAxios
 			.get(`/pedidos/admin?limit=${limit}&page=${page}`, {
@@ -82,7 +74,7 @@ function Pedidos(props) {
 					});
 				}
 			});
-	};
+	}, [ token ]);
 
 	const obtenerPedidosFiltrados = async (limit, page, filtro) => {
 		setLoading(true);
@@ -148,6 +140,14 @@ function Pedidos(props) {
 		setVisible(false);
 	};
 
+	useEffect(
+		() => {
+			obtenerPedidos(12, page);
+			setReload(false);
+		},
+		[ reload, page, obtenerPedidos ]
+	);
+
 	const render = pedidos.map((pedidos) => {
 		return (
 			<Col className="mb-3" span={window.screen.width > 990 ? 8 : 24} key={pedidos._id}>
@@ -212,7 +212,15 @@ function Pedidos(props) {
 									<h6 className="titulos-info-pedidos">Estado:</h6>
 									<Tag
 										className="data-info-pedidos"
-										color={pedidos.estado_pedido === 'Entregado' ? '#5cb85c' : pedidos.estado_pedido === 'Enviado' ? '#0088ff' : '#ffc401'}
+										color={
+											pedidos.estado_pedido === 'Entregado' ? (
+												'#5cb85c'
+											) : pedidos.estado_pedido === 'Enviado' ? (
+												'#0088ff'
+											) : (
+												'#ffc401'
+											)
+										}
 									>
 										{pedidos.estado_pedido}
 									</Tag>
@@ -244,7 +252,7 @@ function Pedidos(props) {
 		<Spin size="large" spinning={loading}>
 			<div>
 				<p className="text-center font-weight-bold" style={{ fontSize: 20 }}>
-						SISTEMA DE CONTROL DE PEDIDOS
+					SISTEMA DE CONTROL DE PEDIDOS
 				</p>
 				<p className="text-center" style={{ fontSize: 15 }}>
 					En este apartado puedes ver todos los pedidos de tus clientes, filtrar por estados, si ya están
@@ -286,7 +294,7 @@ function Pedidos(props) {
 				onCancel={handleCancel}
 				footer={null}
 			>
-				<DetallesPedido datosDetalle={detallePedido}  />
+				<DetallesPedido datosDetalle={detallePedido} />
 			</Modal>
 			<Modal
 				key="estado"

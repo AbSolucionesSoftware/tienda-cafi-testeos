@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Input, Divider, Button, Upload, notification, Alert } from 'antd';
 import { PlusCircleOutlined, EditOutlined, UploadOutlined } from '@ant-design/icons';
 import { Editor } from '@tinymce/tinymce-react';
@@ -24,9 +24,12 @@ export default function RegistroTienda(props) {
 	const [ files, setFiles ] = useState([]);
 	const [ imagen, setImagen ] = useState('');
 
-	const monstrarInformacionBlog = (e) => {
-		form.setFieldsValue(e);
-	};
+	const monstrarInformacionBlog = useCallback(
+		(e) => {
+			form.setFieldsValue(e);
+		},
+		[form],
+	);
 
 	useEffect(
 		() => {
@@ -85,7 +88,7 @@ export default function RegistroTienda(props) {
 				setControl(false);
 			}
 		},
-		[ datosNegocio ]
+		[ datosNegocio, monstrarInformacionBlog ]
 	);
 
 	const capturarPoliticasEditor = (content, editor) => {
@@ -389,7 +392,7 @@ export default function RegistroTienda(props) {
 					<Divider>Ubicación</Divider>
 					<div className="row justify-content-center">
 						<div className="col-lg-12 text-center">
-							<a href="https://www.google.com.mx/maps/preview" target="_blank"
+							<a href="https://www.google.com.mx/maps/preview" target="_blank" rel="noopener noreferrer"
 								style={{fontSize: 16}}>
 								
 								Ir a Google Maps

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import clienteAxios from '../../../../config/axios';
 import { notification, Button, Select, Card, Form, InputNumber, Modal, Alert } from 'antd';
 import { IssuesCloseOutlined } from '@ant-design/icons';
@@ -85,16 +85,6 @@ const Sugerencia = (props) => {
 		}
 	}
 
-	useEffect(() => {
-		obtenerSugerencia();
-	}, []);
-	useEffect(
-		() => {
-			obtenerTotal();
-			obtenerDisponibilidad();
-		},
-		[ obtenerSugerencia ]
-	);
 	function obtenerTotal() {
 		if (sugerencia.length !== 0) {
 			if (productoPromocion.length !== 0 && sugerenciaPromocion.length !== 0) {
@@ -117,55 +107,75 @@ const Sugerencia = (props) => {
 			}
 		}
 	}
-	function obtenerDisponibilidad() {
-		///disponibilidad Productos
-		if (producto && producto.activo === false) {
-			setDisponibilidad('Producto no disponible');
-			setDisabled(true);
-		}
 
-		//// Disponibilidad Sugerencias
-		if (sugerencia && sugerencia.activo === false) {
-			setDisponibilidadSugerencia('Producto no disponible');
-			setDisabled(true);
-		}
-	}
+	const obtenerDisponibilidad = useCallback(
+		() => {
+			///disponibilidad Productos
+			if (producto && producto.activo === false) {
+				setDisponibilidad('Producto no disponible');
+				setDisabled(true);
+			}
 
-	async function obtenerSugerencia() {
-		setLoading(true);
-		await clienteAxios
-			.get(`/sugerencia/${idproducto}`)
-			.then((res) => {
-				setProducto(res.data.producto);
-				if (res.data.sugerencias) {
-					res.data.sugerencias.forEach((element) => setSugerencia(element.producto));
-					if (res.data.promocionProducto.length !== 0 && res.data.promocionSugerencia.length === 0) {
-						res.data.promocionProducto.forEach((element) => setProductoPromocion(element));
-					} else if (res.data.promocionSugerencia.length !== 0 && res.data.promocionProducto.length === 0) {
-						res.data.promocionSugerencia.forEach((element) => setSugerenciaPromocion(element));
-					} else if (res.data.promocionProducto.length !== 0 && res.data.promocionSugerencia.length !== 0) {
-						res.data.promocionProducto.forEach((element) => setProductoPromocion(element));
-						res.data.promocionSugerencia.forEach((element) => setSugerenciaPromocion(element));
+			//// Disponibilidad Sugerencias
+			if (sugerencia && sugerencia.activo === false) {
+				setDisponibilidadSugerencia('Producto no disponible');
+				setDisabled(true);
+			}
+		},
+		[ producto, sugerencia ]
+	);
+	/* 	function obtenerDisponibilidad() {
+		
+	} */
+
+	const obtenerSugerencia = useCallback(
+		async () => {
+			setLoading(true);
+			await clienteAxios
+				.get(`/sugerencia/${idproducto}`)
+				.then((res) => {
+					setProducto(res.data.producto);
+					if (res.data.sugerencias) {
+						res.data.sugerencias.forEach((element) => setSugerencia(element.producto));
+						if (res.data.promocionProducto.length !== 0 && res.data.promocionSugerencia.length === 0) {
+							res.data.promocionProducto.forEach((element) => setProductoPromocion(element));
+						} else if (
+							res.data.promocionSugerencia.length !== 0 &&
+							res.data.promocionProducto.length === 0
+						) {
+							res.data.promocionSugerencia.forEach((element) => setSugerenciaPromocion(element));
+						} else if (
+							res.data.promocionProducto.length !== 0 &&
+							res.data.promocionSugerencia.length !== 0
+						) {
+							res.data.promocionProducto.forEach((element) => setProductoPromocion(element));
+							res.data.promocionSugerencia.forEach((element) => setSugerenciaPromocion(element));
+						}
 					}
-				}
-				setLoading(false);
-			})
-			.catch((err) => {
-				if(err.response){
-					notification.error({
-						message: 'Error',
-						description: err.response.data.message,
-						duration: 2
-					});
-				}else{
-					notification.error({
-						message: 'Error de conexion',
-						description: 'Al parecer no se a podido conectar al servidor.',
-						duration: 2
-					});
-				}
-			});
-	}
+					setLoading(false);
+				})
+				.catch((err) => {
+					if (err.response) {
+						notification.error({
+							message: 'Error',
+							description: err.response.data.message,
+							duration: 2
+						});
+					} else {
+						notification.error({
+							message: 'Error de conexion',
+							description: 'Al parecer no se a podido conectar al servidor.',
+							duration: 2
+						});
+					}
+				});
+		},
+		[ idproducto ]
+	);
+
+	/* async function obtenerSugerencia() {
+		
+	} */
 
 	async function Pedido() {
 		////AGREGAR PEDIDO
@@ -173,18 +183,18 @@ const Sugerencia = (props) => {
 		let productoPrecio;
 		let sugerenciaPrecio;
 
-		if(productoPromocion.length !== 0){
+		if (productoPromocion.length !== 0) {
 			productoPrecio = productoPromocion.precioPromocion;
-		}else{
+		} else {
 			productoPrecio = producto.precio;
 		}
 
-		if(sugerenciaPromocion.length !== 0){
+		if (sugerenciaPromocion.length !== 0) {
 			sugerenciaPrecio = sugerenciaPromocion.precioPromocion;
-		}else{
+		} else {
 			sugerenciaPrecio = sugerencia.precio;
 		}
-		
+
 		AgregarPedido(
 			decoded._id,
 			producto._id,
@@ -204,7 +214,7 @@ const Sugerencia = (props) => {
 
 	function showConfirm() {
 		if (!token) {
-			localStorage.setItem("vistas", `/vista_producto/${producto._id}`);
+			localStorage.setItem('vistas', `/vista_producto/${producto._id}`);
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',
@@ -236,6 +246,21 @@ const Sugerencia = (props) => {
 		}
 	}
 
+	useEffect(
+		() => {
+			obtenerSugerencia();
+		},
+		[ obtenerSugerencia ]
+	);
+
+	useEffect(
+		() => {
+			obtenerTotal();
+			obtenerDisponibilidad();
+		},
+		[ obtenerDisponibilidad ]
+	);
+
 	return (
 		<Spin spinning={loading}>
 			<div className="row mw-100">
@@ -259,7 +284,7 @@ const Sugerencia = (props) => {
 												<img
 													className="imagen-producto-sugerencia"
 													alt="producto actual"
-													src={aws+producto.imagen}
+													src={aws + producto.imagen}
 												/>
 											</div>
 										}
@@ -407,7 +432,7 @@ const Sugerencia = (props) => {
 												<img
 													className="imagen-producto-sugerencia"
 													alt="producto actual"
-													src={aws+sugerencia.imagen}
+													src={aws + sugerencia.imagen}
 												/>
 											</div>
 										}
