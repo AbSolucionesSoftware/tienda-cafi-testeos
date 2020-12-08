@@ -98,9 +98,9 @@ export default function ApartadoMultiple({ apartado, showModal, setDetalleAparta
 
 			<List.Item.Meta
 				avatar={
-					<div className="d-flex justify-content-center align-items-center my-3">
+					<div className="d-flex justify-content-center align-items-center centrar-avatar">
 						<Avatar.Group
-							maxCount={2}
+							maxCount={1}
 							size={80}
 							maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
 						>
