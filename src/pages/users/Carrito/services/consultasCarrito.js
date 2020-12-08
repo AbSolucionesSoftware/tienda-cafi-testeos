@@ -24,8 +24,8 @@ export async function actualizarCantidad(cliente, articulo, categoria, cantidad,
 		default:
 			break;
 	}
-	console.log(datos)
-	/* await clienteAxios
+
+	await clienteAxios
 		.put(`/carrito/${cliente}/articulo/${articulo}`, datos, {
 			headers: {
 				Authorization: `bearer ${token}`
@@ -39,5 +39,5 @@ export async function actualizarCantidad(cliente, articulo, categoria, cantidad,
 			console.log(err)
 			message.success(err.response.data.message);
         });
-        return true; */
+        return true;
 }
