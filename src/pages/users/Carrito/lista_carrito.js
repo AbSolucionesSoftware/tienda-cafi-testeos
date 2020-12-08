@@ -65,16 +65,21 @@ function ListaCarrito(props) {
 				setValidateStatus('error');
 				setMedidaDisponible('No esta disponible');
 				setValidacion(true);
+			}else{
+				setMedida([ talla[0].talla, tallaCantidad[0].cantidad ]);
 			}
 		} else if (carrito.idarticulo.numeros.length !== 0) {
 			const numero = carrito.idarticulo.numeros.filter((numeros) => carrito.medida[0].numero === numeros.numero);
 			const numeroCantidad = carrito.idarticulo.numeros.filter(
 				(numeros) => carrito.medida[0].numero === numeros.numero && numeros.cantidad !== 0
 			);
+			
 			if (numero.length === 0 || numeroCantidad.length === 0) {
 				setValidateStatus('error');
 				setMedidaDisponible('No esta disponible');
 				setValidacion(true);
+			}else {
+				setMedida([ numero[0].numero, numeroCantidad[0].cantidad ]);
 			}
 		}
 	}
