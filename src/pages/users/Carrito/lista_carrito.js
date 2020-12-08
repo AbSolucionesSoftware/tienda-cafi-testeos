@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './carrito.scss';
 import { List, InputNumber, Button, Select, Form, Tag, Modal } from 'antd';
@@ -31,60 +31,37 @@ function ListaCarrito(props) {
 	const [ precio, setPrecio ] = useState(0);
 	const [ eliminado, setEliminado ] = useState(false);
 
-	useEffect(
+	const verificar = useCallback(
 		() => {
-			setDisponible('');
-			setCantidad(carrito.cantidad);
-			verificar();
-
-			if (carrito.idarticulo.activo === false) {
-				setValidateStatus('error');
-				setMedidaDisponible('No esta disponible');
-				setDisponible('disponibilidad-carrito');
-			} else if (carrito.idarticulo.eliminado && carrito.idarticulo.eliminado === true) {
-				setDisponible('disponibilidad-carrito');
-				setEliminado(true);
-			}
-
-			if (carrito.promocion) {
-				setPrecio(carrito.promocion.precioPromocion);
-			} else {
-				setPrecio(carrito.idarticulo.precio);
+			if (carrito.idarticulo.tallas.length !== 0) {
+				const talla = carrito.idarticulo.tallas.filter((tallas) => carrito.medida[0].talla === tallas.talla);
+				const tallaCantidad = carrito.idarticulo.tallas.filter(
+					(tallas) => carrito.medida[0].talla === tallas.talla && tallas.cantidad !== 0
+				);
+				if (talla.length === 0 || tallaCantidad.length === 0) {
+					setValidateStatus('error');
+					setMedidaDisponible('No esta disponible');
+					setValidacion(true);
+				}else{
+					setMedida([ talla[0].talla, tallaCantidad[0].cantidad ]);
+				}
+			} else if (carrito.idarticulo.numeros.length !== 0) {
+				const numero = carrito.idarticulo.numeros.filter((numeros) => carrito.medida[0].numero === numeros.numero);
+				const numeroCantidad = carrito.idarticulo.numeros.filter(
+					(numeros) => carrito.medida[0].numero === numeros.numero && numeros.cantidad !== 0
+				);
+				
+				if (numero.length === 0 || numeroCantidad.length === 0) {
+					setValidateStatus('error');
+					setMedidaDisponible('No esta disponible');
+					setValidacion(true);
+				}else {
+					setMedida([ numero[0].numero, numeroCantidad[0].cantidad ]);
+				}
 			}
 		},
-		[ carrito ]
-	);
-
-	function verificar() {
-		if (carrito.idarticulo.tallas.length !== 0) {
-			const talla = carrito.idarticulo.tallas.filter((tallas) => carrito.medida[0].talla === tallas.talla);
-			const tallaCantidad = carrito.idarticulo.tallas.filter(
-				(tallas) => carrito.medida[0].talla === tallas.talla && tallas.cantidad !== 0
-			);
-			if (talla.length === 0 || tallaCantidad.length === 0) {
-				setValidateStatus('error');
-				setMedidaDisponible('No esta disponible');
-				setValidacion(true);
-			}else{
-				setMedida([ talla[0].talla, tallaCantidad[0].cantidad ]);
-			}
-		} else if (carrito.idarticulo.numeros.length !== 0) {
-			const numero = carrito.idarticulo.numeros.filter((numeros) => carrito.medida[0].numero === numeros.numero);
-			const numeroCantidad = carrito.idarticulo.numeros.filter(
-				(numeros) => carrito.medida[0].numero === numeros.numero && numeros.cantidad !== 0
-			);
-			
-			if (numero.length === 0 || numeroCantidad.length === 0) {
-				setValidateStatus('error');
-				setMedidaDisponible('No esta disponible');
-				setValidacion(true);
-			}else {
-				setMedida([ numero[0].numero, numeroCantidad[0].cantidad ]);
-			}
-		}
-	}
-const algo = verificarArticulos(carrito)
-	console.log(algo.toString())
+		[ carrito, setValidacion ],
+	)
 
 	function medidaChange(medida) {
 		setCantidad(carrito.cantidad);
@@ -143,6 +120,30 @@ const algo = verificarArticulos(carrito)
 	function apartado() {
 		setVisible(true);
 	}
+
+	useEffect(
+		() => {
+			setDisponible('');
+			setCantidad(carrito.cantidad);
+			verificar();
+
+			if (carrito.idarticulo.activo === false) {
+				setValidateStatus('error');
+				setMedidaDisponible('No esta disponible');
+				setDisponible('disponibilidad-carrito');
+			} else if (carrito.idarticulo.eliminado && carrito.idarticulo.eliminado === true) {
+				setDisponible('disponibilidad-carrito');
+				setEliminado(true);
+			}
+
+			if (carrito.promocion) {
+				setPrecio(carrito.promocion.precioPromocion);
+			} else {
+				setPrecio(carrito.idarticulo.precio);
+			}
+		},
+		[ carrito, verificar ]
+	);
 
 	return (
 		<List.Item className="d-block p-4" key={carrito._id}>
@@ -244,10 +245,7 @@ const algo = verificarArticulos(carrito)
 												validateStatus={validateStatus}
 											>
 												<Select
-													/* defaultValue={verificarArticulos(carrito)} */
-													defaultValue={carrito.medida.map((res) => {
-														return res.talla ? res.talla : res.numero;
-													})}
+													defaultValue={verificarArticulos(carrito)}
 													size="large"
 													style={{ width: 90 }}
 													onChange={medidaChange}

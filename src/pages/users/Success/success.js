@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Result, Button, notification, Divider } from 'antd';
 import { Avatar } from 'antd';
 import clienteAxios from '../../../config/axios';
@@ -14,8 +14,9 @@ export default function Success(props) {
 	const [ loading, setLoading ] = useState(false);
 	const token = localStorage.getItem('token');
 
-	const obtenerPedido = async () => {
-		setLoading(true);
+	const obtenerPedido = useCallback(
+		async () => {
+			setLoading(true);
 		await clienteAxios
 			.get(`/pedidos/pedido/${pedidoID}`, {
 				headers: {
@@ -44,7 +45,9 @@ export default function Success(props) {
 					});
 				}
 			});
-	};
+		},
+		[ pedidoID, props, token ],
+	)
 
 	useEffect(() => {
 		if (!token) {
@@ -52,7 +55,7 @@ export default function Success(props) {
 		} else {
 			obtenerPedido();
 		}
-	}, []);
+	}, [ obtenerPedido, props, token ]);
 
 	if (pedido.pedido) {
 		var avatar_productos = pedido.pedido.map((pedido) => {

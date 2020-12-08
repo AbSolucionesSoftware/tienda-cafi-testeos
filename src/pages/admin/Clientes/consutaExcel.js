@@ -48,7 +48,7 @@ obtenerConsulta();
 		
 		};
 		
-	}, []);
+	}, [ token, decoded, props]);
 		
 	const datos =  consulta.map((datos) => {
 

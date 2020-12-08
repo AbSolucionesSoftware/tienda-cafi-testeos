@@ -1,7 +1,6 @@
 import React from 'react';
-import { Tag, Divider, Col, Card, Result } from 'antd';
+import { Tag, Divider, Card, Result } from 'antd';
 import { formatoFecha, formatoMexico } from '../../../config/reuserFunction';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBus } from '@fortawesome/free-solid-svg-icons';
 import aws from '../../../config/aws';

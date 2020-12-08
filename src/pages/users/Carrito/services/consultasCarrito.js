@@ -32,11 +32,9 @@ export async function actualizarCantidad(cliente, articulo, categoria, cantidad,
 			}
 		})
 		.then((res) => {
-			console.log(res)
             message.success(res.data.message);
 		})
 		.catch((err) => {
-			console.log(err)
 			message.success(err.response.data.message);
         });
         return true;

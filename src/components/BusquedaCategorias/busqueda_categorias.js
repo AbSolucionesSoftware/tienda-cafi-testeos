@@ -58,7 +58,7 @@ function BusquedaCategorias(props) {
 		() => {
 			obtenerFiltrosDivididos(categoria, subcategoria, genero);
 		},
-		[ props ]
+		[ props, categoria, subcategoria, genero]
 	);
 
 	const result = resultado.map((productos) => <ComponenteProductos key={productos._id} productos={productos} />);

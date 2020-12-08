@@ -38,7 +38,7 @@ function TallasCantidades(props) {
 	const [ loading, setLoading ] = useState(false);
 	const [ visible, setVisible ] = useState(false);
 	const [ disabled, setDisabled ] = useState(false);
-	const [ datosUser, setDatosUser ] = useState([]);
+/* 	const [ datosUser, setDatosUser ] = useState([]); */
 	const [ tienda, setTienda ] = useState([]);
 
 	const token = localStorage.getItem('token');
@@ -67,7 +67,7 @@ function TallasCantidades(props) {
 			});
 	}
 
-	async function obtenerDatosUser() {
+	/* async function obtenerDatosUser() {
 		if (!decoded) {
 			return null;
 		}
@@ -81,14 +81,14 @@ function TallasCantidades(props) {
 				setDatosUser(res.data);
 			})
 			.catch((err) => {});
-	}
+	} */
 
 	useEffect(() => {
 		if (token) {
-			obtenerDatosUser();
+			/* obtenerDatosUser(); */
 			obtenerTienda();
 		}
-	}, []);
+	}, [ token ]);
 
 	useEffect(
 		() => {
@@ -535,6 +535,7 @@ function TallasCantidades(props) {
 				/* okText="Apartar ahora" */
 				footer={null}
 				width={700}
+				style={{top: 0}}
 			>
 				<List>
 					<List.Item className="row">

@@ -32,16 +32,15 @@ function Clientes(props) {
 		}
 	}
 
+	if (token === '' || token === null) {
+		props.history.push('/entrar');
+	} else if (decoded['rol'] !== true) {
+		props.history.push('/');
+	}
+
 	useEffect(
 		() => {
-			if (token === '' || token === null) {
-				props.history.push('/entrar');
-			} else if (decoded['rol'] !== true) {
-				props.history.push('/');
-			}else{
-				obtenerClientes(20, page);
-			}
-			
+			obtenerClientes(20, page);
 		},
 		[ page ]
 	);

@@ -44,7 +44,7 @@ const BgElement = Element.BgElement;
         
         return (
             <div key={banner._id} className="mt-5 cont-principal">
-                {banner.mostrarTitulo != false ? (
+                {banner.mostrarTitulo !== false ? (
                     <TweenOne key="demo" animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
                         <h1 className="mt-5 tit-banner">{banner.categoria}</h1>
                     </TweenOne>
@@ -56,7 +56,7 @@ const BgElement = Element.BgElement;
                      <Element prefixCls="banner-user-elem" animation={{ y: 30, opacity: 0, type: 'from', delay: 800 }}>
                          <BgElement
                              onClick={() =>
-                                 {if (banner.vincularCategoria != false) {
+                                 {if (banner.vincularCategoria !== false) {
                                      props.history.push(`/searching/${banner.categoria}`);
                                  }
                              }}
@@ -78,7 +78,7 @@ const BgElement = Element.BgElement;
                     }
 
                 <div>
-                    {banner.mostrarProductos != false ? (
+                    {banner.mostrarProductos !== false ? (
                         <div className="mx-auto div-cards">
                             <CardsProductos className="mx-auto" categoria={banner.categoria} />
                             <div className="d-flex justify-content-center">

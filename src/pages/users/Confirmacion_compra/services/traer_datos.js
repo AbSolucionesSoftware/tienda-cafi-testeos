@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import clienteAxios from '../../../../config/axios';
 
 import { Form, Input, Button, Result, notification } from 'antd';
@@ -16,9 +16,12 @@ export default function Traer_datos(props) {
 
 	const [ form ] = Form.useForm();
 
-	const mostrarDatosUser = (e) => {
-		form.setFieldsValue(e);
-	};
+	const mostrarDatosUser = useCallback(
+		(e) => {
+			form.setFieldsValue(e);
+		},
+		[form],
+	)
 
 	useEffect(
 		() => {
@@ -55,7 +58,7 @@ export default function Traer_datos(props) {
 			}
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		},
-		[ datosUser ]
+		[ datosUser, mostrarDatosUser ]
 	);
 
 	async function enviarDatosUser() {

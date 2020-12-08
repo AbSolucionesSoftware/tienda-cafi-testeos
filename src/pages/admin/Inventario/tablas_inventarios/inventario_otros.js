@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../../config/axios';
 import { Table, Tag, InputNumber, notification, Badge, Spin, Form, Button } from 'antd';
@@ -10,7 +10,6 @@ function InventarioOtros(props) {
 	const {
 		location,
 		history,
-		page,
 		productos,
 		productosRender,
 		reload,

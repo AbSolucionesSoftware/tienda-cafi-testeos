@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import clienteAxios from '../../../config/axios';
 import { Button, Space, Modal, List, notification, Spin, Checkbox, message, Alert } from 'antd';
 import {
 	EditOutlined,
 	DeleteOutlined,
 	ExclamationCircleOutlined,
-    PictureOutlined,
-    ThunderboltOutlined
+	PictureOutlined,
+	ThunderboltOutlined
 } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import RegistroPublicidad from './services/registro_publicidad';
@@ -41,15 +41,8 @@ export default function Publicidad(props) {
 		props.history.push('/');
 	}
 
-	useEffect(
-		() => {
-			obtenerBannersBD();
-		},
-		[ reload ]
-	);
-
 	///*** OBTENER DATOS DE LA BASE DE DATOS
-	const obtenerBannersBD = async () => {
+	const obtenerBannersBD = useCallback(async () => {
 		setLoading(true);
 		await clienteAxios
 			.get('/banner/')
@@ -61,7 +54,14 @@ export default function Publicidad(props) {
 				setLoading(false);
 				errors(err);
 			});
-	};
+	}, []);
+
+	useEffect(
+		() => {
+			obtenerBannersBD();
+		},
+		[ reload, obtenerBannersBD ]
+	);
 
 	const actualizarChecks = async (e, banner) => {
 		const checkName = e.target.name;
@@ -176,7 +176,7 @@ export default function Publicidad(props) {
 		setVisible(true);
 		setControl(true);
 		setBannerSeleccionado(banner);
-    };
+	};
 
 	const errors = (err) => {
 		if (err.response) {
@@ -230,9 +230,7 @@ export default function Publicidad(props) {
 				<List.Item.Meta
 					className="list-publicidad-meta-container"
 					avatar={
-						<div
-							className="d-flex justify-content-center align-items-center mr-2 list-publicidad-imagen-container"
-						>
+						<div className="d-flex justify-content-center align-items-center mr-2 list-publicidad-imagen-container">
 							{banner.imagenBanner ? (
 								<img
 									className="imagen-promocion-principal"
@@ -300,15 +298,20 @@ export default function Publicidad(props) {
 				En este apartado puedes subir una sección completa con un banner y los productos de una categoria en
 				especial en la pagina principal.
 			</p>
-            <div className="d-flex justify-content-center">
-                <Alert showIcon icon={<ThunderboltOutlined style={{fontSize: 20}} />} message="¡Puedes editar mas rapido los checkbox con solo hacer clic sobre ellos!" type="info" />
-            </div>
+			<div className="d-flex justify-content-center">
+				<Alert
+					showIcon
+					icon={<ThunderboltOutlined style={{ fontSize: 20 }} />}
+					message="¡Puedes editar mas rapido los checkbox con solo hacer clic sobre ellos!"
+					type="info"
+				/>
+			</div>
 			<div className="d-flex justify-content-end mt-3">
 				<RegistroPublicidad
 					reload={[ reload, setReload ]}
 					modalVisible={[ visible, setVisible ]}
-                    bannerSeleccionado={bannerSeleccionado}
-                    control={[ control, setControl ]}
+					bannerSeleccionado={bannerSeleccionado}
+					control={[ control, setControl ]}
 				/>
 			</div>
 			<div>

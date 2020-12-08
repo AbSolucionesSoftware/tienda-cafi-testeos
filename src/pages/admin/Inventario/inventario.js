@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../config/axios';
 import jwt_decode from 'jwt-decode';
@@ -43,19 +43,6 @@ function Inventario(props) {
 		props.history.push('/');
 	}
 
-	useEffect(
-		() => {
-			obtenerCategorias();
-		},
-		[]
-	);
-	useEffect(
-		() => {
-			obtenerProductos(tipoCategoria, limite, page)
-		},
-		[ page, reload, props ]
-	);
-
 	const obtenerCategorias = async () => {
 		await clienteAxios
 			.get('/productos/tipoCategorias', {
@@ -99,8 +86,10 @@ function Inventario(props) {
 		}
 	};
 
-	const obtenerProductos = async (tipoCategoria, limit, page) => {
-		/* setTipoCategoria(tipoCategoria); */
+
+	const obtenerProductos = useCallback(
+		async (tipoCategoria, limit, page) => {
+			/* setTipoCategoria(tipoCategoria); */
 		setLoading(true);
 		await clienteAxios
 			.get(`/productos/filter/individuales?tipoCategoria=${tipoCategoria}&limit=${limit}&page=${page}`)
@@ -113,7 +102,22 @@ function Inventario(props) {
 				setLoading(false);
 				error(err);
 			});
-	};
+		},
+		[],
+	)
+
+	useEffect(
+		() => {
+			obtenerCategorias();
+		},
+		[]
+	);
+	useEffect(
+		() => {
+			obtenerProductos(tipoCategoria, limite, page)
+		},
+		[ page, reload, props, obtenerProductos, tipoCategoria ]
+	);
 
 	function error(err) {
 		if (err.response) {
@@ -181,6 +185,7 @@ function Inventario(props) {
 				</TabPane>
 			);
 		}
+		return (<Fragment />);
 	});
 
 	const searchBar = (
