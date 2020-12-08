@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import clienteAxios from '../../../config/axios';
 import { withRouter, Link } from 'react-router-dom';
 import { notification, Form, Input, Button, Alert } from 'antd';
-import Consulta_covertura from './Consulta_covertura/consulta_covertura.js';
 
 
 const layout = {
@@ -12,12 +11,6 @@ const layout = {
 const tailLayout = {
 	wrapperCol: { offset: 7, span: 10 }
 };
-
-const modal = () => {
-	return(
-		<Consulta_covertura />
-	)
-}
 
 function Login(props) {
 
@@ -31,18 +24,15 @@ function Login(props) {
 				const token = res.data.token;
 				localStorage.setItem('token', token);
 				const vista = localStorage.getItem("vistas");
-				console.log("Lanza modal");
 				if (vista) {
 					localStorage.getItem("vistas");
 					props.history.push(vista);
 					setTimeout(() => {
 						localStorage.removeItem("vistas");
 					}, 300);
-					
 				}else{
 					props.history.push('/');
 				}
-				
 			})
 			.catch((err) => {
 				if(err.response){
@@ -105,6 +95,7 @@ function Login(props) {
 		setMostrarDiv("")
 	}
 
+
 	return (
 		<div className="col-12">
 			<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
@@ -119,7 +110,7 @@ function Login(props) {
 					</Form.Item>
 				</Form.Item>
 				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit" className="color-boton">
+					<Button type="primary" htmlType="submit" className="color-boton" >
 						Continuar
 					</Button>
 				</Form.Item>
@@ -133,7 +124,7 @@ function Login(props) {
 						</Form.Item>
 					</Form.Item>
 					<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit" className="color-boton">
+					<Button type="primary" htmlType="submit" className="color-boton" >
 						Enviar
 					</Button>
 					<Alert
@@ -144,8 +135,8 @@ function Login(props) {
 					/>
 				</Form.Item>
 				</Form>
-				<Consulta_covertura />
 			</div>
+			
 		</div>
 	);
 }

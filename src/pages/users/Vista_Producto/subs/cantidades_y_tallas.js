@@ -7,6 +7,7 @@ import { formatoMexico } from '../../../../config/reuserFunction';
 import { withRouter } from 'react-router-dom';
 import { MenuContext } from '../../../../context/carritoContext';
 import DatosCliente from './datos_cliente';
+import Consulta_covertura from '../../Consulta_covertura/consulta_covertura'
 import clienteAxios from '../../../../config/axios';
 import aws from '../../../../config/aws';
 import Spin from '../../../../components/Spin';
@@ -513,7 +514,10 @@ function TallasCantidades(props) {
 								Agregar al carrito
 							</Button>
 						</div>
+
 					</div>
+
+					
 				)}
 			</div>
 			<Modal

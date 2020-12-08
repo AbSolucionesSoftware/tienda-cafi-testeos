@@ -15,6 +15,7 @@ import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import Spin from '../../../components/Spin';
+import Estados_disponibles from '../Consulta_covertura/estados_disponibles';
 
 function VistaProductos(props) {
 	const [ productos, setProductos ] = useState([]);
@@ -222,9 +223,11 @@ function VistaProductos(props) {
 						<InfoTienda />
 						{/* Componente informacion de la tienda */}
 					</div>
+					
 					<div className="descripcion-sm">
 						<Sugerencia producto={producto} />
 					</div>
+					
 				</div>
 				{/* ### Componenete de productos similares */}
 				<Row className="mt-5">

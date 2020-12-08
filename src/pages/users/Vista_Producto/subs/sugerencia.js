@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode';
 import { withRouter } from 'react-router-dom';
 import aws from '../../../../config/aws';
 import Spin from '../../../../components/Spin';
+import Estados_disponibles from '../../Consulta_covertura/estados_disponibles'
 
 const { Option } = Select;
 const { Meta } = Card;
@@ -570,6 +571,10 @@ const Sugerencia = (props) => {
 						</div>
 					</div>
 				)}
+				
+			</div>
+			<div>
+				<Estados_disponibles />
 			</div>
 		</Spin>
 	);
