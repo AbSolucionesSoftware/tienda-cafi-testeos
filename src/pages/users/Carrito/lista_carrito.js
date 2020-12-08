@@ -11,6 +11,7 @@ import { obtenerSubtotal } from './services/obtenerStock';
 import { AgregarPedido, EliminarArticuloCarrito } from './services/consultas_individuales';
 import ModalApartado from './modal_apartado';
 import aws from '../../../config/aws';
+import { verificarArticulos } from './verificarArticulos';
 
 const { Option } = Select;
 const styles = { fontSize: 20 };
@@ -28,128 +29,60 @@ function ListaCarrito(props) {
 	const { active, setActive } = useContext(MenuContext);
 	const [ visible, setVisible ] = useState(false);
 	const [ precio, setPrecio ] = useState(0);
+	const [ eliminado, setEliminado ] = useState(false);
 
-	useEffect(() => {
-		setDisponible('')
-		setCantidad(carrito.cantidad);
+	useEffect(
+		() => {
+			setDisponible('');
+			setCantidad(carrito.cantidad);
+			verificar();
+
+			if (carrito.idarticulo.activo === false) {
+				setValidateStatus('error');
+				setMedidaDisponible('No esta disponible');
+				setDisponible('disponibilidad-carrito');
+			} else if (carrito.idarticulo.eliminado && carrito.idarticulo.eliminado === true) {
+				setDisponible('disponibilidad-carrito');
+				setEliminado(true);
+			}
+
+			if (carrito.promocion) {
+				setPrecio(carrito.promocion.precioPromocion);
+			} else {
+				setPrecio(carrito.idarticulo.precio);
+			}
+		},
+		[ carrito ]
+	);
+
+	function verificar() {
 		if (carrito.idarticulo.tallas.length !== 0) {
-			for (let index = 0; index < carrito.idarticulo.tallas.length; index++) {
-				const tallas = carrito.idarticulo.tallas[index];
-				if (carrito.medida) {
-					if (carrito.medida[0].talla === tallas.talla) {
-						setMedida([ carrito.medida[0].talla, tallas.cantidad ]);
-						if(tallas.cantidad === 0){
-							setValidateStatus('error');
-							setMedidaDisponible('No esta disponible');
-							setValidacion(true);
-							break;
-						}else{
-							setValidacion(false);
-							setValidateStatus('validating');
-							setMedidaDisponible('');
-							break;
-						}
-					}else {
-						setValidateStatus('error');
-						setMedidaDisponible('No esta disponible');
-						setValidacion(true);
-						if(tallas.talla === carrito.medida[0].talla){
-							break
-						}
-					}
-				}
+			const talla = carrito.idarticulo.tallas.filter((tallas) => carrito.medida[0].talla === tallas.talla);
+			const tallaCantidad = carrito.idarticulo.tallas.filter(
+				(tallas) => carrito.medida[0].talla === tallas.talla && tallas.cantidad !== 0
+			);
+			if (talla.length === 0 || tallaCantidad.length === 0) {
+				setValidateStatus('error');
+				setMedidaDisponible('No esta disponible');
+				setValidacion(true);
+			}else{
+				setMedida([ talla[0].talla, tallaCantidad[0].cantidad ]);
 			}
-			/* carrito.idarticulo.tallas.forEach((tallas) => {
-				if (carrito.medida) {
-					carrito.medida.forEach((medida) => {
-						if (medida.talla === tallas.talla) {
-							setMedida([ medida.talla, tallas.cantidad ]);
-							if(tallas.cantidad === 0){
-								setValidateStatus('error');
-								setMedidaDisponible('No esta disponible');
-								setValidacion(true);
-							}else{
-								setValidacion(false);
-								setValidateStatus('validating');
-									setMedidaDisponible('');
-							}
-						}else {
-							setValidateStatus('error');
-								setMedidaDisponible('No esta disponible');
-								setValidacion(true);
-						}
-						
-					});
-				}
-			}); */
 		} else if (carrito.idarticulo.numeros.length !== 0) {
-			for (let index = 0; index < carrito.idarticulo.numeros.length; index++) {
-				const numeros = carrito.idarticulo.numeros[index];
-				if (carrito.medida) {
-					if (carrito.medida[0].numero === numeros.numero) {
-						setMedida([ carrito.medida[0].numero, numeros.cantidad ]);
-						if(numeros.cantidad === 0){
-							setValidateStatus('error');
-							setMedidaDisponible('No esta disponible');
-							setValidacion(true);
-							break
-							
-						}else{
-							setValidacion(false);
-							setValidateStatus('validating');
-							setMedidaDisponible('');
-							break
-						}
-					}else{
-						setValidacion(true);
-						setValidateStatus('error');
-						setMedidaDisponible('No esta disponible');
-						if(numeros.numero === carrito.medida[0].numero){
-							break
-						}
-						
-					}
-				}
-				
-			}
+			const numero = carrito.idarticulo.numeros.filter((numeros) => carrito.medida[0].numero === numeros.numero);
+			const numeroCantidad = carrito.idarticulo.numeros.filter(
+				(numeros) => carrito.medida[0].numero === numeros.numero && numeros.cantidad !== 0
+			);
 			
-			/* carrito.idarticulo.numeros.forEach((numeros) => {
-				if (carrito.medida) {
-					if (carrito.medida[0].numero === numeros.numero) {
-						setMedida([ carrito.medida[0].numero, numeros.cantidad ]);
-						if(numeros.cantidad === 0){
-							setValidateStatus('error');
-							setMedidaDisponible('No esta disponible');
-							setValidacion(true);
-							
-							
-						}else{
-							setValidacion(false);
-							setValidateStatus('validating');
-							setMedidaDisponible('');
-							throw BreakException
-						}
-					}else{
-						setValidacion(true);
-						setValidateStatus('error');
-						setMedidaDisponible('No esta disponible');
-						
-					}
-				}
-			}); */
+			if (numero.length === 0 || numeroCantidad.length === 0) {
+				setValidateStatus('error');
+				setMedidaDisponible('No esta disponible');
+				setValidacion(true);
+			}else {
+				setMedida([ numero[0].numero, numeroCantidad[0].cantidad ]);
+			}
 		}
-		if (carrito.idarticulo.activo === false) {
-			setValidateStatus('error');
-			setMedidaDisponible('No esta disponible');
-			setDisponible('disponibilidad-carrito');
-		}
-
-		if (carrito.promocion) {
-			setPrecio(carrito.promocion.precioPromocion);
-		} else {
-			setPrecio(carrito.idarticulo.precio);
-		}
-	}, [ carrito ]);
+	}
 
 	function medidaChange(medida) {
 		setCantidad(carrito.cantidad);
@@ -217,7 +150,7 @@ function ListaCarrito(props) {
 						<img
 							alt="articulo producto"
 							className="imagen-vista-carrito"
-							src={aws+carrito.idarticulo.imagen}
+							src={aws + carrito.idarticulo.imagen}
 						/>
 					</div>
 				</div>
@@ -248,15 +181,23 @@ function ListaCarrito(props) {
 									</div>
 								)}
 								<div className="d-block d-lg-flex">
-									<Tag className="detalles-carrito color-border-tags">Categoria: {carrito.idarticulo.categoria}</Tag>
-									<Tag className="detalles-carrito color-border-tags">Género: {carrito.idarticulo.genero}</Tag>
-									<Tag className="detalles-carrito color-border-tags">Color: {carrito.idarticulo.color}</Tag>
+									<Tag className="detalles-carrito color-border-tags">
+										Categoria: {carrito.idarticulo.categoria}
+									</Tag>
+									<Tag className="detalles-carrito color-border-tags">
+										Género: {carrito.idarticulo.genero}
+									</Tag>
+									<Tag className="detalles-carrito color-border-tags">
+										Color: {carrito.idarticulo.color}
+									</Tag>
 									<Tag
 										style={{ backgroundColor: carrito.idarticulo.colorHex, height: 30, width: 30 }}
 									/>
 								</div>
 								{disponible.length ? (
 									<p className="titulo-disponible">Producto no disponible</p>
+								) : eliminado === true ? (
+									<p className="titulo-disponible">Este producto ya no existe</p>
 								) : (
 									<p />
 								)}
@@ -301,9 +242,7 @@ function ListaCarrito(props) {
 												validateStatus={validateStatus}
 											>
 												<Select
-													defaultValue={carrito.medida.map((res) => {
-														return res.talla ? res.talla : res.numero;
-													})}
+													defaultValue={verificarArticulos(carrito)}
 													size="large"
 													style={{ width: 90 }}
 													onChange={medidaChange}
@@ -361,7 +300,9 @@ function ListaCarrito(props) {
 										>
 											Modificar
 										</Button>
-										<p className="precio-vista-carrito">${formatoMexico(obtenerSubtotal(carrito.cantidad, precio))}</p>
+										<p className="precio-vista-carrito">
+											${formatoMexico(obtenerSubtotal(carrito.cantidad, precio))}
+										</p>
 									</div>
 									{/* <div className="float-right" /> */}
 								</div>

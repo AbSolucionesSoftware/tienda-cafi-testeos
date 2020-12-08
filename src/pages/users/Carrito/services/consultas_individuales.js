@@ -82,7 +82,7 @@ export async function AgregarPedido(idcliente, idproducto, categoria, cantidad, 
 		});
 }
 
-export async function AgregarApartado(idcliente, idproducto, cantidad, talla, tipoEntrega, token, categoria) {
+export async function AgregarApartado(idcliente, idproducto, cantidad, precio, talla, tipoEntrega, token, categoria) {
 	var apartado = [];
 	const medida = talla.map((res) => {
 		if (res.talla) {
@@ -98,6 +98,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, ti
 				producto: idproducto,
 				cliente: idcliente,
 				cantidad: cantidad,
+				precio: precio,
 				medida: [ { talla: medida[0] } ],
 				estado: 'PROCESANDO',
 				tipoEntrega: tipoEntrega
@@ -108,6 +109,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, ti
 				producto: idproducto,
 				cliente: idcliente,
 				cantidad: cantidad,
+				precio: precio,
 				medida: [ { numero: medida[0] } ],
 				estado: 'PROCESANDO',
 				tipoEntrega: tipoEntrega
@@ -118,6 +120,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, ti
 				producto: idproducto,
 				cliente: idcliente,
 				cantidad: cantidad,
+				precio: precio,
 				estado: 'PROCESANDO',
 				tipoEntrega: tipoEntrega
 			};

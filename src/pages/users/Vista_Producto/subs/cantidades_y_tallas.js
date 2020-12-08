@@ -317,22 +317,28 @@ function TallasCantidades(props) {
 	}
 
 	async function Apartado() {
+		let precio;
+		if(productos.promocion.length !== 0){
+			precio = productos.promocion[0].precioPromocion;
+		}else{
+			precio = productos.precio;
+		}
 		////AGREGAR APARTADO
 		setLoading(true);
 		if (categoria === 'calzado') {
 			const talla = '';
-			AgregarApartado(decoded._id, productos._id, cantidadFinal, talla, numeros.numero, tipoEnvio, token);
+			AgregarApartado(decoded._id, productos._id, cantidadFinal, precio, talla, numeros.numero, tipoEnvio, token);
 			setLoading(false);
 			modalMensaje();
 		} else if (categoria === 'ropa') {
 			const numero = '';
 			setLoading(false);
-			AgregarApartado(decoded._id, productos._id, cantidadFinal, tallas.talla, numero, tipoEnvio, token);
+			AgregarApartado(decoded._id, productos._id, cantidadFinal, precio, tallas.talla, numero, tipoEnvio, token);
 			modalMensaje();
 		} else if (categoria === 'otros') {
 			const talla = '';
 			const numero = '';
-			AgregarApartado(decoded._id, productos._id, cantidadFinal, talla, numero, tipoEnvio, token);
+			AgregarApartado(decoded._id, productos._id, cantidadFinal, precio, talla, numero, tipoEnvio, token);
 			setLoading(false);
 			modalMensaje();
 		}

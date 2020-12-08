@@ -161,7 +161,7 @@ export default function detalleApartado(props) {
 				{detalleApartado.apartadoMultiple && detalleApartado.apartadoMultiple.length !== 0 ? (
 					<h3>Total: $ {formatoMexico(detalleApartado.total)}</h3>
 				) : (
-					<h3>Total: $ {formatoMexico(detalleApartado.producto.precio)}</h3>
+					<h3>Total: $ {detalleApartado.precio ? formatoMexico(detalleApartado.precio) : formatoMexico(detalleApartado.producto.precio)}</h3>
 				)}
 			</div>
 		</div>
@@ -169,6 +169,7 @@ export default function detalleApartado(props) {
 }
 
 function Producto({ producto }) {
+
 	return (
 		<div>
 			<Col span={4} key={producto.producto._id} className="col-lg-12 col-sm-12">
@@ -190,10 +191,16 @@ function Producto({ producto }) {
 						title={producto.producto.nombre}
 						description={
 							<div className="row">
-								{producto.promocion && producto.promocion.length !== 0 ? (
-									<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(producto.promocion[0].precioPromocion)}</h2>
+								{producto.precio ? (
+									<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(producto.precio)}</h2>
+								) : producto.promocion && producto.promocion.length !== 0 ? (
+									<h2 className="h5 precio-rebaja col-lg-6">
+										${formatoMexico(producto.promocion[0].precioPromocion)}
+									</h2>
 								) : (
-									<h2 className="h5 precio-rebaja col-lg-6">${formatoMexico(producto.producto.precio)}</h2>
+									<h2 className="h5 precio-rebaja col-lg-6">
+										${formatoMexico(producto.producto.precio)}
+									</h2>
 								)}
 								{producto.medida && producto.medida.length !== 0 ? producto.medida[0].talla ? (
 									<h2 className="h5 precio-rebaja col-lg-6">Talla: {producto.medida[0].talla}</h2>
