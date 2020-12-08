@@ -128,7 +128,7 @@ function TallasCantidades(props) {
 				setRender(
 					productos.tallas.map((tallas) => {
 						return tallas.cantidad > 0 ? (
-							<Badge key={tallas._id} count={tallas.cantidad}>
+							<Badge key={tallas._id} overflowCount={999999999999} count={tallas.cantidad}>
 								<Button
 									type="dashed"
 									className="talla-vista-producto d-inline-block"
@@ -141,6 +141,7 @@ function TallasCantidades(props) {
 							<Badge
 								key={tallas._id}
 								count={tallas.cantidad}
+								overflowCount={999999999999}
 								showZero
 								style={{ backgroundColor: '#F5F5F5', color: '#7D7D7D' }}
 							>
