@@ -418,7 +418,6 @@ function Pedido(props) {
 }
 
 function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApartado }) {
-
 	return (
 		<List.Item
 			key={apartado._id}
@@ -468,7 +467,14 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 				</p>
 				<p className="h6">
 					<span className="font-weight-bold">Precio:</span>{' '}
-					<span className="text-success"> $ {apartado.precio ? formatoMexico(apartado.precio) : formatoMexico(apartado.producto.precio)} </span>{' '}
+					<span className="text-success">
+						{' '}
+						$ {apartado.precio ? (
+							formatoMexico(apartado.precio)
+						) : (
+							formatoMexico(apartado.producto.precio)
+						)}{' '}
+					</span>{' '}
 				</p>
 
 				<p className="m-0" style={{ fontSize: '15px' }}>
@@ -512,14 +518,8 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 
 			<List.Item.Meta
 				avatar={
-					<div className="d-flex justify-content-center align-items-center my-3">
-						<div className="contenedor-imagen-mostrar-apartado">
-							<img
-								className="imagen-mostrar-apartado"
-								alt="producto"
-								src={aws + apartado.producto.imagen}
-							/>
-						</div>
+					<div className="d-flex justify-content-center align-items-center centrar-avatar">
+						<Avatar src={aws + apartado.producto.imagen} size={80} />
 					</div>
 				}
 				title={
@@ -531,7 +531,15 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 							</p>
 							<p className="h6">
 								<span className="font-weight-bold">Precio:</span>{' '}
-								<span className="text-success"> $ {apartado.precio ? formatoMexico(apartado.precio) : formatoMexico(apartado.producto.precio)} </span>{' '}
+								<span className="text-success">
+									{' '}
+									${' '}
+									{apartado.precio ? (
+										formatoMexico(apartado.precio)
+									) : (
+										formatoMexico(apartado.producto.precio)
+									)}{' '}
+								</span>{' '}
 							</p>
 							<p className="m-0" style={{ fontSize: '15px' }}>
 								<span className="font-weight-bold">Tipo de entrega:</span>

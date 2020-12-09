@@ -10,8 +10,15 @@
     .mostrar-pedido{
         display: none;
     }
+    .centrar-avatar{
+        width: 160px;
+        height: auto!important;
+    }
 }
-
+.centrar-avatar{
+    width: 160px;
+    height: 200px;
+}
 .contenedor-card-pedidos{
     height: 300px;
 }
