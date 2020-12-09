@@ -161,7 +161,7 @@ const CheckoutForm = (props) => {
 								</div>
 							</div>
 						</div>
-						<div className="trasera">
+						<div className="trasera w-100">
 							<div className="barra-magnetica" />
 							<div className="datos">
 								<div className="grupo" id="firma">
@@ -175,11 +175,6 @@ const CheckoutForm = (props) => {
 									<p className="ccv"> {cvvCard} </p>
 								</div>
 							</div>
-							<p className="leyenda">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem,
-								voluptates illo.
-							</p>
-							<a href="#" className="link-banco" />
 						</div>
 					</section>
 

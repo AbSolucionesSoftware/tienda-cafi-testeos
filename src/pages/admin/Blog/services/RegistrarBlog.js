@@ -24,7 +24,7 @@ export default function RegistrarBlog(props) {
 	};
 
 	const onError = (error) => {
-		error.errorFields.map((err) => {
+		error.errorFields.forEach((err) => {
 			notification.error({
 				message: `[${err.name}]`,
 				description: err.errors,

@@ -211,7 +211,7 @@ function RegistrarProducto(props) {
 	const [ productoID, setProductoID ] = useState('');
 
 	const onError = (error) => {
-		error.errorFields.map((err) => {
+		error.errorFields.forEach((err) => {
 			notification.error({
 				message: `[${err.name}]`,
 				description: err.errors,

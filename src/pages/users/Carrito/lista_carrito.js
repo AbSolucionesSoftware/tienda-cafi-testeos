@@ -187,12 +187,17 @@ function ListaCarrito(props) {
 									<Tag className="detalles-carrito color-border-tags">
 										Género: {carrito.idarticulo.genero}
 									</Tag>
-									<Tag className="detalles-carrito color-border-tags">
-										Color: {carrito.idarticulo.color}
-									</Tag>
-									<Tag
-										style={{ backgroundColor: carrito.idarticulo.colorHex, height: 30, width: 30 }}
-									/>
+									{carrito.idarticulo.color && carrito.idarticulo.color !== "" ? (
+										<Tag className="detalles-carrito color-border-tags">
+											Color: {carrito.idarticulo.color}
+										</Tag>
+									):""}
+
+									{carrito.idarticulo.colorHex && carrito.idarticulo.colorHex !== "" ? (
+										<Tag
+											style={{ backgroundColor: carrito.idarticulo.colorHex, height: 30, width: 30 }}
+										/>
+									):""}
 								</div>
 								{disponible.length ? (
 									<p className="titulo-disponible">Producto no disponible</p>

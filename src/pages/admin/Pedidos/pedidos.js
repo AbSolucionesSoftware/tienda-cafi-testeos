@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './pedidos.scss';
-import { Card, Col, Row, Modal, notification, Result, Spin, Radio, Tag, Button } from 'antd';
+import { Card, Col, Row, Modal, notification, Result, Spin, Radio, Tag } from 'antd';
 import { ContainerOutlined, EditOutlined } from '@ant-design/icons';
 import clienteAxios from '../../../config/axios';
 import DetallesPedido from './detalles_pedido';

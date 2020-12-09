@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../../config/axios';
 import { Table, Tag, InputNumber, notification, Badge, Spin, Form, Button } from 'antd';
@@ -9,7 +9,6 @@ function InventarioNumeros(props) {
 	const {
 		location,
 		history,
-		page,
 		productos,
 		productosRender,
 		reload,
@@ -184,7 +183,6 @@ function InventarioNumeros(props) {
 					<div className="mx-1 d-inline">
 						<Button
 							type="primary"
-							size="middle"
 							size="large"
 							onClick={() => actualizarCantidad(producto, 'sumar')}
 							disabled={producto._id === idNumeroSeleccionada ? false : true}
@@ -193,7 +191,6 @@ function InventarioNumeros(props) {
 						</Button>
 						<Button
 							type="default"
-							size="middle"
 							size="large"
 							disabled={producto._id === idNumeroSeleccionada ? false : true}
 							onClick={() => actualizarCantidad(producto, 'restar')}

@@ -50,7 +50,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, precio, t
 					producto: idproducto,
 					cliente: idcliente,
 					cantidad: cantidad,
-					precio, precio,
+					precio: precio,
 					medida: [ { talla: talla } ],
 					estado: 'PROCESANDO',
 					tipoEntrega: tipoEntrega
@@ -90,7 +90,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, precio, t
 					producto: idproducto,
 					cliente: idcliente,
 					cantidad: cantidad,
-					precio, precio,
+					precio: precio,
 					medida: [ { numero: numero } ],
 					estado: 'PROCESANDO',
 					tipoEntrega: tipoEntrega
@@ -130,7 +130,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, precio, t
 					producto: idproducto,
 					cliente: idcliente,
 					cantidad: cantidad,
-					precio, precio,
+					precio: precio,
 					estado: 'PROCESANDO',
 					tipoEntrega: tipoEntrega
 				},

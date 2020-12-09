@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import clienteAxios from '../../../../config/axios';
 import { Tabs, Form, Input, Upload, Button, notification, Select, Spin, Divider, Alert } from 'antd';
 import { UploadOutlined, PlusOutlined } from '@ant-design/icons';
@@ -52,7 +52,7 @@ function ActualizarProducto(props) {
 			nombre: '',
 			precio: '',
 			cantidad: '',
-			imagen: '', 
+			imagen: '',
 			color: ''
 		}
 	]);
@@ -107,28 +107,6 @@ function ActualizarProducto(props) {
 		productos.color = '';
 	};
 
-	useEffect(
-		() => {
-			if (reload) {
-				/* obtenerDatos(); */
-				form.resetFields();
-				setFiles([]);
-				setUpload(false);
-				setColor('');
-			}
-			obtenerDatos();
-			obtenerSubcategorias();
-			obtenerCategorias();
-		},
-		[ productoID, reload, form /* , select */ ]
-	);
-	useEffect(
-		() => {
-			obtenerSubcategorias();
-		},
-		[ select ]
-	);
-
 	///UPLOAD ANTD PRODUCTO
 	const antprops = {
 		listType: 'picture',
@@ -148,7 +126,7 @@ function ActualizarProducto(props) {
 		}
 	};
 
-	const obtenerDatos = async () => {
+	const obtenerDatos = useCallback(async () => {
 		setLoading(true);
 		await clienteAxios
 			.get(`/productos/${productoID}`)
@@ -189,7 +167,7 @@ function ActualizarProducto(props) {
 					});
 				}
 			});
-	};
+	}, [ form, productoID]);
 
 	const generoOnChange = (value) => {
 		setGenero(value);
@@ -321,7 +299,7 @@ function ActualizarProducto(props) {
 	}
 
 	const onError = (error) => {
-		error.errorFields.map((err) => {
+		error.errorFields.forEach((err) => {
 			notification.error({
 				message: `[${err.name}]`,
 				description: err.errors,
@@ -396,6 +374,27 @@ function ActualizarProducto(props) {
 				}
 			});
 	};
+
+	useEffect(
+		() => {
+			if (reload) {
+				form.resetFields();
+				setFiles([]);
+				setUpload(false);
+				setColor('');
+			}
+			obtenerDatos();
+			obtenerSubcategorias();
+			obtenerCategorias();
+		},
+		[ productoID, reload, form, obtenerDatos ]
+	);
+	useEffect(
+		() => {
+			obtenerSubcategorias();
+		},
+		[ select ]
+	);
 
 	return (
 		<Tabs defaultActiveKey="1">
@@ -508,6 +507,7 @@ function ActualizarProducto(props) {
 									style={{ width: 250 }}
 									onChange={generoOnChange}
 								>
+									<Option value="Ninguno">Ninguno</Option>
 									<Option value="Niño">Niño</Option>
 									<Option value="Niña">Niña</Option>
 									<Option value="Hombre">Hombre</Option>

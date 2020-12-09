@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../../config/axios';
 import { Table, Tag, InputNumber, notification, Badge, Spin, Form, Button } from 'antd';
@@ -10,7 +10,6 @@ function InventarioOtros(props) {
 	const {
 		location,
 		history,
-		page,
 		productos,
 		productosRender,
 		reload,
@@ -130,13 +129,14 @@ function InventarioOtros(props) {
 			key: '_id',
 			width: 230,
 			render: (cantidad, producto) => (
-				<Form className="d-flex" form={form}>
+				<Form key={producto._id} className="d-flex" form={form}>
 					<Form.Item
 						name={producto._id}
 						className="d-inline"
 						validateStatus={producto._id === idSeleccionado ? validateStatus : 'validate'}
 					>
 						<InputNumber
+							id={producto._id}
 							type="number"
 							size="large"
 							min={1}
@@ -148,7 +148,6 @@ function InventarioOtros(props) {
 					<div className="mx-1 d-inline">
 						<Button
 							type="primary"
-							size="middle"
 							size="large"
 							onClick={() => actualizarCantidad(producto, 'sumar')}
 							disabled={producto._id === idSeleccionado ? false : true}
@@ -157,7 +156,6 @@ function InventarioOtros(props) {
 						</Button>
 						<Button
 							type="default"
-							size="middle"
 							size="large"
 							onClick={() => actualizarCantidad(producto, 'restar')}
 							disabled={producto._id === idSeleccionado ? false : true}
