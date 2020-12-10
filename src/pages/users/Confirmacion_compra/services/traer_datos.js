@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import clienteAxios from '../../../../config/axios';
+import axios from 'axios'
 
-import { Form, Input, Button, Result, notification } from 'antd';
+import { Form, Input, Button, Result, notification, Alert } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Spin from '../../../../components/Spin';
 
+import Consulta_covertura from '../../Consulta_covertura/consulta_covertura';
+
 import '../confirmacion.scss';
 
+const consultaCodigos = axios.create({
+    baseURL : `https://api-sepomex.hckdrk.mx/query/`
+})
+
 export default function Traer_datos(props) {
+
+	const {setValue} =  props;
+
 	const { datosUser, decoded, setCurrent, current, setDatosActualizados, token } = props;
 	const [ datosFormulario, setdatosFormulario ] = useState({});
+
+	const [envioRechadazo, setEnvioRechazado] = useState("");
+	const [alertEnvio, setAlertEnvio] = useState(false);
+    const [alertRechazo, setAlertRechazo] = useState(false);
 
 	const [ loading, setLoading ] = useState(false);
 
@@ -73,44 +87,74 @@ export default function Traer_datos(props) {
 		formData.append('estado', datosFormulario.estado);
 		formData.append('pais', datosFormulario.pais);
 
+		console.log(datosFormulario.cp);
 		setLoading(true);
-		await clienteAxios
-			.put(`/cliente/${decoded._id}`, formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-					Authorization: `bearer ${token}`
-				}
-			})
-			.then((res) => {
-				setDatosActualizados(datosFormulario);
-				setLoading(false);
-				setCurrent(current + 1);
-			})
-			.catch((error) => {
-				setLoading(false);
-				if(error.response){
-					if (error.response.status === 404 || error.response.status === 500) {
-						notification.error({
-							message: 'Error',
-							description: `${error.response.data.message}`,
-							duration: 2
-						});
-					} else {
-						notification.error({
-							message: 'Error',
-							description: 'Error de conexion',
-							duration: 2
-						});
-					}
-				}else{
-					notification.error({
-						message: 'Error de conexion.',
-						description:
-						  'Al parecer no se a podido conectar al servidor.',
-					  });
-				}
+		await consultaCodigos
+        .get(`/info_cp/${datosFormulario.cp}`)
+        .then((res) => {
+        const data = res.data[0].response.municipio;
+            clienteAxios
+                .get(`/politicasEnvio/estado/municipio/${data}`)
+                .then((res) => {
+					clienteAxios
+					.put(`/cliente/${decoded._id}`, formData, {
+						headers: {
+							'Content-Type': 'multipart/form-data',
+							Authorization: `bearer ${token}`
+						}
+					})
+					.then((res) => {
+						setDatosActualizados(datosFormulario);
+						setLoading(false);
+						setCurrent(current + 1);
+					})
+					.catch((error) => {
+						setLoading(false);
+						if(error.response){
+							if (error.response.status === 404 || error.response.status === 500) {
+								notification.error({
+									message: 'Error',
+									description: `${error.response.data.message}`,
+									duration: 2
+								});
+							} else {
+								notification.error({
+									message: 'Error',
+									description: 'Error de conexion',
+									duration: 2
+								});
+							}
+						}else{
+							notification.error({
+								message: 'Error de conexion.',
+								description:
+								'Al parecer no se a podido conectar al servidor.',
+							});
+						}
 
-			});
+					});
+							
+                    
+                })
+                .catch((err) => {
+					console.log("No hay envios");
+                    setEnvioRechazado(err.response.data.message);
+                    setAlertEnvio(false);
+					setAlertRechazo(true);
+					setLoading(false);
+                });
+        })
+        .catch((err) => {
+            notification.error({
+            message: 'Error',
+            description: 'El codigo postal insertado no existe'
+            });
+		});
+		
+
+
+
+		
 	}
 
 	if (decoded === null) {
@@ -267,6 +311,19 @@ export default function Traer_datos(props) {
 							</div>
 						}
 					/>
+					 {
+                    alertRechazo === true ? (
+                        <Alert
+                            className="mt-2 text-center"
+                            message="Lo sentimos"
+                            description={envioRechadazo}
+                            type="error"
+                            showIcon
+                        />
+                    ) : (
+                        <div />
+                    )
+                	}
 					<div className="steps-action d-flex justify-content-center align-items-center p-3">
 						<Button className="color-boton" htmlType="submit" size="large">
 							Siguiente

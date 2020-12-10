@@ -17,7 +17,6 @@ export default function RegistroTienda(props) {
 	const { datosNegocio, token, setLoading, setReloadInfo } = props;
 
 	const [ datos, setDatos ] = useState({});
-	// const [reload, setReload] = useState(false)
 	const [ control, setControl ] = useState(false);
 	const [ form ] = Form.useForm();
 	const { Step } = Steps;
@@ -173,7 +172,6 @@ export default function RegistroTienda(props) {
 					.then((res) => {
 						setLoading(false);
 						// setReloadInfo(true);
-						// setReload(res);
 						// drawnerClose();
 						setCurrent(current + 1);
 						next();
@@ -215,7 +213,6 @@ export default function RegistroTienda(props) {
 					setLoading(false);
 					// setReloadInfo(true);
 					// drawnerClose();
-					// setReload(res);
 					setCurrent(current + 1);
 					next();
 					notification.success({
@@ -609,11 +606,6 @@ export default function RegistroTienda(props) {
 					Siguiente
 				</Button>
 				)}
-				{/* {current === steps.length - 1 && (
-				<Button type="primary" onClick={drawnerClose} setLoading={setLoading}>
-					Terminar
-				</Button>
-				)} */}
 				{current > 0 && (
 				<Button style={{ margin: '0 8px' }} onClick={() => prev()}>
 					Anterior

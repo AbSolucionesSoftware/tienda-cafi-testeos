@@ -10,9 +10,6 @@ const consultaCodigos = axios.create({
 
 export default function Consulta_covertura(props) {
 
-    const {setIsModalVisible, handleCancel} = props;
-
-
     const [alertEnvio, setAlertEnvio] = useState(false);
     const [alertRechazo, setAlertRechazo] = useState(false);
 
@@ -63,7 +60,7 @@ export default function Consulta_covertura(props) {
     return (
         <div className="text-center align-items-center justify-content-center">
            
-                <Alert
+                {/* <Alert
 					message="Consulta:"
 					description="Introduce tu Codigo Postal, para consultar envios a tu Municipio"
 					type="info"
@@ -89,7 +86,7 @@ export default function Consulta_covertura(props) {
                     >
                         Buscar
                     </Button>
-                </div>
+                </div> */}
             
                 {
                     alertEnvio === true ? (

@@ -20,8 +20,6 @@ import aws from '../../../../../config/aws';
 function MostrarRegistroTienda(props) {
 	const { token } = props;
 
-	const {setCurrent, current} = props;
-
 	const [ action, setAction ] = useState(false);
 	const [ visible, setVisible ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
@@ -181,8 +179,6 @@ function MostrarRegistroTienda(props) {
 					setLoading={setLoading}
 					// setReloadInfo={setReloadInfo}
 					// drawnerClose={drawnerClose}
-					setCurrent={setCurrent}
-					current={current}
 				/>
 			</Drawer>
 
