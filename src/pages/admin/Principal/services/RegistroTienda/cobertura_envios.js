@@ -67,11 +67,7 @@ export default function Cobertura_envios(props) {
   const selectTodos = (e) => {
     setTodos(e.target.checked);
     // console.log(e.target.checked);
-    // if (todos) {
-    //   setBloqueo(false)
-    // }else{
-    //   setBloqueo(true)
-    // }
+    
   };
 
   //*******************************Checkeo de datos************************************************************************************ */
@@ -213,7 +209,7 @@ export default function Cobertura_envios(props) {
         .then((res) => {
           setTodos(false);
           notification.success({
-            message: "Actualizacion Exitosa de Todos",
+            message: "Actualizacion Exitosa a todo mexico",
             duration: 2,
           });
           setReload(res);
@@ -271,9 +267,8 @@ export default function Cobertura_envios(props) {
     clienteAxios.get(`/politicasEnvio/estados/`).then((res) => {
       if (res.data.length > 0) {
         res.data.map((todo) => {
-          if (todo.todos) {
-            setTodosApi(todo.todos);
-            console.log(todo.todos);
+          if (todo.todos === true) {
+            setTodos(true);
           }
         });
       }
@@ -349,16 +344,22 @@ export default function Cobertura_envios(props) {
       <div className="row text-center">
         <div className="col-lg-6">
           
-          <Checkbox onChange={selectTodos} checked={todosApi ? true : false} className="mt-2">
+          <Checkbox 
+            onChange={selectTodos} 
+            checked={todos} 
+            className="mt-2"
+            style={{fontSize: 16, color: "green"}}
+          >
             Envio a todo Mexico
           </Checkbox>
 
           <Select
             style={{ width: "70%" }}
+            className="mt-3"
             placeholder="Selecciona un estado"
             onChange={selectMunicipio}
             value={value}
-            disabled={bloqueo}
+            disabled={todos}
           >
             {estadosApi.length !== 0 ? (
               estadosApi.map((estado) => {
@@ -372,32 +373,39 @@ export default function Cobertura_envios(props) {
               <Option />
             )}
           </Select>
-
+          
           <div className="text-center mt-3">
-            {dataEstados.map((estado) => {
-              const municipios = [];
-              estado.municipios.map((municipio) => {
-                municipios.push(municipio.municipio + "       -       ");
-              });
-              return (
-                <Tooltip
-                  key={estado._id}
-                  placement="topLeft"
-                  title={municipios}
-                >
-                  <Tag
-                    className="mt-3 tags-color"
-                    visible={true}
-                    closable
-                    onClick={() => selectMunicipio(estado.estado)}
-                    onClose={() => deleteEstado(estado)}
+            {
+           
+              dataEstados.map((estado) => {
+               if (estado.todos) {
+
+               }else{
+                const municipios = [];
+                estado.municipios.map((municipio) => {
+                  municipios.push(municipio.municipio + "       -       ");
+                });
+                return (
+                  <Tooltip
                     key={estado._id}
+                    placement="topLeft"
+                    title={municipios}
                   >
-                    {estado.estado}
-                  </Tag>
-                </Tooltip>
-              );
-            })}
+                    <Tag
+                      className="mt-3 tags-color"
+                      visible={true}
+                      closable
+                      onClick={() => selectMunicipio(estado.estado)}
+                      onClose={() => deleteEstado(estado)}
+                      key={estado._id}
+                    >
+                      {estado.estado}
+                    </Tag>
+                  </Tooltip>
+                );
+               }
+              })
+            }
           </div>
         </div>
 
@@ -433,6 +441,7 @@ export default function Cobertura_envios(props) {
           size="large"
           type="primary"
           onClick={limpiar}
+          disabled={todos}
         >
           <DeleteOutlined style={{ fontSize: 20 }} />
           Limpiar

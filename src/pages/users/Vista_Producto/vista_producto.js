@@ -7,6 +7,7 @@ import Sugerencia from './subs/sugerencia';
 import Galeria from './Galeria_tienda/galeria';
 import TallasCantidades from './subs/cantidades_y_tallas';
 import InfoTienda from './Info_tienda/info-tienda';
+import Envio_General from '../Consulta_covertura/envio_general';
 import 'antd/dist/antd.css';
 import './vistas.scss';
 import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
@@ -15,7 +16,6 @@ import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import Spin from '../../../components/Spin';
-import Estados_disponibles from '../Consulta_covertura/estados_disponibles';
 
 function VistaProductos(props) {
 	const [ productos, setProductos ] = useState([]);
@@ -139,6 +139,7 @@ function VistaProductos(props) {
 								</p>
 							</div>
 						)}
+						
 						{costoEnvio ? (
 							<div>
 								<p style={{ fontSize: 15 }} className="envio-texto">
@@ -164,6 +165,7 @@ function VistaProductos(props) {
 						) : (
 							<div className="d-none" />
 						)}
+						<Envio_General />
 						<Divider />
 						<div className="row justify-content-center">
 							<div className="col-4">
