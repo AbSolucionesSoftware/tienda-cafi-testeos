@@ -44,7 +44,7 @@ const Sugerencia = (props) => {
 		.get(`/politicasEnvio/estados/`)
 		.then((res) => {
 			res.data.map((todos)=>{
-				setDataEstados(todos.todos);
+				setDataEstados(todos);
 			})
 		})
 		.catch((err) => {
@@ -256,7 +256,7 @@ const Sugerencia = (props) => {
 		<Spin spinning={loading}>
 			<div>
 				{
-					dataEstados !== true ? (
+					dataEstados.todos !== true || dataEstados !== false ? (
 						<Estados_disponibles />
 					):(
 						null

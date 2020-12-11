@@ -3,6 +3,12 @@ import { Button, Form, Divider, notification, Input, Row, Col } from 'antd';
 import clienteAxios from '../../../../config/axios';
 import Spin from '../../../../components/Spin';
 
+import axios from "axios";
+
+const consultaCodigos = axios.create({
+    baseURL : `https://api-sepomex.hckdrk.mx/query/`
+})
+
 const layout = {
 	labelCol: { span: 8 },
 	wrapperCol: { span: 16 }
@@ -11,11 +17,14 @@ const layout = {
 export default function DatosCliente(props) {
 	const [ loading, setLoading ] = useState(false);
 	const [ form ] = Form.useForm();
-	const { token, clienteID } = props;
+	const { token, clienteID, tipoEnvio } = props;
 	const [ handleOk ] = props.enviarDatos;
 
 	const [ controlBoton, setControlBoton ] = useState(true);
 	const [ estadoBoton, setEstadoBoton ] = useState('Completa tus datos');
+
+	const [ cp, setCp] = useState([]);
+	const [envioTotal, setEnvioTotal] = useState(false);
 
 	async function obtenerDatosUser() {
 		setLoading(true);
@@ -28,6 +37,7 @@ export default function DatosCliente(props) {
 			.then((res) => {
 				setLoading(false);
 				if (res.data.direccion.length !== 0) {
+					setCp(res.data.direccion[0].cp);
 					form.setFieldsValue({
 						nombre: res.data.nombre,
 						apellido: res.data.apellido,
@@ -73,18 +83,35 @@ export default function DatosCliente(props) {
 				setControlBoton(false);
 				setEstadoBoton('Apartar');
 				break;
-			/* case 'Apartar':
-				handleOk();
-				break; */
+			// case 'Apartar':
+			// 	handleOk();
+			// 	break; 
 			default:
 				break;
 		}
 	};
 
-	async function editarDatos(valores) {
-		setLoading(true);
+	
+	async function envios() {
 		await clienteAxios
-			.put(`/cliente/${clienteID}`, valores, {
+			.get(`/politicasEnvio/estados/`)
+			.then((res) => {
+				res.data.map((total) => {
+					setEnvioTotal(total);
+				})
+			})
+			.catch((err) => {
+				
+			});
+	}
+
+	useEffect(() => {
+		envios();
+	}, [])
+
+	function envioDatos(parametro) {
+		clienteAxios
+			.put(`/cliente/${clienteID}`, parametro, {
 				headers: {
 					Authorization: `bearer ${token}`
 				}
@@ -117,6 +144,36 @@ export default function DatosCliente(props) {
 					});
 				}
 			});
+	}
+
+	function editarDatos(valores) {
+		setLoading(true);
+			if (tipoEnvio !== 'ENVIO') {
+				envioDatos(valores);
+			}else{
+				if (envioTotal.todos === true || envioTotal === false) {
+					envioDatos(valores);
+				}else{
+					consultaCodigos
+					.get(`/info_cp/${cp}`)
+					.then((res) => {
+					const data = res.data[0].response.municipio;
+						clienteAxios
+							.get(`/politicasEnvio/estado/municipio/${data}`)
+							.then((res) => {
+								envioDatos(valores);
+							}).catch(()=>{
+								setEstadoBoton('Completa tus datos');
+								setLoading(false);
+								notification.error({
+									message: 'Lo sentimos',
+									description: 'Por el momento no tenemos envios a tu localidad estamos trabajando en eso',
+									duration: 5
+								});
+							})
+					})
+				}
+			}
 	}
 
 	useEffect(() => {
