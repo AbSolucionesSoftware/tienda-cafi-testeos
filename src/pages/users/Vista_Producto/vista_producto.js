@@ -146,8 +146,10 @@ function VistaProductos(props) {
 									<FontAwesomeIcon icon={faTruck} style={{ fontSize: 15, marginRight: 10 }} /> <span>Costo del envío:</span>{' '}
 									<span>${costoEnvio.costoEnvio}</span>
 								</p>
+								<Envio_General />
 								{costoEnvio.promocionEnvio ?  costoEnvio.descuento !== 0 ? (
 									<Alert
+										className="mt-2"
 										message={
 											costoEnvio.descuento !== 0 ? (
 												`¡En compras arriba de $${costoEnvio.promocionEnvio} el envío será GRATIS!`
@@ -165,7 +167,7 @@ function VistaProductos(props) {
 						) : (
 							<div className="d-none" />
 						)}
-						<Envio_General />
+						
 						<Divider />
 						<div className="row justify-content-center">
 							<div className="col-4">

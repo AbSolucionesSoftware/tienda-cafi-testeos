@@ -26,37 +26,41 @@ export default function Estados_disponibles() {
     traerDatos();
   }, []);
 
+
+  const municipios = [];
+
   return (
     <div>
       <div className="text-center justify-content-center align-items-center mt-5">
-        {dataEstados.map((estado) => {
-          if (estado.todos) {
-          } else {
-            const municipios = [];
-            estado.municipios.map((municipio) => {
+      <h3>Tenemos envios a:</h3>
+        {
+          dataEstados.map((estados) => {
+            estados.municipios.map((municipio) => {
               municipios.push(municipio.municipio + "       -       ");
             });
-            return (
-              <div>
-                <h2>Tenemos envios a:</h2>
+
+            if (estados.todos || dataEstados.length === 0) {
+              
+            }else{
+              return( 
                 <Tooltip
-                  key={estado._id}
-                  placement="topLeft"
+                  placement="left"
+                  key={estados._id}
                   title={municipios}
                 >
                   <Tag
                     style={{ fontSize: 16 }}
                     className="mt-3 tags-color"
                     visible={true}
-                    key={estado._id}
+                    key={estados._id}
                   >
-                    {estado.estado}
+                    {estados.estado}
                   </Tag>
                 </Tooltip>
-              </div>
-            );
-          }
-        })}
+                )
+            }
+          })
+      } 
       </div>
     </div>
   );

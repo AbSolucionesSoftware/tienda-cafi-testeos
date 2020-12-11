@@ -241,6 +241,10 @@ export default function Cobertura_envios(props) {
           errors(err);
         });
     } else if (idEstado) {
+      nuevoEstado = {
+        estado: estado,
+        municipios: arrayMunicipio,
+      };
       clienteAxios
         .put(`/politicasEnvio/estados/${idEstado}`, nuevoEstado, {
           headers: {
@@ -249,7 +253,7 @@ export default function Cobertura_envios(props) {
         })
         .then((res) => {
           notification.success({
-            message: "Actualizacion Exitosa",
+            message: "Actualizacion Exitosa de estado",
             duration: 2,
           });
           setReload(res);
@@ -387,8 +391,8 @@ export default function Cobertura_envios(props) {
                 });
                 return (
                   <Tooltip
+                    placement="left"
                     key={estado._id}
-                    placement="topLeft"
                     title={municipios}
                   >
                     <Tag

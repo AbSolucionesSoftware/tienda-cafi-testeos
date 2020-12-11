@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import clienteAxios from "../../../config/axios";
 
 import { notification, Alert } from "antd";
+import { CheckCircleFilled } from '@ant-design/icons';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
@@ -30,17 +31,14 @@ export default function Envio_General() {
 
   return (
     <div>
-      <div className="text-center justify-content-center align-items-center mt-1">
+      <div >
         {dataEstados.map((estado) => {
           if (estado.todos) {
             return (
-              <Alert
-                message={"Envios a toda la Republica Mexicana"}
-                type="success"
-                showIcon
-              >
-                
-              </Alert>
+              <div style={{ fontSize: 15 }} className="envio-texto 4">
+              <CheckCircleFilled style={{ fontSize: 20, marginRight: 10 }} /> 
+                <spam >Tenemos envios a toda la republica Mexicana</spam>
+              </div>
             );
           } else {
               return null;

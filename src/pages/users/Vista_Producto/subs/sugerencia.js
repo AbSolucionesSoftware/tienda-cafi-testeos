@@ -37,6 +37,22 @@ const Sugerencia = (props) => {
 	const [ cantidadFinalProducto, setCantidadFinalProducto ] = useState(1);
 	const [ disponibilidad, setDisponibilidad ] = useState('');
 
+	const [dataEstados, setDataEstados] = useState([]);
+
+	const traerDatos = async () => {
+	  clienteAxios
+		.get(`/politicasEnvio/estados/`)
+		.then((res) => {
+			res.data.map((todos)=>{
+				setDataEstados(todos.todos);
+			})
+		})
+		.catch((err) => {
+		});
+	};
+
+	console.log(dataEstados);
+
 	function selectTallaProducto(value) {
 		setMedida(value);
 	}
@@ -88,6 +104,7 @@ const Sugerencia = (props) => {
 
 	useEffect(() => {
 		obtenerSugerencia();
+		traerDatos();
 	}, []);
 	useEffect(
 		() => {
@@ -574,7 +591,14 @@ const Sugerencia = (props) => {
 				
 			</div>
 			<div>
-				<Estados_disponibles />
+				{
+					dataEstados !== true ? (
+						<Estados_disponibles />
+					):(
+						null
+					)
+				}
+				
 			</div>
 		</Spin>
 	);

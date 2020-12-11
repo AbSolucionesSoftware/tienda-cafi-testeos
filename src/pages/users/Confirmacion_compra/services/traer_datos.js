@@ -76,10 +76,9 @@ export default function Traer_datos(props) {
 		await clienteAxios
 			.get(`/politicasEnvio/estados/`)
 			.then((res) => {
-					res.data.map((total) => {
-						setEnvioTotal(total.todos);
-					})
-
+				res.data.map((total) => {
+					setEnvioTotal(total);
+				})
 			})
 			.catch((err) => {
 				notification.error({
@@ -91,6 +90,8 @@ export default function Traer_datos(props) {
 	useEffect(() => {
 		envios();
 	}, [])
+
+	console.log(envioTotal);
 
 	function enviarDatosUser() { 
 
@@ -109,7 +110,7 @@ export default function Traer_datos(props) {
 		formData.append('pais', datosFormulario.pais);
 
 		setLoading(true);
-		if (envioTotal === true) {
+		if (envioTotal.todos === true || envioTotal === false) {
 			clienteAxios
 			.put(`/cliente/${decoded._id}`, formData, {
 				headers: {
