@@ -256,7 +256,16 @@ const Sugerencia = (props) => {
 
 	return (
 		<Spin spinning={loading}>
-			<div className="row mw-100">
+			<div>
+				{
+					dataEstados !== true ? (
+						<Estados_disponibles />
+					):(
+						null
+					)
+				}
+			</div>
+			<div className="row mw-100 mt-3">
 				{!producto || !sugerencia ? (
 					<div />
 				) : (
@@ -590,16 +599,7 @@ const Sugerencia = (props) => {
 				)}
 				
 			</div>
-			<div>
-				{
-					dataEstados !== true ? (
-						<Estados_disponibles />
-					):(
-						null
-					)
-				}
-				
-			</div>
+			
 		</Spin>
 	);
 };

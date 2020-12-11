@@ -31,7 +31,7 @@ export default function Estados_disponibles() {
 
   return (
     <div>
-      <div className="text-center justify-content-center align-items-center mt-5">
+      <div className="text-center ">
       <h3>Tenemos envios a:</h3>
         {
           dataEstados.map((estados) => {
@@ -50,7 +50,7 @@ export default function Estados_disponibles() {
                 >
                   <Tag
                     style={{ fontSize: 16 }}
-                    className="mt-3 tags-color"
+                    className="mt-2 tags-color"
                     visible={true}
                     key={estados._id}
                   >

@@ -3,7 +3,6 @@ import axios from "axios";
 
 import "./coberturaEnvios.scss";
 import {
-  Divider,
   Button,
   Select,
   Tag,
@@ -38,8 +37,6 @@ export default function Cobertura_envios(props) {
   const [idEstado, setIdEstado] = useState([]);
 
   const [todos, setTodos] = useState(false);
-  const [todosApi, setTodosApi] = useState(false);
-  const [bloqueo, setBloqueo] = useState(false);
 
   const [municipiosApi, setMunicipiosApi] = useState([]);
   const [estadosApi, setEstadoApi] = useState([]);

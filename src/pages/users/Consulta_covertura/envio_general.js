@@ -4,8 +4,6 @@ import clienteAxios from "../../../config/axios";
 import { notification, Alert } from "antd";
 import { CheckCircleFilled } from '@ant-design/icons';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTruck } from "@fortawesome/free-solid-svg-icons";
 
 export default function Envio_General() {
   const [dataEstados, setDataEstados] = useState([]);
