@@ -304,6 +304,7 @@ export default function Cobertura_envios(props) {
               message: "Estado Eliminado",
             });
             setReload(res);
+            limpiar();
           })
           .catch((err) => {
             if (err.response) {
