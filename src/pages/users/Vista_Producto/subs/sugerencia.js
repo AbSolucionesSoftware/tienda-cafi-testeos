@@ -51,8 +51,6 @@ const Sugerencia = (props) => {
 		});
 	};
 
-	console.log(dataEstados);
-
 	function selectTallaProducto(value) {
 		setMedida(value);
 	}
