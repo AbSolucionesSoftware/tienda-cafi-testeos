@@ -23,7 +23,8 @@ export async function actualizarCantidad(cliente, articulo, categoria, cantidad,
 			break;
 		default:
 			break;
-    }
+	}
+
 	await clienteAxios
 		.put(`/carrito/${cliente}/articulo/${articulo}`, datos, {
 			headers: {

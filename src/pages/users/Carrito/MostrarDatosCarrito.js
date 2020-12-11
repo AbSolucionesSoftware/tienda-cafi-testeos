@@ -3,12 +3,13 @@ import clienteAxios from '../../../config/axios';
 import jwt_decode from 'jwt-decode';
 import { Link, withRouter } from 'react-router-dom';
 import './carrito.scss';
-import { List, Button, message, Result } from 'antd';
+import { List, Button, message, Result, Space } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { formatoMexico } from '../../../config/reuserFunction';
 import { CarritoContext } from './context_carrito/context-carrito';
 import { obtenerStockCarrito } from './services/obtenerStock';
 import { AgregarPedidoCarrito } from './services/pedido_carrito';
+import ApartadoCarrito from './services/apartado_carrito';
 import ListaCarrito from './lista_carrito';
 import Spin from '../../../components/Spin';
 
@@ -21,6 +22,7 @@ function MostrarDatosProductos(props) {
 	const [ nuevoCarrito, setNuevoCarrito ] = useState([]);
 	const [ total, setTotal ] = useState(0);
 	const { activador, setActivador, validacion } = useContext(CarritoContext);
+	const [ visible, setVisible ] = useState(false);
 
 	//toma del token para el usuario
 	const token = localStorage.getItem('token');
@@ -101,6 +103,14 @@ function MostrarDatosProductos(props) {
 		}
 	}
 
+	function apartarCarrito() {
+		if (validacion) {
+			message.error('Aun no se ha modificado la cantidad');
+		} else {
+			setVisible(true);
+		}
+	}
+
 	if (carrito.length === 0 || carrito.articulos.length === 0) {
 		return (
 			<Spin spinning={loading}>
@@ -144,6 +154,7 @@ function MostrarDatosProductos(props) {
 						</div>
 					</div>
 					<div className="col-lg-5 d-flex justify-content-center align-items-center mt-4">
+						<Space>
 						<Button
 							size="large"
 							className="color-boton color-font-boton"
@@ -152,9 +163,19 @@ function MostrarDatosProductos(props) {
 						>
 							<ShoppingCartOutlined style={styles} /> Comprar ahora
 						</Button>
+						<Button
+							size="large"
+							className="color-boton color-font-boton"
+							style={{ width: 250, textAlign: 'center' }}
+							onClick={() => apartarCarrito()}
+						>
+							<ShoppingCartOutlined style={styles} /> Apartar carrito
+						</Button>
+						</Space>
 					</div>
 				</div>
 			</div>
+			<ApartadoCarrito cliente={cliente._id} token={token} modal={[ visible, setVisible ]} />
 		</Spin>
 	);
 }

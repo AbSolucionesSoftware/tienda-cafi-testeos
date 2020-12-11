@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { notification, Modal, Select, Divider, Alert } from 'antd';
+import { notification, Modal, Select, Divider, Alert, Avatar, List } from 'antd';
 import { formatoMexico } from '../../../config/reuserFunction';
 import { AgregarApartado } from './services/consultas_individuales';
 import DatosCliente from '../Vista_Producto/subs/datos_cliente';
@@ -19,7 +19,22 @@ export default function ModalApartado(props) {
 				duration: 2
 			});
 		} else {
-            AgregarApartado(cliente._id, carrito.idarticulo._id, carrito.cantidad, carrito.medida, tipoEnvio, token, carrito.idarticulo.tipoCategoria);
+			let precio;
+			if(carrito.promocion && carrito.promocion.length !== 0){
+				precio = carrito.promocion.precioPromocion;
+			}else{
+				precio = carrito.idarticulo.precio;
+			}
+			AgregarApartado(
+				cliente._id,
+				carrito.idarticulo._id,
+				carrito.cantidad,
+				precio,
+				carrito.medida,
+				tipoEnvio,
+				token,
+				carrito.idarticulo.tipoCategoria
+			);
 			setVisible(false);
 		}
 	};
@@ -34,85 +49,76 @@ export default function ModalApartado(props) {
 
 	return (
 		<Modal
+			style={{ top: 20 }}
 			title="Nuevo Apartado"
 			visible={visible}
-			/* onOk={handleOk} */
 			onCancel={handleCancel}
 			/* cancelText="Cancelar"
-			okText="Apartar" */
+			okText={false}
+			onOk={false} */
+			footer={false}
 			width={700}
 		>
-			<div className="row">
-				<div className="col-12 col-lg-6">
-					<div className="mb-3">
-						<h6 className="d-inline">Porducto: </h6>
-						<p className="d-inline">{carrito.idarticulo.nombre}</p>
+			<List>
+				<List.Item className="row">
+					<div className="col-lg-2">
+						<Avatar size={64} src={aws + carrito.idarticulo.imagen} />
 					</div>
-
-					{carrito.medida.length !== 0 ? (
-						<div className="mb-3">
-							<h6 className="d-inline">Talla: </h6>
-							{carrito.medida.map((res) => {
-								if (res.talla) {
-									return (
-										<p key={res._id} className="d-inline">
-											{res.talla}
-										</p>
-									);
-								} else if (res.numero) {
-									return (
-										<p key={res._id} className="d-inline">
-											{res.numero}
-										</p>
-									);
-								}
-								return null;
-							})}
+					<div className="col-lg-10">
+						<h5>{carrito.idarticulo.nombre}</h5>
+						<div className="row">
+							<div className="col-lg-3">
+								<h6>Cantidad: {carrito.cantidad}</h6>
+							</div>
+							{carrito.medida.length !== 0 ? (
+								<div className="col-lg-3">
+									{carrito.medida.map((res) => {
+										if (res.talla) {
+											return <h6 key={res._id}>Talla: {res.talla}</h6>;
+										} else if (res.numero) {
+											return <h6 key={res._id}>Talla: {res.numero}</h6>;
+										}
+										return null;
+									})}
+								</div>
+							) : (
+								<div className="d-none" />
+							)}
+							<div className="col-lg-3">
+								{!carrito.promocion ? (
+									<h6>Precio: ${formatoMexico(carrito.idarticulo.precio)}</h6>
+								) : (
+									<h6>Precio: ${formatoMexico(carrito.promocion.precioPromocion)}</h6>
+								)}
+							</div>
 						</div>
-					) : (
-						<div />
-					)}
-
-					<div className="mb-3">
-						<h6 className="d-inline">Cantidad: </h6>
-						<p className="d-inline">{carrito.cantidad}</p>
 					</div>
-					{!carrito.promocion ? (
-						<div className="mb-3">
-							<h6 className="d-inline">Precio: </h6>
-							<p className="d-inline">${formatoMexico(carrito.idarticulo.precio)}</p>
-						</div>
-					) : (
-						<div className="mb-3">
-							<h6 className="d-inline">Precio: </h6>
-							<p className="d-inline">${formatoMexico(carrito.promocion.precioPromocion)}</p>
-						</div>
-					)}
-					<div className="mb-3">
-						<h6>Elegir tipo de envío: </h6>
-						<Select style={{ width: 200 }} placeholder="Selecciona uno" onChange={obtenerTipoEnvio}>
-							<Option value="ENVIO">Envio por paqueteria</Option>
+				</List.Item>
+			</List>
+
+			<div className="d-flex justify-content-end mt-3 border-bottom">
+				{!carrito.promocion ? (
+					<h4>Total: ${formatoMexico(carrito.idarticulo.precio * carrito.cantidad)}</h4>
+				) : (
+					<h4>Total: ${formatoMexico(carrito.promocion.precioPromocion * carrito.cantidad)}</h4>
+				)}
+			</div>
+			<div className="row mt-4">
+				<div className="col-lg-6 text-center">
+					<h6 className="font-weight-bold">Elegir tipo de envío: </h6>
+					<div>
+						<Select style={{ width: 200 }} placeholder="Selecciona un tipo" onChange={obtenerTipoEnvio}>
+							<Option value="ENVIO">Envío por paquetería</Option>
 							<Option value="REGOGIDO">Recoger a sucursal</Option>
 						</Select>
 					</div>
-					<Alert
-						description="Para apartar un producto necesitas tener completos tus datos"
-						type="info"
-						showIcon
-					/>
 				</div>
-				<div className="col-12 col-lg-6">
-					<div className="d-flex justify-content-center align-items-center" style={{ height: 220 }}>
-						<img
-							className="imagen-producto-principal"
-							alt="producto"
-							src={aws+carrito.idarticulo.imagen}
-						/>
-					</div>
+				<div className="col-lg-6">
+					<Alert description="Para apartar un producto completa tus datos." type="info" showIcon />
 				</div>
 			</div>
 			<Divider>Tus datos</Divider>
-				<DatosCliente token={token} clienteID={cliente._id} tipoEnvio={tipoEnvio} enviarDatos={[ handleOk ]} />
+			<DatosCliente token={token} clienteID={cliente._id} tipoEnvio={tipoEnvio} enviarDatos={[ handleOk ]} />
 		</Modal>
 	);
 }

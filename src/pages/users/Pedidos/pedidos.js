@@ -5,13 +5,14 @@ import DetallesPedido from './detalles';
 import { formatoFecha, formatoMexico } from '../../../config/reuserFunction';
 import './pedidos.scss';
 import DetalleApartado from './detalleApartado';
-import { Modal, Tag, Button, List, Result, Tabs, notification } from 'antd';
-import { EditOutlined, DeleteOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
+import { Modal, Tag, Button, List, Result, Tabs, notification, Avatar, Tooltip } from 'antd';
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import aws from '../../../config/aws';
 import Spin from '../../../components/Spin';
+import ApartadoMultiple from './apartadoMultiple';
 
 const { TabPane } = Tabs;
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 export default function PedidosUsuario(props) {
 	const [ pedidos, setPedidos ] = useState([]);
@@ -57,13 +58,13 @@ export default function PedidosUsuario(props) {
 				setLoading(false);
 			})
 			.catch((err) => {
-				if(err.response){
+				if (err.response) {
 					notification.error({
 						message: 'Error',
 						description: err.response.data.message,
 						duration: 2
 					});
-				}else{
+				} else {
 					notification.error({
 						message: 'Error de conexion',
 						description: 'Al parecer no se a podido conectar al servidor.',
@@ -89,13 +90,13 @@ export default function PedidosUsuario(props) {
 				setLoading(false);
 			})
 			.catch((err) => {
-				if(err.response){
+				if (err.response) {
 					notification.error({
 						message: 'Error',
 						description: err.response.data.message,
 						duration: 2
 					});
-				}else{
+				} else {
 					notification.error({
 						message: 'Error de conexion',
 						description: 'Al parecer no se a podido conectar al servidor.',
@@ -105,60 +106,67 @@ export default function PedidosUsuario(props) {
 			});
 	}
 
-	useEffect(() => {
-		if (token === '' || token === null) {
-			props.history.push('/entrar');
-		} else {
-			obtenerPedidos();
-			obtenerApartados();
-			setLoading(true);
-			setPedidos([]);
-			setshowInfo(false);
-			setEstado(false);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [estado]);
+	useEffect(
+		() => {
+			if (token === '' || token === null) {
+				props.history.push('/entrar');
+			} else {
+				obtenerPedidos();
+				obtenerApartados();
+				setLoading(true);
+				setPedidos([]);
+				setshowInfo(false);
+				setEstado(false);
+			}
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		},
+		[ estado ]
+	);
 
-	
 	const deleteApartado = (id) => {
-        confirm({
-            title:"Eliminando Apartado",
-            icon: <ExclamationCircleOutlined />,
-            content: `¿Estás seguro que deseas eliminar el apartado?`,
-            okText: "Eliminar",
-            okType:"danger",
-            cancelText:"Cancelar",
-            onOk(){
-                clienteAxios.put(`/apartado/estado/eliminado/${id}`,{
-					headers: {
-						'Content-Type': 'multipart/form-data',
-						Authorization: `bearer ${token}`
-					}
-                })
-                .then((res) => {
-                    notification.success({
-                        message: 'Apartado Eliminado',
-                        description:
-                        res.data.message,
-                    });
-					setEstado(true);
-                })
-                .catch((err) => {
-                    notification.error({
-                        message: 'Error del servidor',
-                        description:
-                        'Paso algo en el servidor, al parecer la conexion esta fallando.',
-                    });
-                });
-            }
-        })
-	}
+		confirm({
+			title: 'Eliminando Apartado',
+			icon: <ExclamationCircleOutlined />,
+			content: `¿Estás seguro que deseas eliminar el apartado?`,
+			okText: 'Eliminar',
+			okType: 'danger',
+			cancelText: 'Cancelar',
+			onOk() {
+				clienteAxios
+					.put(`/apartado/estado/eliminado/${id}`, {
+						headers: {
+							'Content-Type': 'multipart/form-data',
+							Authorization: `bearer ${token}`
+						}
+					})
+					.then((res) => {
+						notification.success({
+							message: 'Apartado Eliminado',
+							description: res.data.message
+						});
+						setEstado(true);
+					})
+					.catch((err) => {
+						notification.error({
+							message: 'Error del servidor',
+							description: 'Paso algo en el servidor, al parecer la conexion esta fallando.'
+						});
+					});
+			}
+		});
+	};
 
 	return (
 		<Spin spinning={loading}>
 			<div className="container">
 				<h4 className="text-center m-3">Mis Compras</h4>
-				<Tabs centered className="shadow bg-white rounded tabs-colors" defaultActiveKey="1" type="card" size="large">
+				<Tabs
+					centered
+					className="shadow bg-white rounded tabs-colors"
+					defaultActiveKey="1"
+					type="card"
+					size="large"
+				>
 					<TabPane tab="Mis compras" key="1">
 						<div>
 							{showInfo !== true ? (
@@ -198,15 +206,29 @@ export default function PedidosUsuario(props) {
 									<List
 										size="large"
 										dataSource={apartados}
-										renderItem={(apartado) => (
-											<Apartado
-												apartado={apartado}
-												showModal={showModal}
-												setDetalleApartado={setDetalleApartado}
-												setElige={setElige}
-												deleteApartado={deleteApartado}
-											/>
-										)}
+										renderItem={(apartado) => {
+											if (apartado.apartadoMultiple && apartado.apartadoMultiple.length !== 0) {
+												return (
+													<ApartadoMultiple
+														apartado={apartado}
+														showModal={showModal}
+														setDetalleApartado={setDetalleApartado}
+														setElige={setElige}
+														deleteApartado={deleteApartado}
+													/>
+												);
+											} else {
+												return (
+													<Apartado
+														apartado={apartado}
+														showModal={showModal}
+														setDetalleApartado={setDetalleApartado}
+														setElige={setElige}
+														deleteApartado={deleteApartado}
+													/>
+												);
+											}
+										}}
 									/>
 								</div>
 							)}
@@ -225,13 +247,11 @@ export default function PedidosUsuario(props) {
 				}}
 				footer={null}
 			>
-
 				{Elige === true ? (
 					<DetalleApartado detalleApartado={detalleApartado} />
 				) : (
 					<DetallesPedido detallePedido={detallePedido} />
 				)}
-				
 			</Modal>
 		</Spin>
 	);
@@ -271,23 +291,36 @@ function Pedido(props) {
 				{/* <p className="h6"><span className="font-weight-bold">Pedido el:</span> {formatoFecha(pedido.createdAt)}</p> */}
 				<p className="m-0" style={{ fontSize: '15px' }}>
 					<span className="font-weight-bold">Pedido:</span>
-					<Tag className="ml-2" color={pedido.estado_pedido === 'En proceso' ? '#f0ad4e' : '#5cb85c'}>
+					<Tag
+						className="ml-2"
+						color={
+							pedido.estado_pedido === 'Entregado' ? (
+								'#5cb85c'
+							) : pedido.estado_pedido === 'Enviado' ? (
+								'#0088ff'
+							) : (
+								'#ffc401'
+							)
+						}
+					>
 						{pedido.estado_pedido}
 					</Tag>
 				</p>
 			</div>
-
 			<List.Item.Meta
 				avatar={
-					<div
-						className="d-flex justify-content-center align-items-center my-3"
-						style={{ width: 100, height: 100 }}
-					>
-						<img
-							className="img-fluid"
-							alt="producto"
-							src={aws+pedido.pedido[0].producto.imagen}
-						/>
+					<div className=" d-flex justify-content-center" style={{ width: 200 }}>
+						<Avatar.Group
+							maxCount={1}
+							size={90}
+							maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+						>
+							{pedido.pedido.map((res) => (
+								<Tooltip key={res.producto._id} title={res.producto.nombre} placement="top">
+									<Avatar src={aws + res.producto.imagen} />
+								</Tooltip>
+							))}
+						</Avatar.Group>
 					</div>
 				}
 				title={
@@ -303,7 +336,15 @@ function Pedido(props) {
 									<span className="font-weight-bold">Estatus:</span>
 									<Tag
 										className="ml-2"
-										color={pedido.estado_pedido === 'En proceso' ? '#f0ad4e' : '#5cb85c'}
+										color={
+											pedido.estado_pedido === 'Entregado' ? (
+												'#5cb85c'
+											) : pedido.estado_pedido === 'Enviado' ? (
+												'#0088ff'
+											) : (
+												'#ffc401'
+											)
+										}
 									>
 										{pedido.estado_pedido}
 									</Tag>
@@ -315,9 +356,10 @@ function Pedido(props) {
 								<span className="text-success"> $ {formatoMexico(pedido.total)}</span>{' '}
 							</p>
 							<p className="m-0" style={{ fontSize: '15px' }}>
-								<span className="font-weight-bold">Fecha de pedido:</span> {formatoFecha(pedido.createdAt)}
+								<span className="font-weight-bold">Fecha de pedido:</span>{' '}
+								{formatoFecha(pedido.createdAt)}
 							</p>
-{/* 							<p className="m-0" style={{ fontSize: '15px' }}>
+							{/* 							<p className="m-0" style={{ fontSize: '15px' }}>
 								{pedido.pagado === false ? (
 									<div>
 										<p className="text-danger">Pedido no realizado </p>
@@ -375,9 +417,7 @@ function Pedido(props) {
 	);
 }
 
-function Apartado(props) {
-	const { apartado, showModal, setDetalleApartado, setElige , deleteApartado} = props;
-
+function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApartado }) {
 	return (
 		<List.Item
 			key={apartado._id}
@@ -399,7 +439,9 @@ function Apartado(props) {
 					</Button>
 					<Button
 						className={
-							apartado.estado === 'ACEPTADO' || apartado.estado === 'ENVIADO' ? (
+							apartado.estado === 'ACEPTADO' ||
+							apartado.estado === 'ENVIADO' ||
+							apartado.estado === 'ENTREGADO' ? (
 								'd-none'
 							) : (
 								'd-flex justify-content-top align-items-top m-2 w-100'
@@ -409,7 +451,7 @@ function Apartado(props) {
 						danger
 						ghost
 						onClick={() => {
-							deleteApartado(apartado._id)
+							deleteApartado(apartado._id);
 						}}
 					>
 						<DeleteOutlined />
@@ -425,7 +467,14 @@ function Apartado(props) {
 				</p>
 				<p className="h6">
 					<span className="font-weight-bold">Precio:</span>{' '}
-					<span className="text-success"> $ {formatoMexico(apartado.producto.precio)} </span>{' '}
+					<span className="text-success">
+						{' '}
+						$ {apartado.precio ? (
+							formatoMexico(apartado.precio)
+						) : (
+							formatoMexico(apartado.producto.precio)
+						)}{' '}
+					</span>{' '}
 				</p>
 
 				<p className="m-0" style={{ fontSize: '15px' }}>
@@ -434,19 +483,43 @@ function Apartado(props) {
 						{apartado.tipoEntrega === 'ENVIO' ? 'Envío por paquetería' : 'Recoger a sucursal'}
 					</Tag>
 				</p>
+				<p className="m-0" style={{ fontSize: '15px' }}>
+					<span className="font-weight-bold">Estado:</span>
+					<Tag
+						className="ml-2"
+						color={
+							apartado.estado === 'ACEPTADO' ? (
+								'#0088ff'
+							) : apartado.estado === 'PROCESANDO' ? (
+								'#ffc401'
+							) : apartado.estado === 'ENVIADO' ? (
+								'#0088ff'
+							) : apartado.estado === 'ENTREGADO' ? (
+								'#5cb85c'
+							) : (
+								'#F75048'
+							)
+						}
+					>
+						{apartado.estado === 'ACEPTADO' ? (
+							'Apartado aceptado'
+						) : apartado.estado === 'PROCESANDO' ? (
+							'Apartado en proceso'
+						) : apartado.estado === 'ENVIADO' ? (
+							'Apartado enviado'
+						) : apartado.estado === 'ENTREGADO' ? (
+							'Apartado entregado'
+						) : (
+							'Apartado cancelado'
+						)}
+					</Tag>
+				</p>
 			</div>
 
 			<List.Item.Meta
 				avatar={
-					<div className="d-flex justify-content-center align-items-center my-3">
-						<p>Pedido del producto</p>
-						<div className="contenedor-imagen-mostrar-apartado">
-							<img
-								className="imagen-mostrar-apartado"
-								alt="producto"
-								src={aws+apartado.producto.imagen}
-							/>
-						</div>
+					<div className="d-flex justify-content-center align-items-center centrar-avatar">
+						<Avatar src={aws + apartado.producto.imagen} size={80} />
 					</div>
 				}
 				title={
@@ -458,7 +531,15 @@ function Apartado(props) {
 							</p>
 							<p className="h6">
 								<span className="font-weight-bold">Precio:</span>{' '}
-								<span className="text-success"> $ {formatoMexico(apartado.producto.precio)} </span>{' '}
+								<span className="text-success">
+									{' '}
+									${' '}
+									{apartado.precio ? (
+										formatoMexico(apartado.precio)
+									) : (
+										formatoMexico(apartado.producto.precio)
+									)}{' '}
+								</span>{' '}
 							</p>
 							<p className="m-0" style={{ fontSize: '15px' }}>
 								<span className="font-weight-bold">Tipo de entrega:</span>
@@ -480,10 +561,12 @@ function Apartado(props) {
 									className="ml-2"
 									color={
 										apartado.estado === 'ACEPTADO' ? (
-											'#5cb85c'
+											'#0088ff'
 										) : apartado.estado === 'PROCESANDO' ? (
-											'#f0ad4e'
+											'#ffc401'
 										) : apartado.estado === 'ENVIADO' ? (
+											'#0088ff'
+										) : apartado.estado === 'ENTREGADO' ? (
 											'#5cb85c'
 										) : (
 											'#F75048'
@@ -496,24 +579,29 @@ function Apartado(props) {
 										'Apartado en proceso'
 									) : apartado.estado === 'ENVIADO' ? (
 										'Apartado enviado'
+									) : apartado.estado === 'ENTREGADO' ? (
+										'Apartado entregado'
 									) : (
 										'Apartado cancelado'
 									)}
 								</Tag>
 							</p>
 							<div>
-								{apartado.tipoEntrega === 'ENVIO' ? (
+								{apartado.tipoEntrega === 'ENVIO' && apartado.codigo_seguimiento ? (
 									<div className="">
 										<p style={{ fontSize: '15px' }}>
 											{' '}
 											<span className="font-weight-bold">Seguimiento:</span>{' '}
 											{apartado.codigo_seguimiento}{' '}
 										</p>
-										<a href={`${apartado.url}${apartado.codigo_seguimiento}`} target="_blank" rel="noopener noreferrer">
+										<a
+											href={`${apartado.url}${apartado.codigo_seguimiento}`}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
 											<Button
 												className="d-flex justify-content-center align-items-center color-boton"
 												style={{ fontSize: 16 }}
-												
 											>
 												Seguír envío
 											</Button>

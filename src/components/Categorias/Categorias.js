@@ -62,10 +62,13 @@ const Categorias = (props) => {
 				key={categoria.categoria}
 				title={categoria.categoria}
 				className="submenu-categoria nav-font-color-categorias container-subcategorias-nav size-submenu-cat"
-				onTitleClick={() => {
-					props.history.push(`/categorias/${categoria.categoria}`);
-					setCategoriaSeleccionada(categoria.categoria);
-					setSubcategoriaSeleccionada();
+				onTitleClick={(e) => {
+					if(e.key === categoria.categoria){
+						props.history.push(`/categorias/${categoria.categoria}`);
+						setCategoriaSeleccionada(categoria.categoria);
+						setSubcategoriaSeleccionada();
+					}
+					
 				}}
 
 			>

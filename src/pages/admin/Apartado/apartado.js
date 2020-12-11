@@ -8,6 +8,7 @@ import MostrarDatosTargeta from './services/MostrarDatosTargeta';
 import DetalleApartado from './services/DetalleApartado';
 import Pagination from '../../../components/Pagination/pagination';
 import './apartado.scss';
+import MostrarDatosMultiple from './services/MostrarDatosMultiplesTarjeta';
 
 const { Search } = Input;
 
@@ -102,18 +103,19 @@ function SistemaApartado(props) {
 
 	useEffect(
 		() => {
-			obtenerDatos(24, page);
-			setLoading(true);
-			setEstado(false);
+			if (token === '' || token === null) {
+				props.history.push('/entrar');
+			} else if (decoded['rol'] !== true) {
+				props.history.push('/');
+			} else {
+				obtenerDatos(24, page);
+				setLoading(true);
+				setEstado(false);
+			}
 		},
 		[ page, filter, estado ]
 	);
 
-	if (token === '' || token === null) {
-		props.history.push('/entrar');
-	} else if (decoded['rol'] !== true) {
-		props.history.push('/');
-	}
 	const showModal = () => {
 		setVisible(true);
 	};
@@ -152,7 +154,16 @@ function SistemaApartado(props) {
 							</div>
 						) : (
 							<Row gutter={16}>
-								{apartados.map((apartado) => (
+								{apartados.map((apartado) => apartado.apartadoMultiple.length ? (
+									<MostrarDatosMultiple 
+										key={apartado._id}
+										setDetalleApartado={setDetalleApartado}
+										showModal={showModal}
+										apartado={apartado}
+										setEstado={setEstado}
+										token={token}
+									/>
+								):(
 									<MostrarDatosTargeta
 										key={apartado._id}
 										setDetalleApartado={setDetalleApartado}
@@ -161,21 +172,26 @@ function SistemaApartado(props) {
 										setEstado={setEstado}
 										token={token}
 									/>
-								))}
+								) )}
 							</Row>
 						)}
 					</div>
 				</div>
 				<Modal
 					key="detalle"
-					width={600}
+					width={800}
 					style={{ top: 0 }}
 					title="Detalles de este pedido"
 					visible={visible}
 					onCancel={handleCancel}
 					footer={[ '' ]}
 				>
-					<DetalleApartado detalleApartado={detalleApartado} setEstado={setEstado} setFilter={setFilter} setVisible={setVisible}/>
+					<DetalleApartado
+						detalleApartado={detalleApartado}
+						setEstado={setEstado}
+						setFilter={setFilter}
+						setVisible={setVisible}
+					/>
 				</Modal>
 				<Pagination blogs={apartadoPaginacion} location={location} history={history} limite={24} />
 			</Spin>

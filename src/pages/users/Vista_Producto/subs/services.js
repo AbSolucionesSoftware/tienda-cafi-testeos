@@ -41,7 +41,7 @@ export async function AgregarCarrito(idcliente, idproducto, cantidad, talla, num
 	return true;
 }
 
-export async function AgregarApartado(idcliente, idproducto, cantidad, talla, numero, tipoEntrega, token) {
+export async function AgregarApartado(idcliente, idproducto, cantidad, precio, talla, numero, tipoEntrega, token) {
 	if (talla) {
 		await clienteAxios
 			.post(
@@ -50,6 +50,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, nu
 					producto: idproducto,
 					cliente: idcliente,
 					cantidad: cantidad,
+					precio, precio,
 					medida: [ { talla: talla } ],
 					estado: 'PROCESANDO',
 					tipoEntrega: tipoEntrega
@@ -89,6 +90,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, nu
 					producto: idproducto,
 					cliente: idcliente,
 					cantidad: cantidad,
+					precio, precio,
 					medida: [ { numero: numero } ],
 					estado: 'PROCESANDO',
 					tipoEntrega: tipoEntrega
@@ -128,6 +130,7 @@ export async function AgregarApartado(idcliente, idproducto, cantidad, talla, nu
 					producto: idproducto,
 					cliente: idcliente,
 					cantidad: cantidad,
+					precio, precio,
 					estado: 'PROCESANDO',
 					tipoEntrega: tipoEntrega
 				},

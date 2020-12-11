@@ -105,6 +105,9 @@ p, a, li{
 .categorias-navbar{
     background-color: $bg-color-navbar-categorias;
 }
+.categorias-navbar .ant-menu-submenu-title{
+    color: $font-color-navbar-categorias!important;
+}
 .categorias-navbar > .ant-menu-submenu-selected{
     color: $font-color-navbar-categorias!important;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { InputNumber, Button, Form, Badge, Divider, notification, Modal, Select, Alert } from 'antd';
+import { InputNumber, Button, Form, Badge, Divider, notification, Modal, Select, Alert, List, Avatar } from 'antd';
 import { ShoppingCartOutlined, TagsOutlined, BellOutlined, WhatsAppOutlined } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import { AgregarCarrito, AgregarApartado, AgregarPedido } from './services';
@@ -100,7 +100,7 @@ function TallasCantidades(props) {
 				setRender(
 					productos.numeros.map((numeros) => {
 						return numeros.cantidad > 0 ? (
-							<Badge key={numeros._id} count={numeros.cantidad} >
+							<Badge key={numeros._id} count={numeros.cantidad}>
 								<Button
 									type="dashed"
 									className="talla-vista-producto d-inline-block"
@@ -128,7 +128,7 @@ function TallasCantidades(props) {
 				setRender(
 					productos.tallas.map((tallas) => {
 						return tallas.cantidad > 0 ? (
-							<Badge key={tallas._id} count={tallas.cantidad} >
+							<Badge key={tallas._id} count={tallas.cantidad}>
 								<Button
 									type="dashed"
 									className="talla-vista-producto d-inline-block"
@@ -192,7 +192,7 @@ function TallasCantidades(props) {
 
 	const showModal = () => {
 		if (!token) {
-			localStorage.setItem("vistas", `/vista_producto/${productos._id}`);
+			localStorage.setItem('vistas', `/vista_producto/${productos._id}`);
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',
@@ -247,7 +247,11 @@ function TallasCantidades(props) {
 								<WhatsAppOutlined style={{ color: '#25d366' }} />
 								{tienda.telefono}
 							</p>
-							<Button className="mt-3 color-boton" type="default" onClick={() => (window.location.href = '/pedidos')}>
+							<Button
+								className="mt-3 color-boton"
+								type="default"
+								onClick={() => (window.location.href = '/pedidos')}
+							>
 								Ver mis pedidos
 							</Button>
 						</div>
@@ -263,8 +267,8 @@ function TallasCantidades(props) {
 	async function Carrito() {
 		////AGREGAR CARRITO
 		if (!token) {
-			localStorage.setItem("vistas", `/vista_producto/${productos._id}`);
-			
+			localStorage.setItem('vistas', `/vista_producto/${productos._id}`);
+
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',
@@ -312,22 +316,28 @@ function TallasCantidades(props) {
 	}
 
 	async function Apartado() {
+		let precio;
+		if(productos.promocion.length !== 0){
+			precio = productos.promocion[0].precioPromocion;
+		}else{
+			precio = productos.precio;
+		}
 		////AGREGAR APARTADO
 		setLoading(true);
 		if (categoria === 'calzado') {
 			const talla = '';
-			AgregarApartado(decoded._id, productos._id, cantidadFinal, talla, numeros.numero, tipoEnvio, token);
+			AgregarApartado(decoded._id, productos._id, cantidadFinal, precio, talla, numeros.numero, tipoEnvio, token);
 			setLoading(false);
 			modalMensaje();
 		} else if (categoria === 'ropa') {
 			const numero = '';
 			setLoading(false);
-			AgregarApartado(decoded._id, productos._id, cantidadFinal, tallas.talla, numero, tipoEnvio, token);
+			AgregarApartado(decoded._id, productos._id, cantidadFinal, precio, tallas.talla, numero, tipoEnvio, token);
 			modalMensaje();
 		} else if (categoria === 'otros') {
 			const talla = '';
 			const numero = '';
-			AgregarApartado(decoded._id, productos._id, cantidadFinal, talla, numero, tipoEnvio, token);
+			AgregarApartado(decoded._id, productos._id, cantidadFinal, precio, talla, numero, tipoEnvio, token);
 			setLoading(false);
 			modalMensaje();
 		}
@@ -336,7 +346,7 @@ function TallasCantidades(props) {
 	async function Pedido() {
 		////AGREGAR PEDIDO
 		if (!token) {
-			localStorage.setItem("vistas", `/vista_producto/${productos._id}`);
+			localStorage.setItem('vistas', `/vista_producto/${productos._id}`);
 			props.history.push('/entrar');
 			notification.info({
 				message: 'inicia sesión para poder realizar tus compras',
@@ -529,58 +539,62 @@ function TallasCantidades(props) {
 				footer={null}
 				width={700}
 			>
-				<div className="row">
-					<div className="col-12 col-lg-6">
-						<div className="mb-3">
-							<h6 className="d-inline font-weight-bold">Producto: </h6>
-							<p className="d-inline ">{productos.nombre}</p>
+				<List>
+					<List.Item className="row">
+						<div className="col-lg-2">
+							<Avatar size={64} src={aws + productos.imagen} />
 						</div>
-
-						{numeros.length !== 0 ? (
-							<div className="mb-3">
-								<h6 className="d-inline font-weight-bold">Medida: </h6>
-								<p className="d-inline">{numeros.numero}</p>
-							</div>
-						) : tallas.length !== 0 ? (
-							<div className="mb-3">
-								<h6 className="d-inline font-weight-bold">Talla: </h6>
-								<p className="d-inline ">{tallas.talla}</p>
-							</div>
-						) : (
-							<p className="d-inline" />
-						)}
-						<div className="mb-3">
-							<h6 className="d-inline font-weight-bold">Cantidad: </h6>
-							<p className="d-inline">{cantidadFinal}</p>
-						</div>
-						{!productos.promocion ? (
-							<div className="mb-3">
-								<h6 className="d-inline font-weight-bold">Precio: </h6>
-								<p className="d-inline">${formatoMexico(productos.precio)}</p>
-							</div>
-						) : (
-							productos.promocion.map((res) => {
-								return (
-									<div key={res._id} className="mb-3">
-										<h6 className="d-inline font-weight-bold">Precio: </h6>
-										<p className="d-inline">${formatoMexico(res.precioPromocion)}</p>
+						<div className="col-lg-10">
+							<h5>{productos.nombre}</h5>
+							<div className="row">
+								<div className="col-lg-3">
+									<h6>Cantidad: {cantidadFinal}</h6>
+								</div>
+								{numeros.length !== 0 ? (
+									<div className="col-lg-3">
+										<h6>Talla: {numeros.numero}</h6>
 									</div>
-								);
-							})
-						)}
-						<div className="mb-3">
-							<h6 className="font-weight-bold">Elegir tipo de envío: </h6>
+								) : tallas.length !== 0 ? (
+									<div className="col-lg-3">
+										<h6>Talla: {tallas.talla}</h6>
+									</div>
+								) : (
+									<div className="d-none" />
+								)}
+								<div className="col-lg-3">
+									{!productos.promocion ? (
+										<h6>Precio: ${formatoMexico(productos.precio)}</h6>
+									) : (
+										productos.promocion.map((res) => {
+											return <h6 key={res._id}>Precio: ${formatoMexico(res.precioPromocion)}</h6>;
+										})
+									)}
+								</div>
+							</div>
+						</div>
+					</List.Item>
+				</List>
+				<div className="d-flex justify-content-end mt-3 border-bottom">
+					{!productos.promocion ? (
+						<h4>Total: ${formatoMexico(cantidadFinal * productos.precio)}</h4>
+					) : (
+						productos.promocion.map((res) => {
+							return <h4 key={res._id}>Total: ${formatoMexico(cantidadFinal * res.precioPromocion)}</h4>;
+						})
+					)}
+				</div>
+				<div className="row mt-4">
+					<div className="col-lg-6 text-center">
+						<h6 className="font-weight-bold">Elegir tipo de envío: </h6>
+						<div>
 							<Select style={{ width: 200 }} placeholder="Selecciona un tipo" onChange={obtenerTipoEnvio}>
 								<Option value="ENVIO">Envío por paquetería</Option>
 								<Option value="REGOGIDO">Recoger a sucursal</Option>
 							</Select>
 						</div>
-						<Alert  description="Para apartar un producto completa tus datos." type="info" showIcon />
 					</div>
-					<div className="col-12 col-lg-6">
-						<div className="d-flex justify-content-center align-items-center" style={{ height: 220 }}>
-							<img className="imagen-producto-principal" alt="producto" src={aws + productos.imagen} />
-						</div>
+					<div className="col-lg-6">
+						<Alert description="Para apartar un producto completa tus datos." type="info" showIcon />
 					</div>
 				</div>
 				<Divider>Tus datos</Divider>

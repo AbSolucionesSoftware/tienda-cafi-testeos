@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Menu, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './sidebar.scss';
 import {
 	FundOutlined,
@@ -29,7 +29,7 @@ function parseJwt(token) {
 	}
 }
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 	return (
 		<Sider
 			style={{ height: '100vh' }}
@@ -90,7 +90,7 @@ const Sidebar = () => {
 						type="primary"
 						onClick={() => {
 							localStorage.removeItem('token');
-							window.location.reload();
+							props.history.push('/');
 						}}
 						danger
 					>
@@ -102,4 +102,4 @@ const Sidebar = () => {
 	);
 };
 
-export default Sidebar;
+export default withRouter(Sidebar);

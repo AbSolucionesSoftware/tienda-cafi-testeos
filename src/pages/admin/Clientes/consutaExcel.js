@@ -5,12 +5,13 @@ import jwt_decode from 'jwt-decode';
 import {Row, Button} from 'antd';
 
 import ReactExport from "react-export-excel";//LIBRERIA EXCEL
+import { withRouter } from 'react-router-dom';
 const ExcelFile = ReactExport.ExcelFile;//ARCHIVO DE EXCEL
 const ExcelSheet = ReactExport.ExcelSheet;//HOJA DE EXCEL
 const ExcelColumn = ReactExport.ExcelColumn;//COLUMNA DE EXCEL
 
 
-export default function ConsutaExcel(props) {
+function ConsutaExcel(props) {
     const token = localStorage.getItem('token');
 	var decoded = Jwt(token);
 
@@ -24,15 +25,14 @@ export default function ConsutaExcel(props) {
 			return null;
 		}
 	}
-
-	if (token === '' || token === null) {
-		props.history.push('/entrar');
-	} else if (decoded['rol'] !== true) {
-		props.history.push('/');
-	}
     
     useEffect(() => {
-		const obtenerConsulta = async () => {
+		if (token === '' || token === null) {
+			props.history.push('/entrar');
+		} else if (decoded['rol'] !== true) {
+			props.history.push('/');
+		}else{
+			const obtenerConsulta = async () => {
 			await clienteAxios
                 .get(`/cliente/todos/`, {
                     headers: {
@@ -43,8 +43,11 @@ export default function ConsutaExcel(props) {
                     setConsulta(res.data);
 				})
                 .catch((res) => {});
+		}
+obtenerConsulta();
+		
 		};
-		obtenerConsulta();
+		
 	}, []);
 		
 	const datos =  consulta.map((datos) => {
@@ -82,3 +85,5 @@ export default function ConsutaExcel(props) {
         </>
     )
 }
+
+export default withRouter(ConsutaExcel);

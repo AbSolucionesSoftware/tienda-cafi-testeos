@@ -110,7 +110,7 @@ export default function ActualizarBlog(props) {
 				.put(`/blog/${blogContext._id}`, formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data',
-						Authorization: `bearer ${token}`
+						 Authorization: `bearer ${token}`
 					}
 				})
 				.then((res) => {

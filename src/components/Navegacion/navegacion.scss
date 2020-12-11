@@ -36,7 +36,7 @@
   border: none;
 }
 .search-navbar{
-  max-width: 80%;
+  max-width: 100%;
   max-height: 75%!important;
 }
 /* .nav-font-color {
@@ -81,13 +81,13 @@
   height: 100%;
   
 }
-.a6 > p, .ant-menu-submenu-title {
+.a6 > .centrar-nav, .ant-menu-submenu-title {
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-@media(max-width: 768px){
+@media(max-width: 992px){
   .barsMenu{
     display: inline-block;
   }
@@ -97,7 +97,7 @@
   .top-menu-responsive{
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
   }
   .menuCon{
     display: flex;
@@ -109,6 +109,6 @@
 
   } */
   .search-nav-responsive{
-    width: 240px;
+    width: 80%;
   }
 }

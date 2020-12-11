@@ -11,7 +11,7 @@ import { IdProductoContext } from '../contexts/ProductoContext';
 import {
 	ExclamationCircleOutlined,
 	EditOutlined,
-	/* 	DeleteOutlined, */
+		DeleteOutlined,
 	PlusCircleOutlined,
 	RollbackOutlined
 } from '@ant-design/icons';
@@ -98,7 +98,7 @@ function RegistrarProductos(props) {
 		setCloseDraw(false);
 	}
 
-	/* function showDeleteConfirm(idproducto) {
+	function showDeleteConfirm(idproducto) {
 		confirm({
 			title: 'Estas seguro de eliminar este articulo?',
 			icon: <ExclamationCircleOutlined />,
@@ -144,7 +144,7 @@ function RegistrarProductos(props) {
 					});
 			}
 		});
-	} */
+	}
 
 	const obtenerProductosFiltrados = async (busqueda) => {
 		if (!busqueda) {
@@ -159,7 +159,7 @@ function RegistrarProductos(props) {
 			setLoading(true);
 			await clienteAxios
 				.get(
-					`/productos/search?nombre=${busqueda}&categoria=${busqueda}&subcategoria=${busqueda}&genero=${busqueda}&color=${busqueda}`
+					`/productos/search/admin?codigo=${busqueda}&nombre=${busqueda}&categoria=${busqueda}&subcategoria=${busqueda}&genero=${busqueda}&color=${busqueda}`
 				)
 				.then((res) => {
 					setProductosRender(res.data.posts);
@@ -247,16 +247,16 @@ function RegistrarProductos(props) {
 							}}
 							className="text-decoration-none"
 						>
-							<EditOutlined style={{ fontSize: 22 }} />Editar
-						</Button> /* ,
+							<EditOutlined style={{ fontSize: 22 }} />
+						</Button> ,
 
 						<Button
 							type="link"
 							onClick={() => showDeleteConfirm(productos._id)}
 							className="text-decoration-none"
 						>
-							<DeleteOutlined style={{ fontSize: 22 }} />Eliminar
-						</Button> */
+							<DeleteOutlined style={{ fontSize: 22 }} />
+						</Button>
 					]}
 				>
 					<div className="contenedor-titulos-productos">

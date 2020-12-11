@@ -71,11 +71,11 @@ export default function DatosCliente(props) {
 		switch (estadoBoton) {
 			case 'Completa tus datos':
 				setControlBoton(false);
-				setEstadoBoton('Guardar');
+				setEstadoBoton('Apartar');
 				break;
-			case 'Apartar':
+			/* case 'Apartar':
 				handleOk();
-				break;
+				break; */
 			default:
 				break;
 		}
@@ -93,12 +93,13 @@ export default function DatosCliente(props) {
 				localStorage.setItem('token', res.data.token);
 				setLoading(false);
 				setControlBoton(true);
-				setEstadoBoton('Apartar');
-				notification.success({
+				/* setEstadoBoton('Apartar'); */
+				/* notification.success({
 					message: 'Hecho!',
 					description: res.data.message,
-					duration: 2
-				});
+					duration: 1
+				}); */
+				handleOk();
 			})
 			.catch((err) => {
 				setLoading(false);
@@ -239,22 +240,22 @@ export default function DatosCliente(props) {
 				</Row>
 				<Form.Item className="d-flex justify-content-center align-items-center">
 					<Form.Item className="text-center">
-						{estadoBoton !== 'Guardar' ? (
+						{estadoBoton === 'Apartar' ? (
+							<Button
+								htmlType="submit"
+								className="color-boton color-font-boton"
+								size="large"
+								style={{ width: 170 }}
+							>
+								{estadoBoton}
+							</Button>
+						) : (
 							<Button
 								htmlType="button"
 								className="color-boton color-font-boton"
 								size="large"
 								style={{ width: 170 }}
 								onClick={control}
-							>
-								{estadoBoton}
-							</Button>
-						) : (
-							<Button
-								htmlType="submit"
-								className="color-boton color-font-boton"
-								size="large"
-								style={{ width: 170 }}
 							>
 								{estadoBoton}
 							</Button>

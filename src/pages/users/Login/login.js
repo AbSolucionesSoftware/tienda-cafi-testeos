@@ -31,7 +31,7 @@ function Login(props) {
 						localStorage.removeItem("vistas");
 					}, 300);
 				}else{
-					props.history.push('/');
+					props.history.push('/admin');
 				}
 			})
 			.catch((err) => {

@@ -2,27 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../config/axios';
 import jwt_decode from 'jwt-decode';
-import { Table, Tag, Input, notification, Badge, Spin, Row, Button } from 'antd';
-import { RollbackOutlined } from '@ant-design/icons';
+import { Input, notification, Row, Tabs } from 'antd';
 import './inventario.scss';
-import Pagination from '../../../components/Pagination/pagination';
 import queryString from 'query-string';
 import GetDataFromExcelJusTInput from '../../../components/excel';
+import InventarioOtros from './tablas_inventarios/inventario_otros';
+import InventarioTallas from './tablas_inventarios/inventario_tallas';
+import InventarioNumeros from './tablas_inventarios/inventario_numeros';
 
 const { Search } = Input;
+const { TabPane } = Tabs;
 
 function Inventario(props) {
 	const token = localStorage.getItem('token');
 	var decoded = Jwt(token);
 	//Tomar la paginacion actual
-	const { location, history } = props;
+	const { location } = props;
 	const { page = 1 } = queryString.parse(location.search);
-
+	const limite = 20;
 	const [ loading, setLoading ] = useState(false);
+	const [ categorias, setCategorias ] = useState([]);
+	/* const [ tipoCategoria, setTipoCategoria ] = useState(''); */
 	const [ productos, setProductos ] = useState([]);
 	const [ productosRender, setProductosRender ] = useState([]);
-	const [ visible, setVisible ] = useState('d-none');
 	const [ reload, setReload ] = useState(true);
+
+	const tipoCategoria = props.match.params.tipoCategoria;
 
 	function Jwt(token) {
 		try {
@@ -40,169 +45,65 @@ function Inventario(props) {
 
 	useEffect(
 		() => {
-			obtenerProductos(20, page);
+			obtenerCategorias();
 		},
-		[ page, reload ]
+		[]
+	);
+	useEffect(
+		() => {
+			obtenerProductos(tipoCategoria, limite, page)
+		},
+		[ page, reload, props ]
 	);
 
-	const columns = [
-		{
-			title: 'Código',
-			dataIndex: 'codigo',
-			key: 'codigo',
-			render: (text) => (!text ? <p className="h5">-</p> : <p className="h5">{text}</p>)
-		},
-		{
-			title: 'Producto',
-			dataIndex: 'nombre',
-			key: 'nombre',
-			render: (text) => <p className="h5">{text}</p>
-		},
-		/* {
-			title: 'tipo de Categoria',
-			dataIndex: 'tipoCategoria',
-			key: 'tipoCategoria',
-			render: (text) => !text ? <p>-</p> : <p>{text.toLowerCase()}</p>
-		}, */
-		/* {
-			title: 'Categoría',
-			dataIndex: 'categoria',
-			key: 'categoria',
-			render: (text) => (!text ? <p className="h5">-</p> : <p className="h5">{text.toLowerCase()}</p>)
-		},
-		{
-			title: 'Sub categoría',
-			dataIndex: 'subCategoria',
-			key: 'subCategoria',
-			render: (text) => (!text ? <p className="h5">-</p> : <p className="h5">{text.toLowerCase()}</p>)
-		}, */
-		{
-			title: 'Cantidad',
-			dataIndex: 'cantidad',
-			key: 'cantidad',
-			render: (text) =>
-				text === null ? (
-					<p>-</p>
-				) : text === 0 ? (
-					<Badge count={text} showZero />
-				) : (
-					<Badge style={{ backgroundColor: '#52c41a' }} count={text} overflowCount={100000} />
-				)
-		},
-		{
-			title: 'Talla y Cantidad',
-			dataIndex: 'tallas',
-			key: 'tallas',
-			render: (tallas) => (
-				<div>
-					{!tallas.length ? (
-						<p className="h5">-</p>
-					) : (
-						tallas.map((talla) => {
-							return (
-								<Badge
-									className="badge-inventario"
-									key={talla._id}
-									count={talla.cantidad}
-									showZero
-									style={
-										talla.cantidad !== 0 ? (
-											{ backgroundColor: '#52c41a' }
-										) : (
-											{ backgroundColor: '#FF4D4F' }
-										)
-									}
-								>
-									<p className="h5">{talla.talla}</p>
-								</Badge>
-							);
-						})
-					)}
-				</div>
-			)
-		},
-		{
-			title: 'Número y Cantidad',
-			dataIndex: 'numeros',
-			key: 'numeros',
-			render: (numeros) => (
-				<div>
-					{!numeros.length ? (
-						<p className="h5">-</p>
-					) : (
-						numeros.map((numero) => {
-							return (
-								<Badge
-									className="badge-inventario"
-									key={numero._id}
-									count={numero.cantidad}
-									showZero
-									style={
-										numero.cantidad !== 0 ? (
-											{ backgroundColor: '#52c41a' }
-										) : (
-											{ backgroundColor: '#FF4D4F' }
-										)
-									}
-								>
-									<p className="h5">{numero.numero}</p>
-								</Badge>
-							);
-						})
-					)}
-				</div>
-			)
-		},
-		{
-			title: 'Estado',
-			dataIndex: 'activo',
-			key: 'activo',
-			render: (estado) => (
-				<div>{estado ? <Tag color="green">Activo</Tag> : <Tag color="processing">Pausado</Tag>}</div>
-			)
-		}
-	];
+	const obtenerCategorias = async () => {
+		await clienteAxios
+			.get('/productos/tipoCategorias', {
+				headers: {
+					Authorization: `bearer ${token}`
+				}
+			})
+			.then((res) => {
+				if(res.data.length !== 0){
+					setCategorias(res.data);
+					/* obtenerProductos(res.data[0]._id, limite, page);  */ 
+					/* setTipoCategoria(res.data[0]._id); */
+					props.history.push(`/admin/inventario/${res.data[0]._id}`);
+				}
+			})
+			.catch((err) => {
+				setLoading(false);
+				error(err);
+			});
+	};
 
 	const obtenerProductosFiltrados = async (busqueda) => {
 		if (!busqueda) {
-			setVisible('d-none');
-			obtenerProductos(20, page);
+			obtenerProductos(tipoCategoria, limite, page);
 		} else {
-			setVisible('ml-3 d-flex justify-content-center align-items-center');
 			setLoading(true);
 			await clienteAxios
 				.get(
-					`/productos/search?nombre=${busqueda}&categoria=${busqueda}&subcategoria=${busqueda}&genero=${busqueda}&color=${busqueda}`
+					`/productos/search/admin?codigo=${busqueda}&nombre=${busqueda}&categoria=${busqueda}&subcategoria=${busqueda}&genero=${busqueda}&color=${busqueda}`
 				)
 				.then((res) => {
-					setProductosRender(res.data.posts);
+					const otros = res.data.posts.filter((element) => element.tipoCategoria === tipoCategoria);
+					setProductosRender(otros);
 					setProductos(res.data.posts);
 					setLoading(false);
 				})
 				.catch((err) => {
 					setLoading(false);
-					if (err.response) {
-						notification.error({
-							message: 'Error',
-							description: err.response.data.message,
-							duration: 2
-						});
-					} else {
-						notification.error({
-							message: 'Error de conexion',
-							description: 'Al parecer no se a podido conectar al servidor.',
-							duration: 2
-						});
-					}
+					error(err);
 				});
 		}
 	};
 
-	const obtenerProductos = async (limit, page) => {
-		setVisible('d-none');
+	const obtenerProductos = async (tipoCategoria, limit, page) => {
+		/* setTipoCategoria(tipoCategoria); */
 		setLoading(true);
 		await clienteAxios
-			.get(`/productos?limit=${limit}&page=${page}`)
+			.get(`/productos/filter/individuales?tipoCategoria=${tipoCategoria}&limit=${limit}&page=${page}`)
 			.then((res) => {
 				setProductosRender(res.data.posts.docs);
 				setProductos(res.data.posts);
@@ -210,25 +111,97 @@ function Inventario(props) {
 			})
 			.catch((err) => {
 				setLoading(false);
-				if (err.response) {
-					notification.error({
-						message: 'Error',
-						description: err.response.data.message,
-						duration: 2
-					});
-				} else {
-					notification.error({
-						message: 'Error de conexion',
-						description: 'Al parecer no se a podido conectar al servidor.',
-						duration: 2
-					});
-				}
+				error(err);
 			});
 	};
 
+	function error(err) {
+		if (err.response) {
+			notification.error({
+				message: 'Error',
+				description: err.response.data.message,
+				duration: 2
+			});
+		} else {
+			notification.error({
+				message: 'Error de conexion',
+				description: 'Al parecer no se a podido conectar al servidor.',
+				duration: 2
+			});
+		}
+	}
+
+	const tabs = categorias.map((categorias) => {
+		if (categorias._id === 'Otros') {
+			return (
+				<TabPane tab="Inventario" key={categorias._id}>
+					<InventarioOtros
+						token={token}
+						productos={productos}
+						productosRender={productosRender}
+						reload={reload}
+						setReload={setReload}
+						loading={loading}
+						setLoading={setLoading}
+						page={page}
+						limite={limite}
+					/>
+				</TabPane>
+			);
+		} else if (categorias._id === 'Ropa') {
+			return (
+				<TabPane tab="Inventario tallas" key={categorias._id}>
+					<InventarioTallas
+						token={token}
+						productos={productos}
+						productosRender={productosRender}
+						reload={reload}
+						setReload={setReload}
+						loading={loading}
+						setLoading={setLoading}
+						page={page}
+						limite={limite}
+					/>
+				</TabPane>
+			);
+		} else if (categorias._id === 'Calzado') {
+			return (
+				<TabPane tab="Inventario calzado" key={categorias._id}>
+					<InventarioNumeros
+						token={token}
+						productos={productos}
+						productosRender={productosRender}
+						reload={reload}
+						setReload={setReload}
+						loading={loading}
+						setLoading={setLoading}
+						page={page}
+						limite={limite}
+					/>
+				</TabPane>
+			);
+		}
+	});
+
+	const searchBar = (
+		<div className="row mw-100 search-container">
+			<Search
+				className="col-lg-7 search-width px-0"
+				placeholder="Busca un producto"
+				onSearch={(value) => obtenerProductosFiltrados(value)}
+				style={{ height: 40, marginBottom: 10, width: 400 }}
+				enterButton="Buscar"
+				size="large"
+			/>
+			<div className="col-lg-5 pl-0 pr-4">
+				<GetDataFromExcelJusTInput reload={[ reload, setReload ]} />
+			</div>
+		</div>
+	);
+
 	return (
-		<Spin size="large" spinning={loading}>
-			<Row justify="center">
+		<div>
+			<Row justify="center" className="search-container-responsive">
 				<Search
 					className="search-width"
 					placeholder="Busca un producto"
@@ -237,34 +210,18 @@ function Inventario(props) {
 					enterButton="Buscar"
 					size="large"
 				/>
-
-				<Button
-					type="primary"
-					size="large"
-					className={`${visible} mb-5`}
-					onClick={() => obtenerProductos(20, page)}
-					icon={<RollbackOutlined style={{ fontSize: 24 }} />}
-				>
-					Volver
-				</Button>
-				<GetDataFromExcelJusTInput reload={[reload, setReload]} />
+				<GetDataFromExcelJusTInput reload={[ reload, setReload ]} />
 			</Row>
-			{/* <div className="d-flex justify-content-center my-3">
-				<GetDataFromExcelJusTInput reload={[reload, setReload]} />
-			</div> */}
-			
-			<Table
-				className="tabla-inventario"
-				columns={columns}
-				dataSource={productosRender}
-				pagination={false}
-				rowKey={(producto) => producto._id}
-				scroll={{ x: 1200 }}
-			/>
-			<div className="mt-5">
-				<Pagination blogs={productos} location={location} history={history} limite={20} />
-			</div>
-		</Spin>
+			<Tabs
+				tabBarExtraContent={searchBar}
+				onChange={(tipoCategoria) => {
+					/* obtenerProductos(tipoCategoria, limite, page); */
+					props.history.push(`/admin/inventario/${tipoCategoria}`)
+				}}
+			>
+				{tabs}
+			</Tabs>
+		</div>
 	);
 }
 export default withRouter(Inventario);

@@ -55,7 +55,17 @@ const Navegacion = (props) => {
 				}
 			})
 			.then((res) => {
-				setCarrito(res.data.articulos.length);
+				const nuevo = res.data.articulos.map((res) => {
+					if (res.idarticulo.activo === false) {
+						return [];
+					}else if (res.idarticulo.eliminado && res.idarticulo.eliminado === true) {
+						return [];
+					} else {
+						return res;
+					}
+				});
+				const carrito = nuevo.filter((arr) => arr.length !== 0);
+				setCarrito(carrito.length);
 			})
 			.catch((res) => {
 				setCarrito(0);
@@ -102,12 +112,12 @@ const Navegacion = (props) => {
 			<Header className="navbar-menu-general a1">
 				<div className="menuCon navbar-menu-general a2">
 					<div className="top-menu row a3">
-						<div className="col-lg-5 row-logo-search">
+						<div className="col-lg-4 row-logo-search">
 							<div className="row row-logo-search-2">
 								{!tienda.imagenLogo ? (
 									<div className="d-none" />
 								) : (
-									<div className="col-3">
+									<div className="col-lg-4">
 										<Link to="/">
 											<div className="contenedor-logo">
 												<img
@@ -119,7 +129,7 @@ const Navegacion = (props) => {
 										</Link>
 									</div>
 								)}
-								<div className="col-9">
+								<div className="col-lg-8">
 									<Search
 										placeholder="¿Qué estás buscando?"
 										onSearch={(value) => props.history.push(`/searching/${value}`)}
@@ -128,7 +138,7 @@ const Navegacion = (props) => {
 								</div>
 							</div>
 						</div>
-						<div className="col-lg-7 nav-menu-enlaces a4 ">
+						<div className="col-lg-8 nav-menu-enlaces a4 ">
 							<Menu
 								className="float-right navbar-menu-general a5"
 								/* theme="light" */
@@ -137,30 +147,30 @@ const Navegacion = (props) => {
 								inlineIndent={0}
 							>
 								<Menu.Item className="nav-font-color nav-border-color a6" key="/">
-									<p>Inicio</p>
+									<div className="centrar-nav" >Inicio</div>
 									<Link to="/" />
 								</Menu.Item>
 								<Menu.Item className="nav-font-color nav-border-color a6" key="/productos">
-									<p>Productos</p>
+									<div className="centrar-nav" >Productos</div>
 									<Link to="/productos" />
 								</Menu.Item>
 								{ofertas.length ? (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/ofertas">
-										<p>Ofertas</p>
+										<div className="centrar-nav" >Ofertas</div>
 										<Link to="/ofertas" />
 									</Menu.Item>
 								) : (
 									<Menu.Item className="d-none" />
 								)}
 								<Menu.Item className="nav-font-color nav-border-color a6" key="/blog">
-									<p>Blog</p>
+									<div className="centrar-nav" >Blog</div>
 									<Link to="/blog" />
 								</Menu.Item>
 								{tienda.length === 0 ? (
 									<Menu.Item className="d-none" />
 								) : (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/quienes_somos">
-										<p>Quiénes somos</p>
+										<div className="centrar-nav" >Quiénes somos</div>
 										<Link to="/quienes_somos" />
 									</Menu.Item>
 								)}
@@ -168,7 +178,7 @@ const Navegacion = (props) => {
 									<Menu.Item className="d-none" />
 								) : (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/pedidos">
-										<p>Mis compras</p>
+										<div className="centrar-nav" >Mis compras</div>
 										<Link to="/pedidos" />
 									</Menu.Item>
 								)}
@@ -176,12 +186,12 @@ const Navegacion = (props) => {
 									<Menu.Item className="d-none" />
 								) : (
 									<Menu.Item className="nav-font-color nav-border-color a6" key="/shopping_cart">
-										<p>
+										<div className="centrar-nav" >
 											<Badge count={carrito}>
 												<ShoppingCartOutlined style={{ fontSize: 25 }} />
 												<Link to="/shopping_cart" />
 											</Badge>
-										</p>
+										</div>
 									</Menu.Item>
 								)}
 								{token && decoded['rol'] === false ? (
@@ -203,8 +213,8 @@ const Navegacion = (props) => {
 											<SettingOutlined />Mi cuenta<Link to="/perfiles" />
 										</Menu.Item>
 										<Menu.Item>
-											<p
-												className="text-danger"
+											<div
+												className="text-danger centrar-nav"
 												onClick={() => {
 													localStorage.removeItem('token');
 													firebase.auth().signOut();
@@ -214,7 +224,7 @@ const Navegacion = (props) => {
 												}}
 											>
 												<LogoutOutlined />Cerrar Sesión
-											</p>
+											</div>
 										</Menu.Item>
 									</SubMenu>
 								) : decoded && decoded['rol'] === true ? (
@@ -236,8 +246,8 @@ const Navegacion = (props) => {
 											<SettingOutlined />Panel de administrador<Link to="/admin" />
 										</Menu.Item>
 										<Menu.Item className=" a6">
-											<p
-												className="text-danger"
+											<div
+												className="text-danger centrar-nav"
 												onClick={() => {
 													localStorage.removeItem('token');
 													firebase.auth().signOut();
@@ -247,7 +257,7 @@ const Navegacion = (props) => {
 												}}
 											>
 												<LogoutOutlined />Cerrar Sesión
-											</p>
+											</div>
 										</Menu.Item>
 									</SubMenu>
 								) : (
@@ -256,7 +266,7 @@ const Navegacion = (props) => {
 
 								{token === '' || token === null ? (
 									<Menu.Item className="nav-font-color nav-border-color a6">
-										<p>Entrar</p>
+										<div className="centrar-nav" >Entrar</div>
 										<Link to="/entrar" />
 									</Menu.Item>
 								) : (
@@ -265,7 +275,7 @@ const Navegacion = (props) => {
 							</Menu>
 						</div>
 					</div>
-					<div className="top-menu-responsive nav-font-color">
+					<div className="top-menu-responsive">
 						<Button type="link" className="barsMenu" onClick={showDrawer}>
 							<MenuOutlined className="menu-responsivo-icon" style={{ fontSize: 22 }} />
 						</Button>
@@ -277,11 +287,13 @@ const Navegacion = (props) => {
 						{!decoded || decoded.rol === true ? (
 							<div className="d-none" />
 						) : (
-							<Badge count={carrito}>
-								<Link to="/shopping_cart">
-									<ShoppingCartOutlined className="menu-responsivo-icon" style={{ fontSize: 28 }} />
-								</Link>
-							</Badge>
+							<div className="mx-4">
+								<Badge count={carrito}>
+									<Link to="/shopping_cart">
+										<ShoppingCartOutlined className="menu-responsivo-icon" style={{ fontSize: 28 }} />
+									</Link>
+								</Badge>
+							</div>
 						)}
 					</div>
 					<Drawer

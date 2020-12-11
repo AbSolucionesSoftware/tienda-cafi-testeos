@@ -153,6 +153,8 @@ function RegistroPublicidad(props) {
 				const formData = new FormData();
 				if (imagen.length !== 0) {
 					formData.append('imagen', imagen);
+				}else{
+					formData.append('imagenBanner', "");
 				}
 				formData.append('categoria', categoria);
 				formData.append('vincularCategoria', vincular);
@@ -208,9 +210,9 @@ function RegistroPublicidad(props) {
 
 	const eliminarImagen = async () => {
 		await clienteAxios
-		.put(`/banner/imagen/${bannerSeleccionado._id}`, {
+		.delete(`/banner/imagen/${bannerSeleccionado._id}`, {
 			headers: {
-				Authorization: `bearer ${token}`
+				 Authorization: `bearer ${token}`
 			}
 		})
 		.then((res) => {

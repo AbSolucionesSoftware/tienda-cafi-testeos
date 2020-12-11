@@ -41,7 +41,15 @@ const DetallesPedido = (props) => {
 						<p>
 							<Tag
 								className="my-2"
-								color={detallePedido.estado_pedido === 'En proceso' ? '#f0ad4e' : '#5cb85c'}
+								color={
+									detallePedido.estado_pedido === 'Entregado' ? (
+										'#5cb85c'
+									) : detallePedido.estado_pedido === 'Enviado' ? (
+										'#0088ff'
+									) : (
+										'#ffc401'
+									)
+								}
 							>
 								{detallePedido.estado_pedido}
 							</Tag>
@@ -68,7 +76,7 @@ const DetallesPedido = (props) => {
 			</div>
 
 			<Divider className="text-center">Productos del pedido</Divider>
-			<div className="row">{detallePedido.pedido.map((producto) => <Producto producto={producto} />)}</div>
+			<div className="row d-flex justify-content-center">{detallePedido.pedido.map((producto) => <Producto producto={producto} />)}</div>
 
 			{detallePedido.pagado === false ? (
 				''
@@ -96,7 +104,11 @@ const DetallesPedido = (props) => {
 									<span className="font-weight-bold">Código de seguimiento: </span>
 								</p>
 								<p>
-									<a href={`${detallePedido.url}${detallePedido.codigo_seguimiento}`} target="_blank" rel="noopener noreferrer">
+									<a
+										href={`${detallePedido.url}${detallePedido.codigo_seguimiento}`}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
 										{' '}
 										{detallePedido.codigo_seguimiento}{' '}
 									</a>
@@ -117,34 +129,37 @@ function Producto(props) {
 	const { producto } = props;
 
 	return (
-		<div className="d-flex justify-content-center">
-			<Col span={4} key={producto.producto._id} className="col-lg-4 col-sm-12 mb-3">
-				<Link to={`/vista_producto/${producto.producto._id}`}>
-					<Card
-						hoverable
-						style={{ width: 250 }}
-						cover={
-							<div className="contenedor-imagen-pedido">
-								<img
-									alt="example"
-									className="imagen-detalle-pedido"
-									src={aws+producto.producto.imagen}
-								/>
+		<div key={producto.producto._id} className="col-lg-4 col-sm-12 mb-3">
+			<Card
+				/* hoverable */
+				style={{ width: 250 }}
+				cover={
+					<div className="contenedor-imagen-pedido">
+						<img alt="example" className="imagen-detalle-pedido" src={aws + producto.producto.imagen} />
+					</div>
+				}
+			>
+				<Meta
+					title={producto.producto.nombre}
+					description={
+						<div>
+							<h6 className="precio-rebaja">Cantidad de articulos: {producto.cantidad}</h6>
+							<div className="row">
+								<h2 className="h5 precio-rebaja col-lg-6">
+									${formatoMexico(producto.precio)}
+								</h2>
+								{producto.talla ? (
+									<h2 className="h5 precio-rebaja col-lg-6">Talla: {producto.talla}</h2>
+								) : producto.numero ? (
+									<h2 className="h5 precio-rebaja col-lg-6">Talla: {producto.numero}</h2>
+								) : (
+									<div />
+								)}
 							</div>
-						}
-					>
-						<Meta
-							title={producto.producto.nombre}
-							description={
-								<div>
-									<h6 className="precio-rebaja">Cantidad de articulos: {producto.cantidad}</h6>
-									<h2 className="h5 precio-rebaja">${formatoMexico(producto.producto.precio)}</h2>
-								</div>
-							}
-						/>
-					</Card>
-				</Link>
-			</Col>
+						</div>
+					}
+				/>
+			</Card>
 		</div>
 	);
 }
