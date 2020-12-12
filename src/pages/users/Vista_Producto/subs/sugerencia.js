@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode';
 import { withRouter } from 'react-router-dom';
 import aws from '../../../../config/aws';
 import Spin from '../../../../components/Spin';
+import Estados_disponibles from '../../Consulta_covertura/estados_disponibles'
 
 const { Option } = Select;
 const { Meta } = Card;
@@ -35,6 +36,20 @@ const Sugerencia = (props) => {
 	const [ medida, setMedida ] = useState([]);
 	const [ cantidadFinalProducto, setCantidadFinalProducto ] = useState(1);
 	const [ disponibilidad, setDisponibilidad ] = useState('');
+
+	const [dataEstados, setDataEstados] = useState([]);
+
+	const traerDatos = async () => {
+	  clienteAxios
+		.get(`/politicasEnvio/estados/`)
+		.then((res) => {
+			res.data.map((todos)=>{
+				setDataEstados(todos);
+			})
+		})
+		.catch((err) => {
+		});
+	};
 
 	function selectTallaProducto(value) {
 		setMedida(value);
@@ -87,6 +102,7 @@ const Sugerencia = (props) => {
 
 	useEffect(() => {
 		obtenerSugerencia();
+		traerDatos();
 	}, []);
 	useEffect(
 		() => {
@@ -238,7 +254,16 @@ const Sugerencia = (props) => {
 
 	return (
 		<Spin spinning={loading}>
-			<div className="row mw-100">
+			<div>
+				{
+					dataEstados.todos !== true || dataEstados !== false ? (
+						<Estados_disponibles />
+					):(
+						null
+					)
+				}
+			</div>
+			<div className="row mw-100 mt-3">
 				{!producto || !sugerencia ? (
 					<div />
 				) : (
@@ -570,7 +595,9 @@ const Sugerencia = (props) => {
 						</div>
 					</div>
 				)}
+				
 			</div>
+			
 		</Spin>
 	);
 };

@@ -50,7 +50,6 @@ export default function RegistroPromocionMasiva(props) {
 		setVisible(true);
 		obtenerCategorias();
 		obtenerGeneros();
-		obtenerProductos();
 	};
 
 	const onClose = () => {

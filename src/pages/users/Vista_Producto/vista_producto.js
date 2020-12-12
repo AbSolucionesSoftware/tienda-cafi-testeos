@@ -7,6 +7,7 @@ import Sugerencia from './subs/sugerencia';
 import Galeria from './Galeria_tienda/galeria';
 import TallasCantidades from './subs/cantidades_y_tallas';
 import InfoTienda from './Info_tienda/info-tienda';
+import Envio_General from '../Consulta_covertura/envio_general';
 import 'antd/dist/antd.css';
 import './vistas.scss';
 import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
@@ -154,14 +155,17 @@ function VistaProductos(props) {
 								</p>
 							</div>
 						)}
+						
 						{costoEnvio ? (
 							<div>
 								<p style={{ fontSize: 15 }} className="envio-texto">
 									<FontAwesomeIcon icon={faTruck} style={{ fontSize: 15, marginRight: 10 }} />{' '}
 									<span>Costo del envío:</span> <span>${costoEnvio.costoEnvio}</span>
 								</p>
-								{costoEnvio.promocionEnvio ? costoEnvio.descuento !== 0 ? (
+								<Envio_General />
+								{costoEnvio.promocionEnvio ?  costoEnvio.descuento !== 0 ? (
 									<Alert
+										className="mt-2"
 										message={
 											costoEnvio.descuento !== 0 ? (
 												`¡En compras arriba de $${costoEnvio.promocionEnvio} el envío será GRATIS!`
@@ -258,9 +262,11 @@ function VistaProductos(props) {
 						<InfoTienda />
 						{/* Componente informacion de la tienda */}
 					</div>
+					
 					<div className="descripcion-sm">
 						<Sugerencia producto={producto} />
 					</div>
+					
 				</div>
 				{/* ### Componenete de productos similares */}
 				<Row className="mt-5">

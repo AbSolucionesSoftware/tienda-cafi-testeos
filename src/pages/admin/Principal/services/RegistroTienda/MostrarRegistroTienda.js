@@ -164,7 +164,6 @@ function MostrarRegistroTienda(props) {
 				onClose={drawnerClose}
 				visible={visible}
 				bodyStyle={{ paddingBottom: 80 }}
-				/* drawnerClose ={drawnerClose} */
 				footer={
 					<div
 						style={{
@@ -181,8 +180,8 @@ function MostrarRegistroTienda(props) {
 					datosNegocio={datosNegocio}
 					token={token}
 					setLoading={setLoading}
-					setReloadInfo={setReloadInfo}
-					drawnerClose={drawnerClose}
+					// setReloadInfo={setReloadInfo}
+					// drawnerClose={drawnerClose}
 				/>
 			</Drawer>
 
@@ -361,6 +360,7 @@ function MostrarRegistroTienda(props) {
 									Costo de promocion de envío: <strong>${politicasEnvio.descuento}</strong>
 								</p>
 							</div>
+							
 						)}
 					</div>
 					<div className="col-lg-4 col-sm-12">

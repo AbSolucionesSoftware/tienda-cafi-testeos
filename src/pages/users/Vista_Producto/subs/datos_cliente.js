@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Divider, notification, Input, Row, Col } from 'antd';
+import { Button, Form, Divider, notification, Input, Row, Col, Alert } from 'antd';
 import clienteAxios from '../../../../config/axios';
 import Spin from '../../../../components/Spin';
+
+import axios from 'axios';
+
+const consultaCodigos = axios.create({
+	baseURL: `https://api-sepomex.hckdrk.mx/query/`
+});
 
 const layout = {
 	labelCol: { span: 8 },
@@ -11,11 +17,14 @@ const layout = {
 export default function DatosCliente(props) {
 	const [ loading, setLoading ] = useState(false);
 	const [ form ] = Form.useForm();
-	const { token, clienteID } = props;
+	const { token, clienteID, tipoEnvio } = props;
 	const [ handleOk ] = props.enviarDatos;
 
 	const [ controlBoton, setControlBoton ] = useState(true);
 	const [ estadoBoton, setEstadoBoton ] = useState('Completa tus datos');
+	const [ mensajeRechazo, setMensajeRechazo ] = useState('');
+
+	const [ envioTotal, setEnvioTotal ] = useState(false);
 
 	async function obtenerDatosUser() {
 		setLoading(true);
@@ -73,17 +82,42 @@ export default function DatosCliente(props) {
 				setControlBoton(false);
 				setEstadoBoton('Apartar');
 				break;
-			/* case 'Apartar':
-				handleOk();
-				break; */
 			default:
 				break;
 		}
 	};
 
-	async function editarDatos(valores) {
-		setLoading(true);
+	async function envios() {
 		await clienteAxios
+			.get(`/politicasEnvio/estados/`)
+			.then((res) => {
+				res.data.map((total) => {
+					setEnvioTotal(total);
+				});
+			})
+			.catch((err) => {});
+	}
+
+	useEffect(() => {
+		envios();
+	}, []);
+
+	async function envioDatos(valores) {
+		setLoading(true);
+		const estado = await editarDatosUsuario(valores);
+		if (estado) {
+			const municipio_aceptado = await checarEnvios(valores.cp);
+			if (municipio_aceptado !== 'municipioRechazado') {
+				handleOk();
+			} else {
+				setEstadoBoton('Apartar');
+				setControlBoton(false);
+			}
+		}
+	}
+
+	async function editarDatosUsuario(valores) {
+		return await clienteAxios
 			.put(`/cliente/${clienteID}`, valores, {
 				headers: {
 					Authorization: `bearer ${token}`
@@ -93,13 +127,7 @@ export default function DatosCliente(props) {
 				localStorage.setItem('token', res.data.token);
 				setLoading(false);
 				setControlBoton(true);
-				/* setEstadoBoton('Apartar'); */
-				/* notification.success({
-					message: 'Hecho!',
-					description: res.data.message,
-					duration: 1
-				}); */
-				handleOk();
+				return true;
 			})
 			.catch((err) => {
 				setLoading(false);
@@ -116,7 +144,33 @@ export default function DatosCliente(props) {
 						duration: 2
 					});
 				}
+				return false;
 			});
+	}
+
+	async function checarEnvios(cp) {
+		if (tipoEnvio !== 'ENVIO') {
+			return 'NoEnvio';
+		} else {
+			if (envioTotal.todos === true || envioTotal === false) {
+				return 'TodosEstados';
+			} else {
+				const estado = await consultaCodigos.get(`/info_cp/${cp}`).then((res) => {
+					return clienteAxios
+						.get(`/politicasEnvio/estado/municipio/${res.data[0].response.municipio}`)
+						.then((res) => {
+							setLoading(false);
+							return 'MunicipioAceptado';
+						})
+						.catch((err) => {
+							setLoading(false);
+							setMensajeRechazo(err.response.data.message);
+							return 'municipioRechazado';
+						});
+				});
+				return estado;
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -125,7 +179,7 @@ export default function DatosCliente(props) {
 
 	return (
 		<Spin spinning={loading}>
-			<Form {...layout} form={form} onFinish={editarDatos}>
+			<Form {...layout} form={form} onFinish={envioDatos}>
 				<Row>
 					<Col>
 						<Form.Item label="Nombre" name="nombre">
@@ -238,6 +292,17 @@ export default function DatosCliente(props) {
 						</Form.Item>
 					</Col>
 				</Row>
+				{mensajeRechazo !== '' ? (
+					<Alert
+						className="text-center mb-2"
+						message="Lo sentimos"
+						description={mensajeRechazo}
+						type="error"
+						showIcon
+					/>
+				) : (
+					<Form.Item />
+				)}
 				<Form.Item className="d-flex justify-content-center align-items-center">
 					<Form.Item className="text-center">
 						{estadoBoton === 'Apartar' ? (

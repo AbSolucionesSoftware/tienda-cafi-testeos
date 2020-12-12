@@ -523,7 +523,10 @@ function TallasCantidades(props) {
 								Agregar al carrito
 							</Button>
 						</div>
+
 					</div>
+
+					
 				)}
 			</div>
 			<Modal
