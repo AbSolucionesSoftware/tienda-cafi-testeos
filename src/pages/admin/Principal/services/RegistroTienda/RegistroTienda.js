@@ -111,72 +111,6 @@ export default function RegistroTienda(props) {
     }
   }, [datosNegocio]);
 
-	const monstrarInformacionBlog = useCallback(
-		(e) => {
-			form.setFieldsValue(e);
-		},
-		[form],
-	)
-
-	useEffect(
-		() => {
-			if (datosNegocio !== undefined) {
-				setImagen(datosNegocio.imagenLogo);
-				if (datosNegocio.ubicacion[0].lat === 'undefined') {
-					datosNegocio.ubicacion[0].lat = '';
-				}
-				if (datosNegocio.ubicacion[0].lng === 'undefined') {
-					datosNegocio.ubicacion[0].lng = '';
-				}
-				if (datosNegocio.linkFace === 'undefined') {
-					datosNegocio.linkFace = '';
-				}
-				if (datosNegocio.linkInsta === 'undefined') {
-					datosNegocio.linkInsta = '';
-				}
-				if (datosNegocio.linkTweeter === 'undefined') {
-					datosNegocio.linkTweeter = '';
-				}
-				monstrarInformacionBlog({
-					nombre: datosNegocio.nombre,
-					telefono: datosNegocio.telefono,
-					calle_numero: datosNegocio.direccion[0].calle_numero,
-					cp: datosNegocio.direccion[0].cp,
-					colonia: datosNegocio.direccion[0].colonia,
-					ciudad: datosNegocio.direccion[0].ciudad,
-					estado: datosNegocio.direccion[0].estado,
-					lat: datosNegocio.ubicacion[0].lat,
-					lng: datosNegocio.ubicacion[0].lng,
-					politicas: datosNegocio.politicas,
-					imagenCorp: datosNegocio.imagenCorp,
-					linkFace: datosNegocio.linkFace,
-					linkInsta: datosNegocio.linkInsta,
-					linkTweeter: datosNegocio.linkTweeter
-				});
-				setDatos({
-					nombre: datosNegocio.nombre,
-					telefono: datosNegocio.telefono,
-					calle_numero: datosNegocio.direccion[0].calle_numero,
-					cp: datosNegocio.direccion[0].cp,
-					colonia: datosNegocio.direccion[0].colonia,
-					ciudad: datosNegocio.direccion[0].ciudad,
-					estado: datosNegocio.direccion[0].estado,
-					lat: datosNegocio.ubicacion[0].lat,
-					lng: datosNegocio.ubicacion[0].lng,
-					politicas: datosNegocio.politicas,
-					imagenCorp: datosNegocio.imagenCorp,
-					linkFace: datosNegocio.linkFace,
-					linkInsta: datosNegocio.linkInsta,
-					linkTweeter: datosNegocio.linkTweeter
-				});
-				setControl(true);
-			} else {
-				setDatos({});
-				setControl(false);
-			}
-		},
-		[ datosNegocio, monstrarInformacionBlog ]
-	);
   const capturarPoliticasEditor = (content, editor) => {
     setDatos({ ...datos, politicas: content });
   };
@@ -230,15 +164,6 @@ export default function RegistroTienda(props) {
     formData.append("linkInsta", datos.linkInsta);
     formData.append("linkTweeter", datos.linkTweeter);
 
-	const onError = (error) => {
-		error.errorFields.forEach((err) => {
-			notification.error({
-				message: `[${err.name}]`,
-				description: err.errors,
-				duration: 5
-			});
-		});
-	};
     setLoading(true);
 
     if (control === false) {
