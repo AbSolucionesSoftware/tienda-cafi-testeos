@@ -7,7 +7,7 @@ export const formatoMexico = (number) => {
 		return null;
 	} else {
 		let nueva;
-		if (number % 1 == 0) {
+		if (number % 1 === 0) {
 			nueva = number;
 		} else {
 			nueva = parseFloat(number).toFixed(2);

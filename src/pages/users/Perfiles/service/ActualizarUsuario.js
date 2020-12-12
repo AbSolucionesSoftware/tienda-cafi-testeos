@@ -203,7 +203,7 @@ export default function ActualizarUsuario(props) {
 				<h5>Nombre:</h5>
 				<Form.Item name="nombre" onChange={datosForm}>
 					<Form.Item rules={[ { required: true, message: 'Nombre obligatorio' } ]} noStyle name="nombre">
-						<Input name="nombre" a placeholder="Nombre" />
+						<Input name="nombre" placeholder="Nombre" />
 					</Form.Item>
 				</Form.Item>
 
@@ -214,7 +214,7 @@ export default function ActualizarUsuario(props) {
 						noStyle
 						name="apellido"
 					>
-						<Input name="apellido" a placeholder="Apellidos" />
+						<Input name="apellido" placeholder="Apellidos" />
 					</Form.Item>
 				</Form.Item>
 
@@ -225,14 +225,14 @@ export default function ActualizarUsuario(props) {
 						noStyle
 						name="email"
 					>
-						<Input name="email" a placeholder="Correo electronico" disabled />
+						<Input name="email" placeholder="Correo electronico" disabled />
 					</Form.Item>
 				</Form.Item>
 
 				<h5>Telefono:</h5>
 				<Form.Item name="telefono" onChange={datosForm}>
 					<Form.Item rules={[ { required: true, message: 'Telefono obligatorio' } ]} noStyle name="telefono">
-						<Input name="telefono" a placeholder="+52 3171234567" />
+						<Input name="telefono" placeholder="+52 3171234567" />
 					</Form.Item>
 				</Form.Item>
 
@@ -247,7 +247,7 @@ export default function ActualizarUsuario(props) {
 						noStyle
 						name="calle_numero"
 					>
-						<Input name="calle_numero" a placeholder="Calle y numero de calle" />
+						<Input name="calle_numero" placeholder="Calle y numero de calle" />
 					</Form.Item>
 				</Form.Item>
 
@@ -258,42 +258,42 @@ export default function ActualizarUsuario(props) {
 						noStyle
 						name="entre_calles"
 					>
-						<Input name="entre_calles" a placeholder="Calles de referencia" />
+						<Input name="entre_calles" placeholder="Calles de referencia" />
 					</Form.Item>
 				</Form.Item>
 
 				<h5>Codigo postal:</h5>
 				<Form.Item name="cp" onChange={datosForm}>
 					<Form.Item rules={[ { required: true, message: 'Codigo postal obligatorio' } ]} noStyle name="cp">
-						<Input name="cp" a placeholder="Codigo Postal" />
+						<Input name="cp" placeholder="Codigo Postal" />
 					</Form.Item>
 				</Form.Item>
 
 				<h5>Colonia:</h5>
 				<Form.Item name="colonia" onChange={datosForm}>
 					<Form.Item rules={[ { required: true, message: 'Colonia obligatoria' } ]} noStyle name="colonia">
-						<Input name="colonia" a placeholder="Colonia" />
+						<Input name="colonia" placeholder="Colonia" />
 					</Form.Item>
 				</Form.Item>
 
 				<h5>Ciudad: </h5>
 				<Form.Item name="ciudad" onChange={datosForm}>
 					<Form.Item rules={[ { required: true, message: 'Localidad obligatoria' } ]} noStyle name="ciudad">
-						<Input name="ciudad" a placeholder="Localidad" />
+						<Input name="ciudad" placeholder="Localidad" />
 					</Form.Item>
 				</Form.Item>
 
 				<h5>Estado:</h5>
 				<Form.Item name="estado" onChange={datosForm}>
 					<Form.Item rules={[ { required: true, message: 'Estado obligatoria' } ]} noStyle name="estado">
-						<Input name="estado" a placeholder="Estado" />
+						<Input name="estado" placeholder="Estado" />
 					</Form.Item>
 				</Form.Item>
 
 				<h5>País:</h5>
 				<Form.Item name="pais" onChange={datosForm}>
 					<Form.Item rules={[ { required: true, message: 'País obligatoria' } ]} noStyle name="pais">
-						<Input name="pais" a placeholder="País" />
+						<Input name="pais" placeholder="País" />
 					</Form.Item>
 				</Form.Item>
 

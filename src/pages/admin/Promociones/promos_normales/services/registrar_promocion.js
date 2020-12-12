@@ -356,7 +356,7 @@ const RegistrarPromocion = (props) => {
 		} else {
 			obtenerFiltrosDivididos(categoria);
 		}
-		categoriasDB.map((res) => {
+		categoriasDB.forEach((res) => {
 			if (categoria === res.categoria) {
 				setSubcategoriasDB(res.subcCategoria);
 			}
@@ -451,7 +451,7 @@ const RegistrarPromocion = (props) => {
 								placeholder="Subcategoria"
 								style={{ width: 120 }}
 								onChange={selectSubCategoria}
-								value={subcategoria}
+								/* value={subcategoria} */
 							>
 								{subcategoriasDB.length !== 0 ? (
 									subcategoriasDB.map((res) => {

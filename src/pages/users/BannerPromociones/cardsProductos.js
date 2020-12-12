@@ -9,7 +9,7 @@ import './bannerPromocion.scss'
 import ComponentProductos from '../Productos/componente_productos';
 import Spin from '../../../components/Spin';
 
-const gridStyle = { width: '100%', padding: 0, marginBottom: '1.5rem' };
+/* const gridStyle = { width: '100%', padding: 0, marginBottom: '1.5rem' }; */
 
 function CardsProductos(props) {
     const {categoria} = props;

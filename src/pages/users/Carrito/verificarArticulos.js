@@ -1,4 +1,3 @@
-var verificacion_general = false;
 
 export function verificarArticulos(carrito) {
 	if (carrito.idarticulo.tallas.length !== 0) {

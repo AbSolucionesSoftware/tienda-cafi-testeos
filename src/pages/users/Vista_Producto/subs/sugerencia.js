@@ -354,7 +354,7 @@ const Sugerencia = (props) => {
 																placeholder="Cantidad"
 																min={1}
 																max={medida[1]}
-																defaultValue={1}
+																/* defaultValue={1} */
 																onChange={obtenerCantidadMedidaProducto}
 																style={{ width: 130 }}
 																disabled={medida.length !== 0 ? false : true}
@@ -370,7 +370,7 @@ const Sugerencia = (props) => {
 																placeholder="Cantidad"
 																min={1}
 																max={producto.cantidad}
-																defaultValue={1}
+																/* defaultValue={1} */
 																onChange={obtenerCantidadProducto}
 																style={{ width: 130 }}
 															/>
@@ -502,7 +502,7 @@ const Sugerencia = (props) => {
 																placeholder="Cantidad"
 																min={1}
 																max={medidaSugerencia[1]}
-																defaultValue={1}
+																/* defaultValue={1} */
 																onChange={obtenerCantidadMedidaSugerencia}
 																style={{ width: 130 }}
 																disabled={medidaSugerencia.length !== 0 ? false : true}
@@ -518,7 +518,7 @@ const Sugerencia = (props) => {
 																placeholder="Cantidad"
 																min={1}
 																max={sugerencia.cantidad}
-																defaultValue={1}
+																/* defaultValue={1} */
 																onChange={obtenerCantidadSugerencia}
 																style={{ width: 130 }}
 															/>

@@ -242,7 +242,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="nombre"
 												>
-													<Input name="nombre" a placeholder="Nombre" />
+													<Input name="nombre" placeholder="Nombre" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -254,7 +254,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="apellido"
 												>
-													<Input name="apellido" a placeholder="Apellidos" />
+													<Input name="apellido" placeholder="Apellidos" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -266,7 +266,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="telefono"
 												>
-													<Input name="telefono" a placeholder="+52 3171234567" />
+													<Input name="telefono" placeholder="+52 3171234567" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -280,7 +280,6 @@ export default function Traer_datos(props) {
 												>
 													<Input
 														name="calle_numero"
-														a
 														placeholder="Calle y numero de calle"
 													/>
 												</Form.Item>
@@ -294,7 +293,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="entre_calles"
 												>
-													<Input name="entre_calles" a placeholder="Calles de referencia" />
+													<Input name="entre_calles" placeholder="Calles de referencia" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -309,7 +308,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="cp"
 												>
-													<Input name="cp" a placeholder="Codigo Postal" />
+													<Input name="cp" placeholder="Codigo Postal" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -321,7 +320,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="colonia"
 												>
-													<Input name="colonia" a placeholder="Colonia" />
+													<Input name="colonia" placeholder="Colonia" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -333,7 +332,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="ciudad"
 												>
-													<Input name="ciudad" a placeholder="Localidad" />
+													<Input name="ciudad" placeholder="Localidad" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -345,7 +344,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="estado"
 												>
-													<Input name="estado" a placeholder="Estado" />
+													<Input name="estado" placeholder="Estado" />
 												</Form.Item>
 											</Form.Item>
 										</div>
@@ -357,7 +356,7 @@ export default function Traer_datos(props) {
 													noStyle
 													name="pais"
 												>
-													<Input name="pais" a placeholder="País" />
+													<Input name="pais" placeholder="País" />
 												</Form.Item>
 											</Form.Item>
 										</div>

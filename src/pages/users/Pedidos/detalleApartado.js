@@ -2,7 +2,6 @@ import React from 'react';
 import { Tag, Divider, Col, Card, Result } from 'antd';
 import { formatoFecha, formatoMexico } from '../../../config/reuserFunction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 import { faBus } from '@fortawesome/free-solid-svg-icons';
 import aws from '../../../config/aws';
 
@@ -18,6 +17,7 @@ export default function detalleApartado(props) {
 				if (info.producto === producto._id) {
 					return <ProductosMultiple key={producto._id} producto={producto} info={info} />;
 				}
+				return (<div key={producto._id} />)
 			});
 			return producto;
 		});

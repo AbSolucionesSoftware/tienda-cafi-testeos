@@ -12,7 +12,7 @@ const layout = {
 
 export default function Recuperar_pass(props) {
 
-    const {location,history} = props;
+/*     const {location,history} = props; */
     const {idRecuperacion} = useParams();
 
     const [mostrarError, setmostrarError] = useState("d-none");

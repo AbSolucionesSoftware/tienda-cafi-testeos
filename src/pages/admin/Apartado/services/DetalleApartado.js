@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {Col,Row,Badge,Select,Form, Button,Spin,notification,Typography,Tag,Input,Card, Divider} from 'antd'
+import {Badge,Select,Form, Button,Spin,notification,Typography,Tag,Input,Card, Divider} from 'antd'
 import './DetalleApartado.scss';
 import clienteAxios from '../../../../config/axios';
 import { formatoMexico } from '../../../../config/reuserFunction';
@@ -30,7 +30,8 @@ export default function DetalleApartado(props) {
 			const producto = detalleApartado.productosMultiple.map((producto,index) => {
 				if (info.producto === producto._id) {
 					return <ProductosMultiple key={producto._id} producto={producto} info={info} index={index} />;
-				}
+                }
+                return (<div />);
 			});
 			return producto;
 		});

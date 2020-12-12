@@ -1,7 +1,6 @@
 import React from 'react';
-import { Tag, Divider, Col, Card, Result } from 'antd';
+import { Tag, Divider, Card, Result } from 'antd';
 import { formatoFecha, formatoMexico } from '../../../config/reuserFunction';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBus } from '@fortawesome/free-solid-svg-icons';
 import aws from '../../../config/aws';
@@ -58,15 +57,13 @@ const DetallesPedido = (props) => {
 				)}
 				<div className="my-2 col-lg-4">
 					<h6 className="titulos-info-pedidos">Pagado:</h6>
-					<p>
+					<div>
 						{detallePedido.pagado === false ? (
-							<div>
-								<p className="text-danger my-2">Pedido cancelado</p>
-							</div>
+							<p className="text-danger my-2">Pedido cancelado</p>
 						) : (
 							<p className="text-success my-2">Pedido realizado</p>
 						)}
-					</p>
+					</div>
 				</div>
 
 				<div className="my-2 ">
@@ -76,7 +73,7 @@ const DetallesPedido = (props) => {
 			</div>
 
 			<Divider className="text-center">Productos del pedido</Divider>
-			<div className="row d-flex justify-content-center">{detallePedido.pedido.map((producto) => <Producto producto={producto} />)}</div>
+			<div className="row d-flex justify-content-center">{detallePedido.pedido.map((producto) => <Producto key={producto._id} producto={producto} />)}</div>
 
 			{detallePedido.pagado === false ? (
 				''

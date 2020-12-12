@@ -181,6 +181,7 @@ function Inventario(props) {
 				</TabPane>
 			);
 		}
+		return (<div/>)
 	});
 
 	const searchBar = (

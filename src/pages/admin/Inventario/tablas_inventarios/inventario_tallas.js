@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../../config/axios';
-import jwt_decode from 'jwt-decode';
 import { Table, Tag, InputNumber, notification, Badge, Spin, Form, Button } from 'antd';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import Pagination from '../../../../components/Pagination/pagination';
 
 function InventarioTallas(props) {
-	const { location, history, page, productos, productosRender, reload, setReload, loading, setLoading, token, limite } = props;
+	const { location, history, productos, productosRender, reload, setReload, loading, setLoading, token, limite } = props;
 	const [ form ] = Form.useForm();
 	const [ cantidad, setCantidad ] = useState(0);
 	const [ idTallaSeleccionada, setIdTallaSeleccionada ] = useState('');
@@ -173,7 +172,6 @@ function InventarioTallas(props) {
 					<div className="mx-1 d-inline">
 						<Button
 							type="primary"
-							size="middle"
 							size="large"
 							onClick={() => actualizarCantidad(producto, 'sumar')}
 							disabled={producto._id === idTallaSeleccionada ? false : true}
@@ -182,7 +180,6 @@ function InventarioTallas(props) {
 						</Button>
 						<Button
 							type="default"
-							size="middle"
 							size="large"
 							disabled={producto._id === idTallaSeleccionada ? false : true}
 							onClick={() => actualizarCantidad(producto, 'restar')}

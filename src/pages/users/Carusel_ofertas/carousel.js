@@ -11,9 +11,9 @@ import 'rc-banner-anim/assets/index.css';
 const BgElement = Element.BgElement;
 
 function CarouselOfertas(props) {
-	const [ index, setIndex ] = useState(0);
+	/* const [ index, setIndex ] = useState(0); */
 	const [ carousels, setCarousels ] = useState([]);
-	const [ esPromocion, setEsPromocion ] = useState(false);
+	/* const [ esPromocion, setEsPromocion ] = useState(false); */
 
 	useEffect(() => {
 		const obtenerCarousel = async () => {
@@ -28,9 +28,9 @@ function CarouselOfertas(props) {
 		obtenerCarousel();
 	}, []);
 
-	const handleSelect = (selectedIndex, e) => {
+	/* const handleSelect = (selectedIndex, e) => {
 		setIndex(selectedIndex);
-	};
+	}; */
 
 	const render = carousels.map((carousel) => {
 			return (
@@ -38,9 +38,9 @@ function CarouselOfertas(props) {
 					<BgElement
 						onClick={() =>
 							props.history.push(
-							esPromocion
+							/* esPromocion
 							? `/vista_producto/${carousel.productoPromocion._id}`
-							: carousel.producto ? `/vista_producto/${carousel.producto}` : '/'
+							:  */carousel.producto ? `/vista_producto/${carousel.producto}` : '/'
 						)}
 						key="bg"
 						className="bg banner-elemento"
@@ -61,7 +61,7 @@ function CarouselOfertas(props) {
 		return null
 	}
 	return (
-		<BannerAnim   autoPlay activeIndex={index} onSelect={handleSelect} prefixCls="banner-user" delay={200}>
+		<BannerAnim autoPlay /* activeIndex={index} */ /* onSelect={handleSelect} */ prefixCls="banner-user" delay={200}>
 				{render}
 		</BannerAnim>
 	);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Drawer, Alert, notification, Empty } from 'antd';
 import clienteAxios from '../../../../../config/axios';
 import { withRouter } from 'react-router-dom';
@@ -104,8 +104,9 @@ function MostrarRegistroTienda(props) {
 			});
 	}
 
-	async function obtenerPoliticasEnvio() {
-		await clienteAxios
+	const obtenerPoliticasEnvio = useCallback(
+		async () => {
+			await clienteAxios
 			.get('/politicasEnvio/', {
 				headers: {
 					Authorization: `bearer ${token}`
@@ -131,7 +132,9 @@ function MostrarRegistroTienda(props) {
 					});
 				}
 			});
-	}
+		},
+		[token],
+	)
 
 	useEffect(
 		() => {
@@ -139,7 +142,7 @@ function MostrarRegistroTienda(props) {
 			obtenerPoliticasEnvio();
 			setReloadInfo(false);
 		},
-		[ reloadInfo ]
+		[ reloadInfo, obtenerPoliticasEnvio ]
 	);
 
 	if (loading) {

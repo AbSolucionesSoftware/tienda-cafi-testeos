@@ -1,6 +1,5 @@
 import React from 'react';
-import aws from '../../../../config/aws';
-import { Card, Col, Tag, Modal, notification,Divider } from 'antd';
+import { Card, Col, Tag, Modal, notification } from 'antd';
 import { ContainerOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import clienteAxios from '../../../../config/axios';
 import { formatoFecha } from '../../../../config/reuserFunction';

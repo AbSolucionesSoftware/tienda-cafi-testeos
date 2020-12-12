@@ -12,9 +12,8 @@ export default function ApartadoMultiple({ apartado, showModal, setDetalleAparta
 			actions={[
 				<div>
 					<Button
-						className="d-flex justify-content-top align-items-top m-2 w-100"
+						className="d-flex justify-content-top align-items-top color-boton m-2 w-100"
 						style={{ fontSize: 16 }}
-						className="color-boton"
 						onClick={() => {
 							setElige(true);
 							showModal(true);

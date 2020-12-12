@@ -38,7 +38,7 @@ function TallasCantidades(props) {
 	const [ loading, setLoading ] = useState(false);
 	const [ visible, setVisible ] = useState(false);
 	const [ disabled, setDisabled ] = useState(false);
-	const [ datosUser, setDatosUser ] = useState([]);
+/* 	const [ datosUser, setDatosUser ] = useState([]); */
 	const [ tienda, setTienda ] = useState([]);
 
 	const token = localStorage.getItem('token');
@@ -67,7 +67,7 @@ function TallasCantidades(props) {
 			});
 	}
 
-	async function obtenerDatosUser() {
+	/* async function obtenerDatosUser() {
 		if (!decoded) {
 			return null;
 		}
@@ -81,11 +81,11 @@ function TallasCantidades(props) {
 				setDatosUser(res.data);
 			})
 			.catch((err) => {});
-	}
+	} */
 
 	useEffect(() => {
 		if (token) {
-			obtenerDatosUser();
+			/* obtenerDatosUser(); */
 			obtenerTienda();
 		}
 	}, []);
@@ -460,7 +460,7 @@ function TallasCantidades(props) {
 								size="middle"
 								min={1}
 								max={categoria === 'ropa' ? tallas.cantidad : numeros.cantidad}
-								defaultValue={1}
+								/* defaultValue={1} */
 								onChange={categoria === 'ropa' ? obtenerCantidadTalla : obtenerCantidadNumero}
 								style={{ width: 70 }}
 								disabled={tallas.length !== 0 || numeros.length !== 0 ? false : true}
@@ -476,7 +476,7 @@ function TallasCantidades(props) {
 								size="large"
 								min={1}
 								max={productos.cantidad}
-								defaultValue={1}
+								/* defaultValue={1} */
 								onChange={obtenerCantidad}
 								style={{ width: 130 }}
 							/>
