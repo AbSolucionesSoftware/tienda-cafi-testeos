@@ -189,7 +189,7 @@ export default function PoliticasEnvio(props) {
 			) : (
 				<div />
 			)}
-			<Form onFinish={SendForm} form={form} setCurrent={setCurrent} current={current} className="mt-5">
+			<Form onFinish={SendForm} form={form} /* setCurrent={setCurrent} current={current} */ className="mt-5">
 				<Form.Item
 					className="m-2"
 					label="Costo de envío"

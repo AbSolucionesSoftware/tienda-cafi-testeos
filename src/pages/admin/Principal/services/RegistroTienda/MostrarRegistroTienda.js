@@ -36,10 +36,19 @@ function MostrarRegistroTienda(props) {
 
 	const showDrawer = () => {
 		setVisible(true);
-		
 	};
 	const drawnerClose = () => {
 		setVisible(false);
+	};
+
+	const [ current, setCurrent ] = useState(0);
+
+	const next = () => {
+		setCurrent(current + 1);
+	};
+
+	const prev = () => {
+		setCurrent(current - 1);
 	};
 
 	function peticionDatosTienda() {
@@ -107,34 +116,34 @@ function MostrarRegistroTienda(props) {
 	const obtenerPoliticasEnvio = useCallback(
 		async () => {
 			await clienteAxios
-			.get('/politicasEnvio/', {
-				headers: {
-					Authorization: `bearer ${token}`
-				}
-			})
-			.then((res) => {
-				setLoading(false);
-				setPoliticasEnvio(res.data);
-			})
-			.catch((err) => {
-				setLoading(false);
-				if (err.response) {
-					notification.error({
-						message: 'Error',
-						description: err.response.data.message,
-						duration: 2
-					});
-				} else {
-					notification.error({
-						message: 'Error de conexion',
-						description: 'Al parecer no se a podido conectar al servidor.',
-						duration: 2
-					});
-				}
-			});
+				.get('/politicasEnvio/', {
+					headers: {
+						Authorization: `bearer ${token}`
+					}
+				})
+				.then((res) => {
+					setLoading(false);
+					setPoliticasEnvio(res.data);
+				})
+				.catch((err) => {
+					setLoading(false);
+					if (err.response) {
+						notification.error({
+							message: 'Error',
+							description: err.response.data.message,
+							duration: 2
+						});
+					} else {
+						notification.error({
+							message: 'Error de conexion',
+							description: 'Al parecer no se a podido conectar al servidor.',
+							duration: 2
+						});
+					}
+				});
 		},
-		[token],
-	)
+		[ token ]
+	);
 
 	useEffect(
 		() => {
@@ -170,7 +179,17 @@ function MostrarRegistroTienda(props) {
 							textAlign: 'right'
 						}}
 					>
-						<Button onClick={drawnerClose} type="primary">
+						{current > 0 && (
+							<Button className="mx-1" onClick={() => prev()}>
+								Anterior
+							</Button>
+						)}
+						{current < 2 && (
+							<Button className="mx-1" type="primary" onClick={() => next()}>
+								Siguiente
+							</Button>
+						)}
+						<Button className="mx-1" onClick={drawnerClose} type="primary">
 							Cerrar
 						</Button>
 					</div>
@@ -180,6 +199,7 @@ function MostrarRegistroTienda(props) {
 					datosNegocio={datosNegocio}
 					token={token}
 					setLoading={setLoading}
+					steps={[current,setCurrent]}
 					// setReloadInfo={setReloadInfo}
 					// drawnerClose={drawnerClose}
 				/>
@@ -231,7 +251,7 @@ function MostrarRegistroTienda(props) {
 								className="d-block img-fluid "
 								width="200"
 								alt="imagen de base"
-								src={aws+datosNegocio.imagenLogo}
+								src={aws + datosNegocio.imagenLogo}
 							/>
 						</div>
 					</div>
@@ -360,7 +380,6 @@ function MostrarRegistroTienda(props) {
 									Costo de promocion de envío: <strong>${politicasEnvio.descuento}</strong>
 								</p>
 							</div>
-							
 						)}
 					</div>
 					<div className="col-lg-4 col-sm-12">

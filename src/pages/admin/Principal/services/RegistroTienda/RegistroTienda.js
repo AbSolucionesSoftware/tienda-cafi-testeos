@@ -26,6 +26,7 @@ import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function RegistroTienda(props) {
   const { drawnerClose } = props;
+  const [current, setCurrent] = props.steps;
 
   const { datosNegocio, token, /* setLoading, */ setReloadInfo } = props;
 
@@ -44,7 +45,7 @@ export default function RegistroTienda(props) {
     form.setFieldsValue(e);
   };
 
-  const [current, setCurrent] = useState(0);
+  /* const [current, setCurrent] = useState(0); */
 
   const next = () => {
     setCurrent(current + 1);
@@ -257,14 +258,12 @@ export default function RegistroTienda(props) {
       title: "Datos de la Tienda",
       content: (
         //setCurrent={setCurrent} current={current}
-        <div className="" setCurrent={setCurrent} current={current}>
+        <div className="" /* setCurrent={setCurrent} current={current} */>
           <Spin size="large" spinning={loading}>
             <Form
               onFinish={SendForm}
               form={form}
               onFinishFailed={onError}
-              setCurrent={setCurrent}
-              current={current}
             >
               <div className="row">
                 <div className="col-12">
@@ -685,7 +684,7 @@ export default function RegistroTienda(props) {
 
       <div className="steps-content">{steps[current].content}</div>
 
-      <div className="steps-action">
+      {/* <div className="steps-action">
         {current < steps.length - 1 && (
           <Button type="primary" onClick={() => next()}>
             Siguiente
@@ -696,7 +695,7 @@ export default function RegistroTienda(props) {
             Anterior
           </Button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
