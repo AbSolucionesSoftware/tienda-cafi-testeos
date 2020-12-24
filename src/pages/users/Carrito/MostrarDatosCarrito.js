@@ -36,6 +36,8 @@ function MostrarDatosProductos(props) {
 		}
 	}
 
+	
+
 	async function obtenerDatosCarrito() {
 		setLoading(true);
 		await clienteAxios
