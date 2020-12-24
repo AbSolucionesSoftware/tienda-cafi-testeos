@@ -157,7 +157,7 @@ function SistemaApartado(props) {
 							</div>
 						) : (
 							<Row gutter={16}>
-								{apartados.map((apartado) => apartado.apartadoMultiple.length ? (
+								{apartados.map((apartado) => apartado.producto ? (
 									<MostrarDatosMultiple 
 										key={apartado._id}
 										setDetalleApartado={setDetalleApartado}
