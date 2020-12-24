@@ -49,13 +49,20 @@ function Inventario(props) {
 		},
 		[]
 	);
-	useEffect(
+	useEffect(() => {
+		/* effect */
+		return () => {
+			obtenerProductos(tipoCategoria, limite, page)
+		}
+	}, [page, reload, props])
+
+	/* useEffect(
 		() => {
 			obtenerProductos(tipoCategoria, limite, page)
 		},
 		[ page, reload, props ]
 	);
-
+ */
 	const obtenerCategorias = async () => {
 		await clienteAxios
 			.get('/productos/tipoCategorias', {
@@ -181,6 +188,7 @@ function Inventario(props) {
 				</TabPane>
 			);
 		}
+		return (<div/>)
 	});
 
 	const searchBar = (

@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import clienteAxios from '../../../config/axios';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { notification, Form, Input, Button, Alert } from 'antd';
 
 
@@ -30,11 +30,9 @@ function Login(props) {
 					setTimeout(() => {
 						localStorage.removeItem("vistas");
 					}, 300);
-					
 				}else{
 					props.history.push('/admin');
 				}
-				
 			})
 			.catch((err) => {
 				if(err.response){
@@ -97,6 +95,7 @@ function Login(props) {
 		setMostrarDiv("")
 	}
 
+
 	return (
 		<div className="col-12">
 			<Form {...layout} name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
@@ -111,7 +110,7 @@ function Login(props) {
 					</Form.Item>
 				</Form.Item>
 				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit" className="color-boton">
+					<Button type="primary" htmlType="submit" className="color-boton" >
 						Continuar
 					</Button>
 				</Form.Item>
@@ -125,7 +124,7 @@ function Login(props) {
 						</Form.Item>
 					</Form.Item>
 					<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit" className="color-boton">
+					<Button type="primary" htmlType="submit" className="color-boton" >
 						Enviar
 					</Button>
 					<Alert
@@ -137,6 +136,7 @@ function Login(props) {
 				</Form.Item>
 				</Form>
 			</div>
+			
 		</div>
 	);
 }

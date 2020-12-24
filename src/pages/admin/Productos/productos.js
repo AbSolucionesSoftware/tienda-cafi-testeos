@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import clienteAxios from '../../../config/axios';
 import RegistrarProducto from './services/registrar_producto';
 import ActualizarProducto from './services/actualizar_producto';
-import { Card, Col, Row, Input, Button, Modal, Drawer, Result, notification, Spin } from 'antd';
+import { Card, Row, Input, Button, Modal, Drawer, Result, notification, Spin } from 'antd';
 import Pagination from '../../../components/Pagination/pagination';
 /* import { StepsContext, StepsProvider } from '../contexts/stepsContext'; */
 import { formatoMexico, agregarPorcentaje } from '../../../config/reuserFunction';
@@ -11,7 +11,7 @@ import { IdProductoContext } from '../contexts/ProductoContext';
 import {
 	ExclamationCircleOutlined,
 	EditOutlined,
-		DeleteOutlined,
+	DeleteOutlined,
 	PlusCircleOutlined,
 	RollbackOutlined
 } from '@ant-design/icons';

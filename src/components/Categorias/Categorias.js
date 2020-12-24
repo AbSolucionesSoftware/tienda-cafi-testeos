@@ -17,7 +17,7 @@ const Categorias = (props) => {
 
 	const [ categoriaSeleccionada, setCategoriaSeleccionada, ] = useState('');
 	const [ subcategoriaSeleccionada, setSubcategoriaSeleccionada, ] = useState('');
-	const [ generoSeleccionado, setGeneroSeleccionado ] = useState('');
+	/* const [ generoSeleccionado, setGeneroSeleccionado ] = useState(''); */
 
 	useEffect(() => {
 		obtenerCategorias();

@@ -5,8 +5,9 @@ import clienteAxios from '../../../../../config/axios';
 import jwt_decode from 'jwt-decode';
 
 export default function PoliticasEnvio(props) {
-
-	const {drawnerClose} = props;
+	const {setCurrent, current} = props;
+	// const {drawnerClose} = props;
+	const {next} = props;
 
 	const { datosNegocio, setReloadInfo } = props;
 	const [ disabled, setDisabled ] = useState(false);
@@ -103,13 +104,15 @@ export default function PoliticasEnvio(props) {
 				)
 				.then((res) => {
 					setLoading(false);
-					setReloadInfo(true);
-					drawnerClose();
+					// setReloadInfo(true);
+					// drawnerClose();
+					setCurrent(current + 1);
 					notification.success({
 						message: '¡Listo!',
 						description: res.data.message,
 						duration: 2
 					});
+					
 				})
 				.catch((err) => {
 					setLoading(false);
@@ -145,8 +148,9 @@ export default function PoliticasEnvio(props) {
 				)
 				.then((res) => {
 					setLoading(false);
-					setReloadInfo(true);
-					drawnerClose();
+					// setReloadInfo(true);
+					// drawnerClose();
+					setCurrent(current + 1);
 					notification.success({
 						message: '¡Listo!',
 						description: res.data.message,
@@ -174,7 +178,6 @@ export default function PoliticasEnvio(props) {
 
 	return (
 		<Spin spinning={loading}>
-			<Divider className="mt-5">Politicas de envío</Divider>
 			{disabled ? (
 				<Alert
 					message="Nota:"
@@ -186,7 +189,7 @@ export default function PoliticasEnvio(props) {
 			) : (
 				<div />
 			)}
-			<Form onFinish={SendForm} form={form}>
+			<Form onFinish={SendForm} form={form} /* setCurrent={setCurrent} current={current} */ className="mt-5">
 				<Form.Item
 					className="m-2"
 					label="Costo de envío"
@@ -229,10 +232,10 @@ export default function PoliticasEnvio(props) {
 
 				<Form.Item className="d-flex justify-content-center align-items-center text-center">
 					<Button
+						htmlType="submit"
 						disabled={disabled}
 						size="large"
 						type="primary"
-						htmlType="submit"
 						icon={
 							control === false ? (
 								<PlusCircleOutlined style={{ fontSize: 24 }} />

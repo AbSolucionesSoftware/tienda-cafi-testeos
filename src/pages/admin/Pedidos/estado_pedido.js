@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Divider, Menu, Dropdown, Button, notification, Input, Form, Spin } from 'antd';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import clienteAxios from '../../../config/axios';
 
 const { TextArea } = Input;
 
 const EstadoPedido = (props) => {
-
-	const {handleCancelEstado} = props;
+	const { handleCancelEstado } = props;
 
 	const [ form ] = Form.useForm();
 	const token = localStorage.getItem('token');
@@ -110,21 +109,21 @@ const EstadoPedido = (props) => {
 	};
 
 	function handleMenuClick(e) {
-		if(e.key === "Entregado"){
+		if (e.key === 'Entregado') {
 			setEntregado(true);
-			setDatos({estado_pedido: e.key});
-			setPedido({estado_pedido: e.key});
-		}else{
+			setDatos({ estado_pedido: e.key });
+			setPedido({ estado_pedido: e.key });
+		} else {
+			setEntregado(false);
 			setDatos({
-			...datos,
-			estado_pedido: e.key
-		});
-		setPedido({
-			...pedido,
-			estado_pedido: e.key
-		});
+				...datos,
+				estado_pedido: e.key
+			});
+			setPedido({
+				...pedido,
+				estado_pedido: e.key
+			});
 		}
-		
 	}
 	function onChange(e) {
 		setDatos({
@@ -142,12 +141,8 @@ const EstadoPedido = (props) => {
 			<Menu.Item key="En proceso" disabled={IDpedido.estado_pedido === 'Enviado' || disabled ? true : false}>
 				En proceso
 			</Menu.Item>
-			<Menu.Item key="Enviado">
-				Enviado
-			</Menu.Item>
-			<Menu.Item key="Entregado">
-				Entregado
-			</Menu.Item>
+			<Menu.Item key="Enviado">Enviado</Menu.Item>
+			<Menu.Item key="Entregado">Entregado</Menu.Item>
 		</Menu>
 	);
 
@@ -165,7 +160,13 @@ const EstadoPedido = (props) => {
 			<Form onFinish={cambiarEstado} form={form} className="form-paqueteria">
 				<h6>Mensaje:</h6>
 				<Form.Item name="mensaje_admin">
-					<TextArea disabled={entregado} rows={4} name="mensaje_admin" placeholder="Mensaje para el usuario" onChange={onChange} />
+					<TextArea
+						disabled={entregado}
+						rows={4}
+						name="mensaje_admin"
+						placeholder="Mensaje para el usuario"
+						onChange={onChange}
+					/>
 				</Form.Item>
 				<h6>Url de vinculación:</h6>
 				<Form.Item name="url" onChange={onChange}>

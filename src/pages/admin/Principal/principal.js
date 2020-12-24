@@ -6,8 +6,8 @@ import jwt_decode from 'jwt-decode'
 import MostrarRegistroTienda from './services/RegistroTienda/MostrarRegistroTienda';
 
 
-
 function Admin(props) {
+
     const token = localStorage.getItem('token')
     var decoded = Jwt(token) 
 	

@@ -42,7 +42,7 @@ export default function PedidosUsuario(props) {
 		}
 	}
 
-	async function obtenerPedidos() {
+	const obtenerPedidos = async () => {
 		setLoading(true);
 		await clienteAxios
 			.get(`/pedidos/${decoded._id}`, {
@@ -72,7 +72,7 @@ export default function PedidosUsuario(props) {
 					});
 				}
 			});
-	}
+	};
 
 	async function obtenerApartados() {
 		/* setLoading(true); */
@@ -120,7 +120,7 @@ export default function PedidosUsuario(props) {
 			}
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		},
-		[ estado ]
+		[ estado, token, props ]
 	);
 
 	const deleteApartado = (id) => {
@@ -425,9 +425,8 @@ function Apartado({ apartado, showModal, setDetalleApartado, setElige, deleteApa
 			actions={[
 				<div>
 					<Button
-						className="d-flex justify-content-top align-items-top m-2 w-100"
+						className="d-flex justify-content-top align-items-top m-2 w-100 color-boton"
 						style={{ fontSize: 16 }}
-						className="color-boton"
 						onClick={() => {
 							setElige(true);
 							showModal(true);

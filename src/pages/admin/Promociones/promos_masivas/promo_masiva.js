@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clienteAxios from '../../../../config/axios';
-import { Space, Button, Avatar, notification, Result, Spin, Modal, List } from 'antd';
+import { Space, Button, Avatar, notification, Spin, Modal, List } from 'antd';
 import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import aws from '../../../../config/aws';
 import RegistroPromocionMasiva from './registrar_promocion_masiva';

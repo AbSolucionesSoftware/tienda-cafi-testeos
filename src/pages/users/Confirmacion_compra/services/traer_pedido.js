@@ -46,8 +46,8 @@ export default function Traer_pedido(props) {
 								{/* <p className="d-inline" style={{ textDecoration: 'line-through' }}>
 									$ {datosEnvio.costoEnvio}
 								</p> */}
-								<p className="h6 font-weight-bold text-success d-inline">Envío gratis </p>
 							</p>
+							<p className="h6 font-weight-bold text-success d-inline">Envío gratis </p>
 						</div>
 					) : (
 						<p className="h6 font-weight-bold">Costo envío: $ {datosEnvio.costoEnvio} </p>
